@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/utilities",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist/index.js",
   "files": [
@@ -27,5 +27,9 @@
   },
   "devDependencies": {
     "prettier": "^2.2.1"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "9b45c177f796f9cc45f7e984dfdad42daab75968"
 }

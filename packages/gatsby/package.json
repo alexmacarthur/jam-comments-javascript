@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/gatsby",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "The Gatsby plugin for Jam Comments.",
@@ -72,5 +72,9 @@
     "rollup-plugin-react-svg": "^3.0.3",
     "rollup-plugin-scss": "^2.4.0",
     "rollup-plugin-terser": "^7.0.2"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "9b45c177f796f9cc45f7e984dfdad42daab75968"
 }
