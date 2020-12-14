@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/gatsby",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "The Gatsby plugin for Jam Comments.",
@@ -37,8 +37,8 @@
   },
   "homepage": "https://jamcomments.com",
   "dependencies": {
-    "graphql-quest": "^1.0.2",
-    "@jam-comments/utilities": "0.0.1"
+    "@jam-comments/utilities": "0.0.1",
+    "graphql-quest": "^1.0.2"
   },
   "husky": {
     "hooks": {
