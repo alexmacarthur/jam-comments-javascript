@@ -1,8 +1,7 @@
 import React from "react";
-import Comment from "../Comment";
-import "./styles.scss";
+import Comment from "./Comment";
 
-const pluralize = (items, word) => {
+const pluralize = (items: Comment[], word: string): string => {
   return items.length === 1 ? word : `${word}s`;
 };
 
@@ -14,7 +13,7 @@ export default ({ comments }) => {
       </span>
 
       <ul className={"jc-CommentList-list"}>
-        {comments.map(comment => {
+        {comments.map((comment) => {
           return (
             <li key={comment.id} className={"jc-CommentList-item"}>
               <Comment comment={comment} />

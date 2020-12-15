@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "lerna run build",
+    "prettify": "prettier \"./**/*.{js,tsx,md}\" --write",
+    "lint": "eslint --fix \"./packages/**/*.{js,tsx}\""
   },
   "repository": {
     "type": "git",
@@ -16,8 +19,28 @@
   "bugs": {
     "url": "https://github.com/alexmacarthur/jam-comments-javascript/issues"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "homepage": "https://github.com/alexmacarthur/jam-comments-javascript#readme",
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "@babel/eslint-parser": "^7.12.1",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
+    "eslint": "^7.15.0",
+    "eslint-plugin-react": "^7.21.5",
+    "husky": "^4.3.6",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.3"
   }
 }

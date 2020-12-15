@@ -1,10 +1,9 @@
 import React, { useRef, useState } from "react";
-import Message from "../Message";
-import "./styles.scss";
-import formInputsToValues from "../../utils/formInputsToValues";
-import LoadingDots from "../../assets/loading-dots.svg";
-import useIsMounted from "../../utils/useIsMounted";
-import client from "./questClient";
+import Message from "./Message";
+import formInputsToValues from "../utils/formInputsToValues";
+import LoadingDots from "../assets/loading-dots.svg";
+import useIsMounted from "../utils/useIsMounted";
+import client from "../questClient";
 
 const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN;
 
@@ -18,7 +17,7 @@ export default ({ newComment }) => {
   const [formErrorMessage, setFormError] = useState("");
   const [shouldShowFullForm, setShouldShowFullForm] = useState(false);
 
-  const submitComment = async e => {
+  const submitComment = async (e) => {
     const startTime = getCurrentTime();
 
     e.preventDefault();
@@ -63,7 +62,7 @@ export default ({ newComment }) => {
       domain,
       content,
       emailAddress,
-      path: window.location.pathname
+      path: window.location.pathname,
     };
 
     let response;
@@ -127,7 +126,7 @@ export default ({ newComment }) => {
             <small className="jc-CommentBox-attribution">
               Powered by{" "}
               <a
-                tabIndex="-1"
+                tabIndex={"-1" as any}
                 href="https://jamcomments.com"
                 rel="noreferrer noopener"
                 target="_blank"

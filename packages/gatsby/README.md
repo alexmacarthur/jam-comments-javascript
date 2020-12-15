@@ -39,7 +39,7 @@ const MyPost = (props) => {
     </article>
   );
 };
-  
+
 export default MyPost;
 ```
 

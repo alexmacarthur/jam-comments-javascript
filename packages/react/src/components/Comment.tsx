@@ -1,8 +1,18 @@
 import React, { useMemo } from "react";
-import { toPrettyDate, toIsoString } from "../../utils/formatDate";
-import "./styles.scss";
+import { toPrettyDate, toIsoString } from "../utils/formatDate";
 
-export default ({ comment }) => {
+type Comment = {
+  id: number;
+  content: string;
+  name: string;
+  createdAt: string;
+};
+
+type CommentProps = {
+  comment: Comment;
+};
+
+export default ({ comment }: CommentProps) => {
   comment.content = useMemo(() => comment.content.replace(/\n/g, "<br>\n"), []);
 
   return (

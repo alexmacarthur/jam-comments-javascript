@@ -1,0 +1,24 @@
+{
+  "name": "@jam-comments/styles",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "sass src/style.scss dist/index.css",
+    "minify": "postcss dist/index.css > dist/index.min.css",
+    "build": "npm run compile && npm run minify"
+  },
+  "keywords": [],
+  "author": "Alex MacArthur",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.10",
+    "postcss": "^8.2.1",
+    "postcss-cli": "^8.3.1",
+    "sass": "^1.30.0"
+  }
+}

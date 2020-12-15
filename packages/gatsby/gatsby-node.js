@@ -1,12 +1,12 @@
 require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`
+  path: `.env.${process.env.NODE_ENV}`,
 });
 
-const log = require("jam-comments-utilities/shared/log");
+const log = require("@jam-comments/utilities/shared/log");
 const {
   CommentFetcher,
-  utilities: { filterByUrl }
-} = require("jam-comments-utilities/server");
+  utilities: { filterByUrl },
+} = require("@jam-comments/utilities/server");
 
 exports.sourceNodes = async (
   { actions, cache, createContentDigest },
@@ -34,8 +34,8 @@ exports.sourceNodes = async (
         internal: {
           type: `JamComment`,
           mediaType: "text/plain",
-          contentDigest: createContentDigest(comment.content)
-        }
+          contentDigest: createContentDigest(comment.content),
+        },
       }
     );
 
@@ -63,7 +63,7 @@ exports.onCreatePage = async ({ page, actions, cache }) => {
     ...page,
     context: {
       ...page.context,
-      comments
-    }
+      comments,
+    },
   });
 };

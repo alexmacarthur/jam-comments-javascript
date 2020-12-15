@@ -1,8 +1,8 @@
-const dateFromUnix = unix => {
+const dateFromUnix = (unix) => {
   return new Date(Number(unix));
 };
 
-export const toPrettyDate = unix => {
+export const toPrettyDate = (unix) => {
   let date = dateFromUnix(unix);
   let hoursOffset = date.getTimezoneOffset() / 60;
   date.setHours(date.getHours() - hoursOffset);
@@ -10,6 +10,6 @@ export const toPrettyDate = unix => {
   return dateString[0].trim();
 };
 
-export const toIsoString = unix => {
+export const toIsoString = (unix) => {
   return dateFromUnix(unix).toISOString();
 };

@@ -1,0 +1,40 @@
+.jc-Comment {
+  * {
+    font: inherit;
+  }
+
+  &-details {
+    display: flex;
+    align-items: center;
+    color: var(--jc-gray-dark);
+    margin-bottom: 15px;
+  }
+
+  &-content {
+    padding-bottom: 12px;
+  }
+
+  &-name {
+    margin: 0;
+    font-weight: bold;
+  }
+
+  &-date {
+    line-height: normal;
+    font-size: 0.75em;
+    color: var(--jc-gray-dark);
+    display: block;
+  }
+
+  &-anchor {
+    padding: 0 0.05rem 0 0.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: inherit;
+    font-weight: normal;
+
+    &:visited {
+      color: inherit;
+    }
+  }
+}
