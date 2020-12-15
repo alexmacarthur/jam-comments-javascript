@@ -3,6 +3,8 @@ import CommentBox from "../CommentBox";
 import CommentList from "../CommentList";
 import "./styles.scss";
 
+import JamComments from "@jam-comments/react";
+
 export default ({ pageContext }) => {
   const initialComments =
     pageContext && pageContext.comments ? pageContext.comments : [];

@@ -2,11 +2,11 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`
 });
 
-const log = require("jam-comments-utilities/shared/log");
+const log = require("@jam-comments/utilities/shared/log");
 const {
   CommentFetcher,
   utilities: { filterByUrl }
-} = require("jam-comments-utilities/server");
+} = require("@jam-comments/utilities/server");
 
 exports.sourceNodes = async (
   { actions, cache, createContentDigest },

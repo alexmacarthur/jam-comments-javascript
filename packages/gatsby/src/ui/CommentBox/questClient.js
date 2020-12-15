@@ -1,5 +1,5 @@
 import { QuestClient } from "graphql-quest";
-import getServiceEndpoint from "jam-comments-utilities/shared/getServiceEndpoint";
+import getServiceEndpoint from "@jam-comments/utilities/shared/getServiceEndpoint";
 
 const client = QuestClient({
   endpoint: `${getServiceEndpoint(

@@ -11,7 +11,8 @@
     "build": "NODE_ENV=production npx rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix ./src/**/*.js",
-    "prettier": "prettier --write \"**/*.{md,js}\""
+    "prettier": "prettier --write \"**/*.{md,js}\"",
+    "install-peers": "install-peers -f"
   },
   "repository": {
     "type": "git",
@@ -52,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@jam-comments/react": "0.0.0",
     "@babel/core": "^7.9.0",
     "@babel/eslint-parser": "^7.12.1",
     "@babel/preset-env": "^7.9.5",
@@ -63,6 +65,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
     "husky": "^2.7.0",
+    "install-peers-cli": "^2.2.0",
     "lint-staged": "^10.1.7",
     "prettier": "^1.19.1",
     "pretty-quick": "^1.11.0",
