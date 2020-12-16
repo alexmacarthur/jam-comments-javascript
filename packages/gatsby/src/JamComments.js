@@ -1,5 +1,4 @@
 import React from "react";
-// import "./styles.scss";
 
 import JamComments from "@jam-comments/react";
 

@@ -1,0 +1,78 @@
+.jc-CommentBox {
+  position: relative;
+
+  &-loadingDots {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    svg {
+      fill: var(--jc-loading);
+    }
+  }
+
+  &-attribution {
+    opacity: 0.5;
+    text-align: right;
+    padding-top: 5px;
+    font-size: 0.65em;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+
+  &-inputs {
+    &.is-submitting {
+      opacity: 0.15;
+      pointer-events: none;
+    }
+  }
+
+  &-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    margin-bottom: 30px;
+
+    @include for-tablet-landscape-up {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  input,
+  textarea {
+    border: 2px solid var(--jc-gray);
+    border-radius: var(--border-radius);
+    padding: 8px;
+  }
+
+  textarea {
+    min-height: 100px;
+  }
+
+  &-textarea,
+  &-buttonWrapper {
+    grid-column: 1 / -1;
+  }
+
+  &-buttonWrapper {
+    margin-top: 1.5rem;
+  }
+
+  &-label {
+    display: flex;
+    flex-direction: column;
+
+    input,
+    textarea {
+      margin-top: 3px;
+    }
+  }
+
+  &-contactInput {
+    display: none;
+  }
+}

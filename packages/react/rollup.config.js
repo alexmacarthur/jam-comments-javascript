@@ -4,6 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from '@rollup/plugin-commonjs';
+import postcss from 'rollup-plugin-postcss'
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -28,17 +29,20 @@ let plugins = [
   commonjs(),
   resolve(),
   babel({
-    // babelHelpers: "runtime",
     exclude: "node_modules/*"
+  }),
+  postcss({
+    extract: false,
+    plugins: []
   })
 ];
 
-// if (isProduction) {
-//   plugins = [
-//     ...plugins,
-//     terser()
-//   ];
-// }
+if (isProduction) {
+  plugins = [
+    ...plugins,
+    terser()
+  ];
+}
 
 export default OUTPUT_DATA.map(({ file, format }) => ({
   input: "./src/index.tsx",
