@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react";
-import Message from "../Message";
-import "./styles.scss";
-import formInputsToValues from "../../utils/formInputsToValues";
-import LoadingDots from "../../assets/loading-dots.svg";
-import useIsMounted from "../../utils/useIsMounted";
-import client from "./questClient";
+import Message from "./Message";
+import formInputsToValues from "../utils/formInputsToValues";
+// import LoadingDots from "../assets/loading-dots.svg";
+import useIsMounted from "../utils/useIsMounted";
+import client from "../questClient";
+
+window['alex'] = "testing";
 
 const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN;
 
@@ -99,7 +100,7 @@ export default ({ newComment }) => {
     <div className="jc-CommentBox">
       {isSubmitting && (
         <div className="jc-CommentBox-loadingDots">
-          <LoadingDots />
+          {/* <LoadingDots /> */}
         </div>
       )}
 
@@ -127,7 +128,7 @@ export default ({ newComment }) => {
             <small className="jc-CommentBox-attribution">
               Powered by{" "}
               <a
-                tabIndex="-1"
+                tabIndex={"-1" as any}
                 href="https://jamcomments.com"
                 rel="noreferrer noopener"
                 target="_blank"

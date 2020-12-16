@@ -3,6 +3,7 @@ import babel from "@rollup/plugin-babel";
 import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 import resolve from "@rollup/plugin-node-resolve";
+import commonjs from '@rollup/plugin-commonjs';
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -16,27 +17,28 @@ const OUTPUT_DATA = [
     file: pkg.main,
     format: "umd"
   },
-  {
-    file: pkg.module,
-    format: "es"
-  }
+  // {
+  //   file: pkg.module,
+  //   format: "es"
+  // }
 ];
 
 let plugins = [
   typescript(),
+  commonjs(),
   resolve(),
   babel({
-    babelHelpers: "runtime",
+    // babelHelpers: "runtime",
     exclude: "node_modules/*"
   })
 ];
 
-if (isProduction) {
-  plugins = [
-    ...plugins,
-    terser()
-  ];
-}
+// if (isProduction) {
+//   plugins = [
+//     ...plugins,
+//     terser()
+//   ];
+// }
 
 export default OUTPUT_DATA.map(({ file, format }) => ({
   input: "./src/index.tsx",

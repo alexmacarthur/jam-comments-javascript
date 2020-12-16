@@ -37,7 +37,7 @@ let plugins = [
   nodeResolve(),
   commonjs({
     // include: 'node_modules/**'
-    exclude: "src/ui/**"
+    exclude: "src/**"
   }),
   postcss({
     plugins: []
@@ -69,7 +69,7 @@ if (isProduction) {
 }
 
 export default OUTPUT_DATA.map(({ file, format }) => ({
-  input: "./src/ui/Shell/index.js",
+  input: "./src/JamComments.js",
   output: {
     file,
     format,

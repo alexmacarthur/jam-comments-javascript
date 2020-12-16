@@ -1,10 +1,26 @@
-import React from 'react';
+import * as React from "react";
+import CommentBox from './components/CommentBox';
+import CommentList from './components/CommentList';
 
-const JamComments = () => {
+const { useState } = React;
+
+type JamCommentsProps = {
+  initialComments?: any[];
+};
+
+const JamComments = ({ initialComments = [] }: JamCommentsProps) => {
+  let [comments, setComments] = useState(initialComments);
+
+  const newComment = (newComment: any) => {
+    setComments([newComment, ...comments]);
+  };
+
   return (
-    <span>
-    </span>
-  )
-}
+    <div className={"jc-Shell"}>
+      <CommentBox newComment={newComment} />
+      <CommentList comments={comments} />
+    </div>
+  );
+};
 
 export default JamComments;
