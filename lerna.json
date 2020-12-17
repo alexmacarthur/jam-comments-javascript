@@ -2,5 +2,13 @@
   "packages": [
     "packages/*"
   ],
-  "version": "independent"
+  "version": "independent",
+  "commands": {
+    "publish": {
+      "ignoreChanges": [
+        "**/*.md",
+        "**/*.test.js"
+      ]
+    }
+  }
 }

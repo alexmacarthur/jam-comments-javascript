@@ -1,0 +1,45 @@
+{
+  "name": "@jam-comments/eleventy",
+  "version": "0.0.1",
+  "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
+  "license": "GPL-2.0",
+  "description": "The official plugin for integrating JamComments into your Eleventy site.",
+  "main": "src/.eleventy.js",
+  "homepage": "https://jamcomments.com",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "concurrently \"npm run watch-assets\" \"npm run watch-files\"",
+    "watch-assets": "parcel watch src/assets/js/index.js -d src/assets/dist",
+    "watch-files": "node file-watch",
+    "build": "parcel build src/assets/js/index.js -d src/assets/dist"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "jamstack",
+    "jam-comments",
+    "eleventy",
+    "comments",
+    "blogging"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@jam-comments/styles": "0.0.2",
+    "@jam-comments/utilities": "0.0.3",
+    "chokidar": "^3.4.3",
+    "concurrently": "^5.3.0",
+    "nunjucks": "^3.2.2",
+    "touch": "^3.1.0"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^0.11.0",
+    "parcel": "^1.12.4",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^2.1.2",
+    "sass": "^1.27.0"
+  },
+  "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2"
+}

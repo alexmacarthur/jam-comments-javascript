@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/gatsby",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "The Gatsby plugin for Jam Comments.",
@@ -37,14 +37,14 @@
   },
   "homepage": "https://jamcomments.com",
   "dependencies": {
-    "@jam-comments/utilities": "^0.0.2",
+    "@jam-comments/utilities": "^0.0.3",
     "graphql-quest": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
-    "@jam-comments/react": "^0.0.2",
+    "@jam-comments/react": "^0.0.3",
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "babel-loader": "^8.1.0",
@@ -60,5 +60,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "828b7b723542ec00dbf4dca77a239d6637296e23"
+  "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2"
 }

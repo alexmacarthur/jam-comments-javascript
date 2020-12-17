@@ -23,10 +23,8 @@ const COMMENTS_QUERY = `
 class CommentFetcher {
   constructor({ domain, apiKey }) {
     this.domain = domain;
-
     this.client = QuestClient({
       endpoint: `${getServiceEndpoint()}/graphql`,
-      method: "GET",
       headers: {
         "x-api-key": apiKey,
       },
@@ -46,6 +44,7 @@ class CommentFetcher {
       perPage: PER_PAGE,
       skip,
     });
+
     const { items, meta } = data.comments;
 
     if (errors && errors.length) {

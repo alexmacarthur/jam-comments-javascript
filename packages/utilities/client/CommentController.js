@@ -15,9 +15,9 @@ export default function CommentController(shell) {
     '[data-jam-comments-component="message"]'
   );
   const client = new QuestClient({
-    endpoint: "https://service.jamcomments.com/graphql",
+    endpoint: shell.dataset.jamCommentsServiceEndpoint,
     headers: {
-      "x-api-key": "JAM_COMMENTS_API_KEY",
+      "x-api-key": shell.dataset.jamCommentsKey,
     },
   });
 

@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/styles",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./index.js",
   "description": "",
   "scripts": {
@@ -20,5 +20,6 @@
     "postcss": "^8.2.1",
     "postcss-cli": "^8.3.1",
     "sass": "^1.30.0"
-  }
+  },
+  "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2"
 }
