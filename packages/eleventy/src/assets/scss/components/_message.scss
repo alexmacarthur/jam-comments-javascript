@@ -1,0 +1,18 @@
+.jc-Message {
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1rem;
+  color: white;
+
+  p {
+    margin: 0;
+  }
+}
+
+.jc-Message--error {
+  background: var(--jc-red);
+}
+
+.jc-Message--success {
+  background: var(--jc-green);
+}

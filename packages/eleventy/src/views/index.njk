@@ -1,0 +1,67 @@
+{% import "./macros.njk" as macros %}
+
+<style>{{ css | safe }}</style>
+
+<div class="jc-Shell" data-jam-comments-component="shell" data-jam-comments-url="{{url | safe}}">
+  <div class="jc-CommentBox">
+    <div class="jc-CommentBox-loadingDots" style="display: none;">
+      {{ loadingSvg | safe }}
+    </div>
+
+    <div class="jc-CommentBox-inputs">
+      <h3>Leave a Comment</h3>
+
+      <div
+        class="jc-Message jc-Message--error"
+        data-jam-comments-component="message"
+        style="display: none;"
+      >
+        <p></p>
+      </div>
+
+      <form class="jc-CommentBox-form">
+        <label
+          class="jc-CommentBox-label jc-CommentBox-textarea"
+        >
+          <textarea name="content" required=""></textarea>
+          <small class="jc-CommentBox-attribution">
+            Powered by
+            <a
+              tabindex="-1"
+              href="https://jamcomments.com"
+              rel="noreferrer noopener"
+              target="_blank"
+            >
+            JamComments
+            </a>
+          </small>
+        </label>
+        <label class="jc-CommentBox-label jc-CommentBox-contactInput">
+          Name
+        <input type="text" name="name" required="" />
+        </label>
+        <label class="jc-CommentBox-label jc-CommentBox-contactInput">
+          Email Address
+          <input type="email" name="emailAddress" />
+        </label>
+        <span class="jc-CommentBox-buttonWrapper">
+          <button class="jc-CommentBox-button">Submit</button>
+        </span>
+      </form>
+    </div>
+  </div>
+  <div class="jc-CommentList">
+    <span class="jc-CommentList-count">
+      <span data-jam-comments-component="count">{{ comments.length }}</span> comments
+    </span>
+    <ul class="jc-CommentList-list" data-jam-comments-component="list">
+      {{ macros.comment(comment={}, style="display: none;") }}
+
+      {% for comment in comments %}
+        {{ macros.comment(comment=comment) }}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<script>{{ js | safe }}</script>

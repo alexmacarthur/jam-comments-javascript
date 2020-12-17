@@ -1,0 +1,17 @@
+@mixin for-tablet-landscape-up {
+  @media screen and (min-width: 900px) { @content; }
+}
+
+@mixin after-divider {
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100vw;
+    height: 2px;
+    background: var(--jc-gray);
+    top: 50%;
+    left: calc(100% + 20px);
+    transform: translateY(-50%);
+  }
+}

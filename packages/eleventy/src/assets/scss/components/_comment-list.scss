@@ -1,0 +1,35 @@
+.jc-CommentList {
+  overflow: hidden;
+
+  &-count {
+    @include after-divider;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  &-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &-item {
+    @include after-divider;
+    position: relative;
+    margin-top: 2rem;
+
+    &:after {
+      position: relative;
+      width: 50px;
+      left: 0;
+      top: auto;
+      transform: none;
+      margin-bottom: 2rem;
+    }
+
+    &:last-child {
+      margin-top: 0;
+    }
+  }
+}
