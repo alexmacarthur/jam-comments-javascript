@@ -5,12 +5,11 @@
   "license": "GPL-2.0",
   "description": "The Gatsby plugin for Jam Comments.",
   "main": "gatsby-node.js",
-  "module": "dist/jam-comments.min.js",
+  "module": "dist/index.js",
   "scripts": {
     "watch": "NODE_ENV=development JAM_COMMENTS_SERVICE_ENDPOINT=http://localhost:4000 npx rollup -c -w",
     "build": "NODE_ENV=production npx rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --fix ./src/**/*.js",
     "prettier": "prettier --write \"**/*.{md,js}\"",
     "install-peers": "install-peers -f"
   },
