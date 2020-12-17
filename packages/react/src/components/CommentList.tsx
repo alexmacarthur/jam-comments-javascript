@@ -13,7 +13,7 @@ export default ({ comments }) => {
       </span>
 
       <ul className={"jc-CommentList-list"}>
-        {comments.map(comment => {
+        {comments.map((comment) => {
           return (
             <li key={comment.id} className={"jc-CommentList-item"}>
               <Comment comment={comment} />

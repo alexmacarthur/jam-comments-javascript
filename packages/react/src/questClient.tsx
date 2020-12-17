@@ -6,8 +6,8 @@ const client = QuestClient({
     process.env.JAM_COMMENTS_SERVICE_ENDPOINT
   )}/graphql`,
   headers: {
-    "x-api-key": process.env.GATSBY_JAM_COMMENTS_API_KEY
-  }
+    "x-api-key": process.env.GATSBY_JAM_COMMENTS_API_KEY,
+  },
 });
 
 export default client;

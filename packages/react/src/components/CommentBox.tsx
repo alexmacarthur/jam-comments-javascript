@@ -1,11 +1,9 @@
 import React, { useRef, useState } from "react";
 import Message from "./Message";
 import formInputsToValues from "../utils/formInputsToValues";
-// import LoadingDots from "../assets/loading-dots.svg";
+import LoadingDots from "../assets/loading-dots.svg";
 import useIsMounted from "../utils/useIsMounted";
 import client from "../questClient";
-
-window['alex'] = "testing";
 
 const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN;
 
@@ -19,7 +17,7 @@ export default ({ newComment }) => {
   const [formErrorMessage, setFormError] = useState("");
   const [shouldShowFullForm, setShouldShowFullForm] = useState(false);
 
-  const submitComment = async e => {
+  const submitComment = async (e) => {
     const startTime = getCurrentTime();
 
     e.preventDefault();
@@ -64,7 +62,7 @@ export default ({ newComment }) => {
       domain,
       content,
       emailAddress,
-      path: window.location.pathname
+      path: window.location.pathname,
     };
 
     let response;
@@ -100,7 +98,7 @@ export default ({ newComment }) => {
     <div className="jc-CommentBox">
       {isSubmitting && (
         <div className="jc-CommentBox-loadingDots">
-          {/* <LoadingDots /> */}
+          <LoadingDots />
         </div>
       )}
 

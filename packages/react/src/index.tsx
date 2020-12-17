@@ -1,6 +1,6 @@
 import * as React from "react";
-import CommentBox from './components/CommentBox';
-import CommentList from './components/CommentList';
+import CommentBox from "./components/CommentBox";
+import CommentList from "./components/CommentList";
 import "@jam-comments/styles";
 
 const { useState } = React;

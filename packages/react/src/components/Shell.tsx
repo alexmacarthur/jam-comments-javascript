@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent } from "react";
 
 const Shell = () => {
   return (
@@ -8,7 +8,7 @@ const Shell = () => {
       <CommentBox newComment={newComment} />
       <CommentList comments={comments}></CommentList> */}
     </div>
-  )
-}
+  );
+};
 
 export default Shell;

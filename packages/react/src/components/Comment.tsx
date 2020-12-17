@@ -2,17 +2,17 @@ import React, { useMemo } from "react";
 import { toPrettyDate, toIsoString } from "../utils/formatDate";
 
 type Comment = {
-  id: number,
-  content: string,
-  name: string,
-  createdAt: string
-}
+  id: number;
+  content: string;
+  name: string;
+  createdAt: string;
+};
 
 type CommentProps = {
-  comment: Comment
-}
+  comment: Comment;
+};
 
-export default ({ comment } : CommentProps) => {
+export default ({ comment }: CommentProps) => {
   comment.content = useMemo(() => comment.content.replace(/\n/g, "<br>\n"), []);
 
   return (

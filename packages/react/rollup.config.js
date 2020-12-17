@@ -3,25 +3,26 @@ import babel from "@rollup/plugin-babel";
 import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 import resolve from "@rollup/plugin-node-resolve";
-import commonjs from '@rollup/plugin-commonjs';
-import postcss from 'rollup-plugin-postcss'
+import commonjs from "@rollup/plugin-commonjs";
+import postcss from "rollup-plugin-postcss";
+import reactSvg from "rollup-plugin-react-svg";
 
 const isProduction = process.env.NODE_ENV === "production";
 
 const globals = {
   react: "React",
-  "react-dom": "ReactDOM"
+  "react-dom": "ReactDOM",
 };
 
 const OUTPUT_DATA = [
   {
     file: pkg.main,
-    format: "umd"
+    format: "umd",
   },
-  // {
-  //   file: pkg.module,
-  //   format: "es"
-  // }
+  {
+    file: pkg.module,
+    format: "es",
+  },
 ];
 
 let plugins = [
@@ -29,19 +30,25 @@ let plugins = [
   commonjs(),
   resolve(),
   babel({
-    exclude: "node_modules/*"
+    exclude: "node_modules/*",
   }),
   postcss({
     extract: false,
-    plugins: []
-  })
+    plugins: [],
+  }),
+  reactSvg({
+    svgo: {
+      plugins: [],
+      multipass: true,
+    },
+    jsx: false,
+    include: null,
+    exclude: null,
+  }),
 ];
 
 if (isProduction) {
-  plugins = [
-    ...plugins,
-    terser()
-  ];
+  plugins = [...plugins, terser()];
 }
 
 export default OUTPUT_DATA.map(({ file, format }) => ({
@@ -50,8 +57,8 @@ export default OUTPUT_DATA.map(({ file, format }) => ({
     file,
     format,
     name: "JamComments",
-    globals
+    globals,
   },
   plugins,
-  external: [...Object.keys(pkg.peerDependencies || {})]
+  external: [...Object.keys(pkg.peerDependencies || {})],
 }));
