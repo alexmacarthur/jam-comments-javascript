@@ -13,7 +13,9 @@ const {
   utilities: { filterByUrl },
 } = require("@jam-comments/utilities/server");
 const getServiceEndpoint = require("@jam-comments/utilities/shared/getServiceEndpoint");
-const env = nunjucks.configure(path.join(__dirname, "views"));
+const env = nunjucks.configure(path.join(__dirname, "views"), {
+  noCache: true
+});
 
 /**
  * Render the comment form.

@@ -1,4 +1,4 @@
-const commentForm = require("./comment-form.shortcode");
+const commentForm = require("./src/comment-form.shortcode");
 
 module.exports = function (eleventyConfig, options) {
   options = options || {};
