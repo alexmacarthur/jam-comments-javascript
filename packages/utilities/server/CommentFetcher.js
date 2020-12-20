@@ -45,6 +45,10 @@ class CommentFetcher {
       skip,
     });
 
+    if (!data) {
+      throw new Error("No data was returned from JamComments! Is everything configured correctly?");
+    }
+
     const { items, meta } = data.comments;
 
     if (errors && errors.length) {
