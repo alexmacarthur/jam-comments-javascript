@@ -1,4 +1,4 @@
-# eleventy-plugin-jam-comments
+# @jam-comments/eleventy
 
 The official plugin for integrating [JamComments](https://jamcomments.com) into your Eleventy site.
 
@@ -8,14 +8,14 @@ In order to use this plugin, you'll need a JamComments account, where you'll als
 
 ## Installation
 
-Run `npm install eleventy-plugin-jam-comments`.
+Run `npm install @jam-comments/eleventy`.
 
 ## Configuration
 
 In your `.eleventy.js` file, require the plugin and initialize it with your site's domain and API key.
 
 ```js
-const jamComments = require('eleventy-plugin-jam-comments');
+const jamComments = require('@jam-comments/eleventy');
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(jamComments, {
