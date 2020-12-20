@@ -4,7 +4,12 @@ module.exports = function (eleventyConfig, options) {
   options = options || {};
 
   const renderCommentForm = async function (url = null) {
-    url = url || (this.page && this.page.url);
+    url = url || (this.page && this.page.url) || null;
+
+    if (!url) {
+      throw new Error("JamComments :: No URL was found or passed!");
+    }
+
     return await commentForm(options, url);
   };
 
