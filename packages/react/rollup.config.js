@@ -29,9 +29,9 @@ let plugins = [
   typescript(),
   commonjs(),
   resolve(),
-  babel({
-    exclude: "node_modules/*",
-  }),
+  // babel({
+  //   exclude: "node_modules/*",
+  // }),
   postcss({
     extract: false,
     plugins: [],
