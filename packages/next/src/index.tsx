@@ -1,22 +1,17 @@
 import * as React from "react";
-// import CommentBox from "./components/CommentBox";
-// import CommentList from "./components/CommentList";
-import "@jam-comments/styles";
+import JamCommentsReact from "@jam-comments/react/dist/index.es.js";
+const { CommentFetcher } = require("@jam-comments/utilities/server");
 
-// const { useState } = React;
-
-// type JamCommentsProps = {
-//   initialComments?: any[];
-// };
-
-const JamComments = () => {
-  // let [comments, setComments] = useState(initialComments);
-
-  // const newComment = (newComment: any) => {
-  //   setComments([newComment, ...comments]);
-  // };
-
-  return <>We did it!</>;
+export const JamComments = ({ comments }) => {
+  return <JamCommentsReact initialComments={comments} />;
 };
 
-export default JamComments;
+export const fetchByPath = async ({ apiKey, domain, path }) => {
+  const fetcher = new CommentFetcher({
+    domain,
+    apiKey,
+    requireFetchPolyfill: false,
+  });
+
+  return await fetcher.getAllComments(path);
+};

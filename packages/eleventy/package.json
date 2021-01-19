@@ -28,6 +28,7 @@
   "dependencies": {
     "@jam-comments/styles": "^0.0.4",
     "@jam-comments/utilities": "^0.0.6",
+    "isomorphic-fetch": "^3.0.0",
     "nunjucks": "^3.2.2"
   },
   "devDependencies": {

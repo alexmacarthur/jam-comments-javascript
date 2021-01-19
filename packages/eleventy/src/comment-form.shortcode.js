@@ -8,13 +8,14 @@ const {
   setEnvironmentVariables,
 } = require("./utils");
 
+require("isomorphic-fetch");
 const {
   CommentFetcher,
   utilities: { filterByUrl },
 } = require("@jam-comments/utilities/server");
 const getServiceEndpoint = require("@jam-comments/utilities/shared/getServiceEndpoint");
 const env = nunjucks.configure(path.join(__dirname, "views"), {
-  noCache: true
+  noCache: true,
 });
 
 /**
@@ -47,7 +48,7 @@ const commentForm = async function (options, url) {
     apiKey,
     url,
     apiKey,
-    serviceEndpoint: `${getServiceEndpoint()}/graphql`
+    serviceEndpoint: `${getServiceEndpoint()}/graphql`,
   });
 };
 

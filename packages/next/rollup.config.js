@@ -5,7 +5,7 @@ import { terser } from "rollup-plugin-terser";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import postcss from "rollup-plugin-postcss";
-import reactSvg from "rollup-plugin-react-svg";
+// import reactSvg from "rollup-plugin-react-svg";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -17,10 +17,6 @@ const globals = {
 const OUTPUT_DATA = [
   {
     file: pkg.main,
-    format: "umd",
-  },
-  {
-    file: pkg.module,
     format: "es",
   },
 ];
@@ -29,22 +25,10 @@ let plugins = [
   typescript(),
   commonjs(),
   resolve(),
-  babel({
-    exclude: "node_modules/*",
-  }),
-  postcss({
-    extract: false,
-    plugins: [],
-  }),
-  reactSvg({
-    svgo: {
-      plugins: [],
-      multipass: true,
-    },
-    jsx: false,
-    include: null,
-    exclude: null,
-  }),
+  // postcss({
+  //   extract: false,
+  //   plugins: [],
+  // }),
 ];
 
 if (isProduction) {

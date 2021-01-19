@@ -10,12 +10,20 @@ npm install @jam-comments/react
 
 ## Usage
 
-```js
+```javascript
 import JamComments from "@jam-comments/react";
 
 export default () => {
   const initialComments = getCommentsSomehow();
+  const apiKey = "getthisfromthejamcommentsadmin";
+  const domain = "yourdomain.com";
 
-  return <JamComments initialComments={initialComments} />;
+  return (
+    <JamComments
+      initialComments={initialComments}
+      apiKey={apiKey}
+      domain={domain}
+    />
+  );
 };
 ```

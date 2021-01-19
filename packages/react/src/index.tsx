@@ -7,9 +7,15 @@ const { useState } = React;
 
 type JamCommentsProps = {
   initialComments?: any[];
+  domain: string;
+  apiKey: string;
 };
 
-const JamComments = ({ initialComments = [] }: JamCommentsProps) => {
+const JamComments = ({
+  initialComments = [],
+  domain,
+  apiKey,
+}: JamCommentsProps) => {
   let [comments, setComments] = useState(initialComments);
 
   const newComment = (newComment: any) => {
@@ -18,7 +24,7 @@ const JamComments = ({ initialComments = [] }: JamCommentsProps) => {
 
   return (
     <div className={"jc-Shell"}>
-      <CommentBox newComment={newComment} />
+      <CommentBox newComment={newComment} domain={domain} apiKey={apiKey} />
       <CommentList comments={comments} />
     </div>
   );

@@ -1,11 +1,10 @@
-require("isomorphic-fetch");
 const { getServiceEndpoint, log } = require("../shared");
 const { QuestClient } = require("graphql-quest");
 
 const PER_PAGE = 50;
 const COMMENTS_QUERY = `
-  query Comments($domain: String!, $status: String, $skip: Int, $perPage: Int){
-    comments(domain: $domain, status: $status, skip: $skip, perPage: $perPage) {
+  query Comments($domain: String!, $status: String, $skip: Int, $perPage: Int, $path: String){
+    comments(domain: $domain, status: $status, skip: $skip, perPage: $perPage, path: $path) {
       items {
         createdAt
         name
@@ -37,16 +36,19 @@ class CommentFetcher {
    * @param {number} skip
    * @returns {object}
    */
-  async getBatchOfComments(skip = 0) {
+  async _getBatchOfComments({ skip = 0, path = "" }) {
     const { data, errors } = await this.client.send(COMMENTS_QUERY, {
       domain: this.domain,
       status: "approved",
       perPage: PER_PAGE,
+      path,
       skip,
     });
 
     if (!data) {
-      throw new Error("No data was returned from JamComments! Is everything configured correctly?");
+      throw new Error(
+        "No data was returned from JamComments! Is everything configured correctly?"
+      );
     }
 
     const { items, meta } = data.comments;
@@ -68,13 +70,13 @@ class CommentFetcher {
    *
    * @returns Promise<array>
    */
-  async getAllComments() {
+  async getAllComments(path = "") {
     let allComments = [];
     let skip = 0;
     let hasMore = false;
 
     do {
-      const freshFetch = await this.getBatchOfComments(skip);
+      const freshFetch = await this._getBatchOfComments({ skip, path });
       hasMore = freshFetch.hasMore;
       skip = skip + freshFetch.comments.length;
       allComments = [...allComments, ...freshFetch.comments];

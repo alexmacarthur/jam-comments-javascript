@@ -25,40 +25,63 @@ const OUTPUT_DATA = [
   },
 ];
 
-let plugins = [
-  typescript(),
-  commonjs(),
-  resolve(),
-  // babel({
-  //   exclude: "node_modules/*",
-  // }),
-  postcss({
-    extract: false,
-    plugins: [],
-  }),
-  reactSvg({
-    svgo: {
+export default OUTPUT_DATA.map(({ file, format }) => {
+  const plugins = [
+    typescript(),
+    commonjs(),
+    resolve(),
+    babel({
+      exclude: "node_modules/*",
+      presets: [
+        [
+          "@babel/preset-env",
+          {
+            modules: false,
+            targets:
+              format === "es"
+                ? { esmodules: true }
+                : {
+                    browsers: [
+                      "> 2%",
+                      "Last 2 versions",
+                      "safari >=9",
+                      "not ie < 11",
+                    ],
+                  },
+          },
+        ],
+        "@babel/preset-react",
+        "@babel/preset-typescript",
+      ],
+    }),
+    postcss({
+      extract: false,
       plugins: [],
-      multipass: true,
+    }),
+    reactSvg({
+      svgo: {
+        plugins: [],
+        multipass: true,
+      },
+      jsx: false,
+      include: null,
+      exclude: null,
+    }),
+  ];
+
+  if (isProduction) {
+    plugins.push(terser());
+  }
+
+  return {
+    input: "./src/index.tsx",
+    output: {
+      file,
+      format,
+      name: "JamComments",
+      globals,
     },
-    jsx: false,
-    include: null,
-    exclude: null,
-  }),
-];
-
-if (isProduction) {
-  plugins = [...plugins, terser()];
-}
-
-export default OUTPUT_DATA.map(({ file, format }) => ({
-  input: "./src/index.tsx",
-  output: {
-    file,
-    format,
-    name: "JamComments",
-    globals,
-  },
-  plugins,
-  external: [...Object.keys(pkg.peerDependencies || {})],
-}));
+    plugins,
+    external: [...Object.keys(pkg.peerDependencies || {})],
+  };
+});

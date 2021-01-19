@@ -22,7 +22,7 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "graphql-quest": "^1.0.2",
-    "isomorphic-fetch": "^3.0.0",
+    "node-fetch": "^2.6.1",
     "parcel": "^1.12.4"
   },
   "devDependencies": {

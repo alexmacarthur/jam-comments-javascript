@@ -3,14 +3,12 @@ import Message from "./Message";
 import formInputsToValues from "../utils/formInputsToValues";
 import LoadingDots from "../assets/loading-dots.svg";
 import useIsMounted from "../utils/useIsMounted";
-import client from "../questClient";
-
-const domain = process.env.GATSBY_JAM_COMMENTS_DOMAIN;
+import getClient from "../questClient";
 
 const getCurrentTime = () => new Date().getTime();
 const minimumSubmissionTime = 1000;
 
-export default ({ newComment }) => {
+export default ({ newComment, domain, apiKey }) => {
   const isMounted = useIsMounted();
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -18,6 +16,7 @@ export default ({ newComment }) => {
   const [shouldShowFullForm, setShouldShowFullForm] = useState(false);
 
   const submitComment = async (e) => {
+    const client = getClient(apiKey);
     const startTime = getCurrentTime();
 
     e.preventDefault();
