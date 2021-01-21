@@ -4,6 +4,7 @@ import formInputsToValues from "../utils/formInputsToValues";
 import LoadingDots from "../assets/loading-dots.svg";
 import useIsMounted from "../utils/useIsMounted";
 import getClient from "../questClient";
+import { CREATE_COMMENT as CREATE_COMMENT_QUERY } from "../queries";
 
 const getCurrentTime = () => new Date().getTime();
 const minimumSubmissionTime = 1000;
@@ -13,46 +14,21 @@ export default ({ newComment, domain, apiKey }) => {
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrorMessage, setFormError] = useState("");
+  const [formSuccessMessage, setFormSuccess] = useState("");
   const [shouldShowFullForm, setShouldShowFullForm] = useState(false);
 
   const submitComment = async (e) => {
+    e.preventDefault();
+
     const client = getClient(apiKey);
     const startTime = getCurrentTime();
 
-    e.preventDefault();
     setFormError("");
     setIsSubmitting(true);
 
     let mutationParams = formInputsToValues(formRef.current);
 
     formRef.current.reset();
-
-    const query = `
-      mutation CreateComment(
-        $name: String!,
-        $path: String!,
-        $content: String!,
-        $domain: String!,
-        $emailAddress: String
-      ){
-        createComment(
-          name: $name,
-          path: $path,
-          content: $content,
-          emailAddress: $emailAddress
-          domain: $domain
-        ) {
-          createdAt
-          name
-          emailAddress
-          content
-          id
-          site {
-            domain
-          }
-        }
-      }
-    `;
 
     const { name, content, emailAddress } = mutationParams;
 
@@ -67,13 +43,15 @@ export default ({ newComment, domain, apiKey }) => {
     let response;
 
     try {
-      response = await client.send(query, variables);
+      response = await client.send(CREATE_COMMENT_QUERY, variables);
 
       if (response?.errors?.length) {
         console.log(response.errors[0].message);
         setFormError("Sorry, something went wrong!");
         return;
       }
+
+      setFormSuccess("Comment submitted!");
     } catch (e) {
       setFormError("Sorry, something went wrong!");
       setIsSubmitting(false);
@@ -109,6 +87,9 @@ export default ({ newComment, domain, apiKey }) => {
         <h3>Leave a Comment</h3>
 
         {formErrorMessage && <Message>{formErrorMessage}</Message>}
+        {formSuccessMessage && (
+          <Message isSuccessful={true}>{formSuccessMessage}</Message>
+        )}
 
         <form
           onSubmit={submitComment}

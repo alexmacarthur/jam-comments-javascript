@@ -19,15 +19,27 @@
     font-weight: bold;
   }
 
-  &-date {
+  &-date,
+  &-statusMessage {
     line-height: normal;
-    font-size: 0.75em;
     color: var(--jc-gray-dark);
     display: block;
   }
 
+  &-statusMessage {
+    margin: 0;
+    padding: 0 0 0 .5rem;
+    font-style: italic;
+  }
+
+  &-meta {
+    opacity: .6;
+    display: flex;
+    align-items: center;
+    padding: 0 0.05rem 0 1rem;
+  }
+
   &-anchor {
-    padding: 0 0.05rem 0 0.5rem;
     font-weight: bold;
     text-decoration: none;
     color: inherit;

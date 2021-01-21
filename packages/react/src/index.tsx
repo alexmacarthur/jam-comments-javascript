@@ -5,12 +5,6 @@ import "@jam-comments/styles";
 
 const { useState } = React;
 
-type JamCommentsProps = {
-  initialComments?: any[];
-  domain: string;
-  apiKey: string;
-};
-
 const JamComments = ({
   initialComments = [],
   domain,
@@ -18,7 +12,9 @@ const JamComments = ({
 }: JamCommentsProps) => {
   let [comments, setComments] = useState(initialComments);
 
-  const newComment = (newComment: any) => {
+  const newComment = (newComment: Comment) => {
+    newComment.isPending = true;
+
     setComments([newComment, ...comments]);
   };
 

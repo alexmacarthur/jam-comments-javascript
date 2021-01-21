@@ -6,7 +6,7 @@
   "module": "dist/index.es.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "NODE_ENV=development rollup -c -w",
+    "watch": "NODE_ENV=development JAM_COMMENTS_SERVICE_ENDPOINT=http://localhost:4000 rollup -c -w",
     "build": "NODE_ENV=production rollup -c"
   },
   "peerDependencies": {

@@ -1,6 +1,4 @@
-> :warning: JamComments is still in active development, and has not yet been opened to the public. To be notified when it's available, sign up here: [jamcomments.com](https://jamcomments.com/).
-
-# gatsby-plugin-jam-comments
+# @jam-comments/gatsby
 
 The official Gatsby plugin for integrating [JamComments](https://jamcomments.com) into your Gatsby application.
 
@@ -8,11 +6,11 @@ The official Gatsby plugin for integrating [JamComments](https://jamcomments.com
 
 1. Create a JamComments account.
 2. Create a site and generate an API key.
-3. Install this plugin: `npm install gatsby-plugin-jam-comments`.
+3. Install this plugin: `npm install @jam-comments/gatsby`.
 4. Configure the plugin by adding the following to your `gatsby-node.js`:
 
 ```js
-resolve: 'gatsby-plugin-jam-comments',
+resolve: '@jam-comments/gatsby',
   options: {
     api_key: "YOUR-API-KEY",
     domain: "your-domain.me"
@@ -28,14 +26,19 @@ To include a comment form and existing comments on your blog posts, you'll need 
 
 ```jsx
 import React from "react";
-import JamComments from "gatsby-plugin-jam-comments";
+import JamComments from "@jam-comments/gatsby";
 
 const MyPost = (props) => {
   return (
     <article>
       <h1>{props.title}</h1>
       <div>{props.content}</div>
-      <JamComments path={props.path} pageContext={props.pageContext} />
+      <JamComments
+        path={props.path}
+        pageContext={props.pageContext}
+        apiKey={apiKey}
+        domain={domain}
+      />
     </article>
   );
 };

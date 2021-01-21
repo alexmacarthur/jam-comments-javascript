@@ -16,10 +16,6 @@ exports.sourceNodes = async (
   const { api_key: apiKey, domain } = configOptions;
   const { createNode } = actions;
 
-  // Needed for client-side code.
-  process.env.GATSBY_JAM_COMMENTS_API_KEY = apiKey;
-  process.env.GATSBY_JAM_COMMENTS_DOMAIN = domain;
-
   const fetcher = new CommentFetcher({ domain, apiKey });
   const comments = await fetcher.getAllComments();
 
