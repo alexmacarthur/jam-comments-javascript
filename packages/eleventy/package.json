@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/eleventy",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "The official plugin for integrating JamComments into your Eleventy site.",
@@ -26,8 +26,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/styles": "^0.0.4",
-    "@jam-comments/utilities": "^0.0.6",
+    "@jam-comments/styles": "^0.0.5",
+    "@jam-comments/utilities": "^0.0.7",
     "isomorphic-fetch": "^3.0.0",
     "nunjucks": "^3.2.2"
   },
