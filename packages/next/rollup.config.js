@@ -1,11 +1,8 @@
 const pkg = require("./package.json");
-import babel from "@rollup/plugin-babel";
 import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import postcss from "rollup-plugin-postcss";
-// import reactSvg from "rollup-plugin-react-svg";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -21,15 +18,7 @@ const OUTPUT_DATA = [
   },
 ];
 
-let plugins = [
-  typescript(),
-  commonjs(),
-  resolve(),
-  // postcss({
-  //   extract: false,
-  //   plugins: [],
-  // }),
-];
+let plugins = [typescript(), commonjs(), resolve()];
 
 if (isProduction) {
   plugins = [...plugins, terser()];

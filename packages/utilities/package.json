@@ -10,8 +10,8 @@
     "dist/"
   ],
   "scripts": {
-    "watch": "npx parcel watch client/index.js -d dist/index.js",
-    "build": "npx parcel build client/index.js -d dist/index.js",
+    "watch": "parcel watch client/index.js -d dist/index.js",
+    "build": "parcel build client/index.js -d dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prettify": "prettier ./**/*.{js,md} --write"
   },
