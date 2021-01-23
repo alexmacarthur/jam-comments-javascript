@@ -16,7 +16,6 @@ export const fetchByPath = async ({ apiKey, domain, path }) => {
   const fetcher = new CommentFetcher({
     domain,
     apiKey,
-    requireFetchPolyfill: false,
   });
 
   return await fetcher.getAllComments(path);
