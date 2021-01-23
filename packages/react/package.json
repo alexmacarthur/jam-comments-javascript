@@ -4,6 +4,7 @@
   "description": "A React component for rendering comments from JamComments.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "types": "src/main.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "NODE_ENV=development JAM_COMMENTS_SERVICE_ENDPOINT=http://localhost:4000 rollup -c -w",
