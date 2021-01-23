@@ -3,13 +3,19 @@ import Message from "./Message";
 import formInputsToValues from "../utils/formInputsToValues";
 import LoadingDots from "../assets/loading-dots.svg";
 import useIsMounted from "../utils/useIsMounted";
-import getClient from "../questClient";
+import getClient from "../getClient";
 import { CREATE_COMMENT as CREATE_COMMENT_QUERY } from "../queries";
 
 const getCurrentTime = () => new Date().getTime();
 const minimumSubmissionTime = 1000;
 
-export default ({ newComment, domain, apiKey }) => {
+type CommentBoxProps = {
+  newComment: any;
+  domain: string;
+  apiKey: string;
+};
+
+export default ({ newComment, domain, apiKey }: CommentBoxProps) => {
   const isMounted = useIsMounted();
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
