@@ -6,7 +6,6 @@
   "commands": {
     "publish": {
       "ignoreChanges": [
-        "**/*.md",
         "**/*.test.js"
       ]
     }
