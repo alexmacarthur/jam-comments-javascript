@@ -5,25 +5,27 @@
         <h6 class="jc-Comment-name" data-jam-comments-component="name">
           {{comment.name}}
         </h6>
-        <a
-          id="comment-{{comment.id}}"
-          class="jc-Comment-anchor"
-          href="#comment-{{comment.id}}"
-          aria-label="comment anchor link"
-          data-jam-comments-component="anchor"
-        >
-          <time
-            class="jc-Comment-date"
-            {% if comment.createdAt %}
-              dateTime="{{ (comment.createdAt | iso) }}"
-            {% endif %}
-            data-jam-comments-component="createdAt"
+        <span class="jc-Comment-meta">
+          <a
+            id="comment-{{comment.id}}"
+            class="jc-Comment-anchor"
+            href="#comment-{{comment.id}}"
+            aria-label="comment anchor link"
+            data-jam-comments-component="anchor"
           >
-            {% if comment.createdAt %}
-              {{ comment.createdAt | prettyDate }}
-            {% endif %}
-          </time>
-        </a>
+            <time
+              class="jc-Comment-date"
+              {% if comment.createdAt %}
+                dateTime="{{ (comment.createdAt | iso) }}"
+              {% endif %}
+              data-jam-comments-component="createdAt"
+            >
+              {% if comment.createdAt %}
+                {{ comment.createdAt | prettyDate }}
+              {% endif %}
+            </time>
+          </a>
+        </span>
       </span>
       <div class="jc-Comment-content">
         <p data-jam-comments-component="content">

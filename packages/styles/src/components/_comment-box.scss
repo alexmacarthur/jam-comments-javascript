@@ -8,7 +8,7 @@
     transform: translateX(-50%);
 
     svg {
-      fill: var(--jc-loading);
+      fill: var(--jc-loading-color);
     }
   }
 
@@ -45,7 +45,7 @@
   input,
   textarea {
     border: 2px solid var(--jc-gray);
-    border-radius: var(--border-radius);
+    border-radius: var(--jc-border-radius);
     padding: 8px;
     width: auto;
   }
@@ -60,7 +60,7 @@
   }
 
   &-buttonWrapper {
-    margin-top: 1.5rem;
+    margin-top: .75rem;
   }
 
   &-label {

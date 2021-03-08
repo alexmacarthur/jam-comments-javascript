@@ -8,7 +8,7 @@
   "homepage": "https://jamcomments.com",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "parcel watch src/assets/js/index.js -d src/assets/dist",
+    "watch": "NODE_ENV=development JAM_COMMENTS_SERVICE_ENDPOINT=http://localhost:4000 parcel watch src/assets/js/index.js -d src/assets/dist",
     "build": "parcel build src/assets/js/index.js -d src/assets/dist"
   },
   "files": [
