@@ -4,7 +4,6 @@
   "main": "./index.js",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "sass src/style.scss dist/index.css",
     "minify": "postcss dist/index.css > dist/index.min.css",
     "build": "npm run compile && npm run minify"

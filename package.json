@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "lerna run build",
+    "build": "lerna run test && lerna run build",
     "prettify": "prettier \"./**/*.{js,tsx,md}\" --write",
     "lint": "eslint --fix \"./packages/**/*.{js,tsx}\"",
     "publish": "lerna publish"

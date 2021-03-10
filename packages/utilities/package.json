@@ -12,7 +12,7 @@
   "scripts": {
     "watch": "parcel watch client/index.js -d dist/index.js",
     "build": "parcel build client/index.js -d dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "prettify": "prettier ./**/*.{js,md} --write"
   },
   "keywords": [],
@@ -26,6 +26,9 @@
     "parcel": "^1.12.4"
   },
   "devDependencies": {
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3",
+    "jest-cli": "^26.6.3",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.2.1"
   },

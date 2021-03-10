@@ -4,7 +4,6 @@
   "description": "A library for integrating JamComments into a Next.js application.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "NODE_ENV=development JAM_COMMENTS_SERVICE_ENDPOINT=http://localhost:4000 rollup -c -w",
     "build": "NODE_ENV=production rollup -c"
   },
