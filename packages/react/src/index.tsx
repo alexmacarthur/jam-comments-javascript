@@ -5,12 +5,27 @@ import "@jam-comments/styles";
 
 const { useState } = React;
 
+const validateApiKeyAndDomain = (values) => {
+  Object.entries(values).forEach(([key, value]) => {
+    if (value) return;
+
+    console.error(
+      `Your ${key} is missing! Please verify that it's being passed correctly.`
+    );
+  });
+};
+
 const JamComments = ({
   initialComments = [],
   domain,
   apiKey,
 }: JamCommentsProps) => {
-  let [comments, setComments] = useState(initialComments);
+  validateApiKeyAndDomain({
+    JAM_COMMENTS_DOMAIN: domain,
+    JAM_COMMENTS_API_KEY: apiKey,
+  });
+
+  const [comments, setComments] = useState(initialComments);
 
   const newComment = (newComment: Comment) => {
     newComment.isPending = true;
