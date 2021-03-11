@@ -52,7 +52,7 @@ export default ({ newComment, domain, apiKey }: CommentBoxProps) => {
       response = await client.send(CREATE_COMMENT_QUERY, variables);
 
       if (response?.errors?.length) {
-        console.log(response.errors[0].message);
+        console.error(response.errors[0].message);
         setFormError("Sorry, something went wrong!");
         return;
       }
