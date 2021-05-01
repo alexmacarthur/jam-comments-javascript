@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/utilities",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist/index.js",
   "files": [

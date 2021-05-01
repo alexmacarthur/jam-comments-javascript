@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/react",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "A React component for rendering comments from JamComments.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -48,8 +48,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/styles": "^0.0.8",
-    "@jam-comments/utilities": "^0.0.10",
+    "@jam-comments/styles": "^0.0.9",
+    "@jam-comments/utilities": "^0.0.11",
     "graphql-quest": "^1.0.2"
   },
   "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2"
