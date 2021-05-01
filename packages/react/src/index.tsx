@@ -16,6 +16,7 @@ const validateApiKeyAndDomain = (values) => {
 };
 
 const JamComments = ({
+  platform = "",
   initialComments = [],
   domain,
   apiKey,
@@ -35,7 +36,12 @@ const JamComments = ({
 
   return (
     <div className={"jc-Shell"}>
-      <CommentBox newComment={newComment} domain={domain} apiKey={apiKey} />
+      <CommentBox
+        newComment={newComment}
+        domain={domain}
+        apiKey={apiKey}
+        platform={platform}
+      />
       <CommentList comments={comments} />
     </div>
   );

@@ -5,6 +5,7 @@ const { CommentFetcher } = require("@jam-comments/utilities/server");
 export const JamComments = ({ comments, apiKey, domain }) => {
   return (
     <JamCommentsReact
+      platform={"next"}
       initialComments={comments}
       apiKey={apiKey}
       domain={domain}

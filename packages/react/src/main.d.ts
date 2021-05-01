@@ -17,4 +17,5 @@ interface JamCommentsProps {
   initialComments?: Comment[];
   domain: string;
   apiKey: string;
+  platform?: string;
 }

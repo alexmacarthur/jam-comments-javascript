@@ -7,6 +7,7 @@ export default ({ pageContext, apiKey, domain }) => {
 
   return (
     <JamComments
+      platform={"gatsby"}
       initialComments={initialComments}
       apiKey={apiKey}
       domain={domain}

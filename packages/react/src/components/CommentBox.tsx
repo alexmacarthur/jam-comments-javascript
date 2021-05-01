@@ -13,9 +13,10 @@ type CommentBoxProps = {
   newComment: any;
   domain: string;
   apiKey: string;
+  platform: string;
 };
 
-export default ({ newComment, domain, apiKey }: CommentBoxProps) => {
+export default ({ newComment, domain, apiKey, platform }: CommentBoxProps) => {
   const isMounted = useIsMounted();
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,7 +27,7 @@ export default ({ newComment, domain, apiKey }: CommentBoxProps) => {
   const submitComment = async (e) => {
     e.preventDefault();
 
-    const client = getClient(apiKey);
+    const client = getClient(apiKey, platform);
     const startTime = getCurrentTime();
 
     setFormError("");
