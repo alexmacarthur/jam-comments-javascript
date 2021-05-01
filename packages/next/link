@@ -1,0 +1,14 @@
+#! /bin/bash
+
+echo "Linking react..."
+cd node_modules/react
+npm link
+
+echo "Linking react-dom..."
+cd ../react-dom
+npm link
+
+cd ../../
+
+echo "npm link react && npm link react-dom && npm link @jam-comments/next" | pbcopy
+echo "Linked React. Copied 'npm link react && npm link react-dom'. Run in local SSG project."

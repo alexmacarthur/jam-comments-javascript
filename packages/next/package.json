@@ -11,6 +11,10 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
+  "files": [
+    "./src",
+    "./dist"
+  ],
   "keywords": [],
   "author": "Alex MacArthur",
   "license": "ISC",
