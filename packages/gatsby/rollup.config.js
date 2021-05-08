@@ -3,6 +3,7 @@ import path from "path";
 import babel from "rollup-plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import postcss from "rollup-plugin-postcss";
+import replace from "@rollup/plugin-replace";
 import { terser } from "rollup-plugin-terser";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 
@@ -35,6 +36,12 @@ const OUTPUT_DATA = [
 ];
 
 let plugins = [
+  replace({
+    preventAssignment: true,
+    "process.env.JAM_COMMENTS_SERVICE_ENDPOINT": JSON.stringify(
+      process.env.JAM_COMMENTS_SERVICE_ENDPOINT
+    ),
+  }),
   nodeResolve(),
   commonjs({
     exclude: "src/**",

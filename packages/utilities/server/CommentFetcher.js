@@ -45,9 +45,11 @@ class CommentFetcher {
       skip,
     });
 
-    if (!data) {
+    if (!data && errors && errors.length) {
       throw new Error(
-        "No data was returned from JamComments! Is everything configured correctly?"
+        `Something went wrong with JamComments! Here's the error:
+
+${JSON.stringify(errors)}`
       );
     }
 
