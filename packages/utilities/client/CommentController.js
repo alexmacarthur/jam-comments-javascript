@@ -2,7 +2,7 @@ import { QuestClient } from "graphql-quest";
 import { formatFormValues, getCurrentTime, toPrettyDate } from "./utils";
 import { CREATE_COMMENT_QUERY } from "./queries";
 
-export default function CommentController(shell) {
+export default function CommentController(shell, platform = "") {
   const minimumSubmissionTime = 1000;
   const loadingSvg = shell.querySelector(".jc-CommentBox-loadingDots");
   const commentCount = shell.querySelector(
@@ -18,6 +18,7 @@ export default function CommentController(shell) {
     endpoint: shell.dataset.jamCommentsServiceEndpoint,
     headers: {
       "x-api-key": shell.dataset.jamCommentsKey,
+      "x-platform": platform,
     },
   });
 
