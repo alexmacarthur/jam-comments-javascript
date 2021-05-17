@@ -1,5 +1,8 @@
 const { getServiceEndpoint, log } = require("../shared");
 const { QuestClient } = require("graphql-quest");
+const shuffle = require("shuffle-array");
+const isDevCheck = require("../shared/isDev");
+const dummyComments = require("./dummy-comments.json");
 
 const PER_PAGE = 50;
 const COMMENTS_QUERY = `
@@ -20,7 +23,8 @@ const COMMENTS_QUERY = `
   }`;
 
 class CommentFetcher {
-  constructor({ domain, apiKey }) {
+  constructor({ domain, apiKey, isDev = isDevCheck() }) {
+    this.isDev = isDev;
     this.domain = domain;
     this.client = QuestClient({
       endpoint: `${getServiceEndpoint()}/graphql`,
@@ -67,12 +71,31 @@ ${JSON.stringify(errors)}`
     };
   }
 
+  _prepareDummyComments() {
+    shuffle(dummyComments);
+
+    const descendingDates = dummyComments
+      .map((d) => d.createdAt)
+      .sort()
+      .reverse();
+
+    return dummyComments.map((comment, index) => {
+      comment.createdAt = descendingDates[index];
+
+      return comment;
+    });
+  }
+
   /**
    * Get all the comments until there are no more remaining.
    *
    * @returns Promise<array>
    */
   async getAllComments(path = "") {
+    if (this.isDev) {
+      return this._prepareDummyComments();
+    }
+
     let allComments = [];
     let skip = 0;
     let hasMore = false;

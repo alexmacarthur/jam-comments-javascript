@@ -4,6 +4,7 @@ require("dotenv").config({
 
 require("isomorphic-fetch");
 const log = require("@jam-comments/utilities/shared/log");
+const isDev = require("@jam-comments/utilities/shared/isDev");
 const {
   CommentFetcher,
   utilities: { filterByUrl },
@@ -48,8 +49,18 @@ exports.sourceNodes = async (
 exports.onCreatePage = async ({ page, actions, cache }) => {
   const { createPage, deletePage } = actions;
   const cachedComments = await cache.get("jamComments");
-  const comments = cachedComments ? filterByUrl(cachedComments, page.path) : [];
 
+  // Nothing in the cache! Don't bother.
+  if (!cachedComments) {
+    return;
+  }
+
+  // We're dealing with "dummy" comments, so just let them go.
+  const comments = isDev()
+    ? cachedComments
+    : filterByUrl(cachedComments, page.path);
+
+  // No comments for this post were found. We're done.
   if (!comments.length) {
     return;
   }

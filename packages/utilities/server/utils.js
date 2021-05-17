@@ -14,6 +14,10 @@ const filterByUrl = (comments, urlOrPath) => {
   const pagePath = parsePath(urlOrPath);
 
   return comments.filter((comment) => {
+    if (!comment.path) {
+      return false;
+    }
+
     const commentPath = parsePath(comment.path);
 
     return commentPath === pagePath;
