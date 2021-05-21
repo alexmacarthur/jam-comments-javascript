@@ -1,6 +1,5 @@
 const { getServiceEndpoint, log } = require("../shared");
 const { QuestClient } = require("graphql-quest");
-const shuffle = require("shuffle-array");
 const isDevCheck = require("../shared/isDev");
 const dummyComments = require("./dummy-comments.json");
 
@@ -72,8 +71,6 @@ ${JSON.stringify(errors)}`
   }
 
   _prepareDummyComments() {
-    shuffle(dummyComments);
-
     const descendingDates = dummyComments
       .map((d) => d.createdAt)
       .sort()

@@ -8,7 +8,9 @@ echo "Linking react-dom..."
 cd ../react-dom
 npm link
 
+echo "Linking @jam-comments/next..."
 cd ../../
+npm link
 
 echo "npm link react && npm link react-dom && npm link @jam-comments/next" | pbcopy
-echo "Linked React. Copied 'npm link react && npm link react-dom'. Run in local SSG project."
+echo "Linked React. Copied 'npm link react && npm link react-dom && npm link @jam-comments/next'. Run in local SSG project."
