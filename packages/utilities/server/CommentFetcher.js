@@ -5,14 +5,21 @@ const dummyComments = require("./dummy-comments.json");
 
 const PER_PAGE = 50;
 const COMMENTS_QUERY = `
+  fragment commentFields on Comment {
+    createdAt
+    name
+    content
+    path
+    id
+  }
+
   query Comments($domain: String!, $status: String, $skip: Int, $perPage: Int, $path: String){
     comments(domain: $domain, status: $status, skip: $skip, perPage: $perPage, path: $path) {
       items {
-        createdAt
-        name
-        content
-        path
-        id
+        ...commentFields
+        children {
+          ...commentFields
+        }
       }
       meta {
         hasMore

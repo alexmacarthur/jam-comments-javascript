@@ -6,5 +6,12 @@
   --jc-border-radius: 5px;
   --jc-loading-color: var(--jc-gray);
 
+  --jc-max-width: 600px;
+
   margin: 2rem 0;
+
+  &-container {
+    margin: 0 auto;
+    max-width: var(--jc-max-width);
+  }
 }

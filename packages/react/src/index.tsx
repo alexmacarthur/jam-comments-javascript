@@ -1,6 +1,9 @@
 import * as React from "react";
+import ApiContext from "./apiContext";
 import CommentBox from "./components/CommentBox";
 import CommentList from "./components/CommentList";
+import sortComments from "@jam-comments/utilities/shared/sortComments";
+import countComments from "@jam-comments/utilities/shared/countComments";
 import "@jam-comments/styles";
 
 const { useState } = React;
@@ -16,8 +19,8 @@ const validateApiKeyAndDomain = (values) => {
 };
 
 const JamComments = ({
-  platform = "",
   initialComments = [],
+  platform = "",
   domain,
   apiKey,
 }: JamCommentsProps) => {
@@ -31,19 +34,25 @@ const JamComments = ({
   const newComment = (newComment: Comment) => {
     newComment.isPending = true;
 
-    setComments([newComment, ...comments]);
+    setComments(sortComments([newComment, ...comments]));
   };
 
   return (
-    <div className={"jc-Shell"}>
-      <CommentBox
-        newComment={newComment}
-        domain={domain}
-        apiKey={apiKey}
-        platform={platform}
-      />
-      <CommentList comments={comments} />
-    </div>
+    <ApiContext.Provider
+      value={{ domain, apiKey, platform, newComment } as CommentBoxProps}
+    >
+      <div className="jc-Shell">
+        <div className="jc-Shell-container">
+          <CommentBox
+            newComment={newComment}
+            domain={domain}
+            apiKey={apiKey}
+            platform={platform}
+          />
+          <CommentList comments={comments} />
+        </div>
+      </div>
+    </ApiContext.Provider>
   );
 };
 

@@ -3,6 +3,29 @@
     font: inherit;
   }
 
+  &-actions {
+    @include after-divider($pseudoClass: ":before", $width: 2rem);
+    display: inline-block;
+    position: relative;
+
+    &:before {
+      left: auto;
+    }
+  }
+
+  &-actionList {
+    margin-left: 3rem;
+  }
+
+  &-actionButton {
+    color: var(--jc-gray-dark);
+    font-size: .85em;
+  }
+
+  &-replyForm {
+    margin-top: 1rem;
+  }
+
   &-details {
     display: flex;
     align-items: center;
@@ -26,6 +49,10 @@
     display: block;
   }
 
+  &-date {
+    font-size: .9em;
+  }
+
   &-statusMessage {
     margin: 0;
     padding: 0 0 0 .5rem;
@@ -36,7 +63,7 @@
     opacity: .6;
     display: flex;
     align-items: center;
-    padding: 0 0.05rem 0 1rem;
+    padding: 0 0.045rem 0 .8rem;
   }
 
   &-anchor {

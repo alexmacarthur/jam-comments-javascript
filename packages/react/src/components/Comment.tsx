@@ -1,19 +1,31 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useContext } from "react";
 import { toPrettyDate, toIsoString } from "../utils/formatDate";
+import CommentBox from "./CommentBox";
+import ApiContext from "../apiContext";
+import CommentList from "./CommentList";
 
 type CommentProps = {
   comment: Comment;
+  isReply: boolean;
 };
 
-export default ({ comment }: CommentProps) => {
+const Comment = ({ comment, isReply = false }: CommentProps) => {
+  const apiContext = useContext(ApiContext) as CommentBoxProps;
   const formattedContent = useMemo(
     () => comment.content.replace(/(?:\r\n|\r|\n)/g, "<br/>"),
     []
   );
-  const { isPending } = comment;
+  const { isPending, children } = comment;
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  const [replyText, setReplyText] = useState("Reply");
+
+  const toggleReply = () => {
+    setReplyText(showReplyForm ? "Reply" : "Cancel Reply");
+    setShowReplyForm(!showReplyForm);
+  };
 
   return (
-    <div className={"jc-Comment"}>
+    <div className={"jc-Comment"} data-comment-id={comment.id}>
       <span className={"jc-Comment-details"}>
         <h6 className={"jc-Comment-name"}>{comment.name}</h6>
 
@@ -39,6 +51,38 @@ export default ({ comment }: CommentProps) => {
       <div className={"jc-Comment-content"}>
         <p dangerouslySetInnerHTML={{ __html: formattedContent }} />
       </div>
+
+      <div className={"jc-Comment-actions"}>
+        <ul className={"jc-Comment-actionList"}>
+          {!isReply && (
+            <li>
+              <button
+                className={"jc-Comment-actionButton"}
+                onClick={toggleReply}
+              >
+                {replyText}
+              </button>
+            </li>
+          )}
+        </ul>
+      </div>
+
+      {showReplyForm ? (
+        <div className={"jc-Comment-replyForm"}>
+          <CommentBox
+            {...apiContext}
+            parent={Number(comment.id)}
+            forceFormOpen={true}
+            onSubmission={(newComment: Comment) => {
+              setShowReplyForm(!newComment);
+            }}
+          />
+        </div>
+      ) : null}
+
+      {children && <CommentList comments={children} isReplies={true} />}
     </div>
   );
 };
+
+export default Comment;

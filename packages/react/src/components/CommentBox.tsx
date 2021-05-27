@@ -9,14 +9,16 @@ import { CREATE_COMMENT as CREATE_COMMENT_QUERY } from "../queries";
 const getCurrentTime = () => new Date().getTime();
 const minimumSubmissionTime = 1000;
 
-type CommentBoxProps = {
-  newComment: any;
-  domain: string;
-  apiKey: string;
-  platform: string;
-};
-
-export default ({ newComment, domain, apiKey, platform }: CommentBoxProps) => {
+export default ({
+  newComment,
+  domain,
+  apiKey,
+  platform,
+  parent = null,
+  forceFormOpen = false,
+  onSubmission = () => {},
+}: CommentBoxProps) => {
+  const isReply = parent !== null;
   const isMounted = useIsMounted();
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,6 +46,7 @@ export default ({ newComment, domain, apiKey, platform }: CommentBoxProps) => {
       domain,
       content,
       emailAddress,
+      parent,
       path: window.location.pathname,
     };
 
@@ -74,6 +77,8 @@ export default ({ newComment, domain, apiKey, platform }: CommentBoxProps) => {
         if (response?.data?.createComment) {
           newComment(response.data.createComment);
         }
+
+        onSubmission(response?.data?.createComment);
       }, delay);
     }
   };
@@ -91,7 +96,15 @@ export default ({ newComment, domain, apiKey, platform }: CommentBoxProps) => {
           isSubmitting ? "is-submitting" : ""
         }`}
       >
-        <h3>Leave a Comment</h3>
+        <h3 className="jc-CommentBox-heading">
+          Leave a {isReply ? "Reply" : "Comment"}
+        </h3>
+
+        {/* {isReply &&
+          <span>
+            If email notifications are enabled, both the site owner and comment author will be sent a message about your reply.
+          </span>
+        } */}
 
         {formErrorMessage && <Message>{formErrorMessage}</Message>}
         {formSuccessMessage && (
@@ -123,7 +136,7 @@ export default ({ newComment, domain, apiKey, platform }: CommentBoxProps) => {
             </small>
           </label>
 
-          {shouldShowFullForm && (
+          {(shouldShowFullForm || forceFormOpen) && (
             <>
               <label className={"jc-CommentBox-label"}>
                 Name

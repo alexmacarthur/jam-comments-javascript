@@ -10,12 +10,19 @@ interface Comment {
   id: string;
   name: string;
   site: any;
-  isPending?: boolean
+  isPending?: boolean;
+  children?: Comment[];
 }
-
-interface JamCommentsProps {
-  initialComments?: Comment[];
+interface CommentBoxProps {
   domain: string;
   apiKey: string;
-  platform?: string;
+  platform: string;
+  newComment: Function;
+  parent?: number;
+  forceFormOpen?: boolean;
+  onSubmission?: (newComment: Comment) => any;
+}
+
+interface JamCommentsProps extends CommentBoxProps {
+  initialComments?: Comment[];
 }

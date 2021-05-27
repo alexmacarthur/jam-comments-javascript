@@ -19,5 +19,7 @@ export const fetchByPath = async ({ apiKey, domain, path }) => {
     apiKey,
   });
 
-  return await fetcher.getAllComments(path);
+  const comments = await fetcher.getAllComments(path);
+
+  return comments;
 };
