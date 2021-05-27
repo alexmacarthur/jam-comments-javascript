@@ -2,12 +2,12 @@
   @media screen and (min-width: 900px) { @content; }
 }
 
-@mixin after-divider {
-  &:after {
+@mixin after-divider($pseudoClass: ":after", $width: 100vw) {
+  &#{$pseudoClass} {
     content: '';
     display: block;
     position: absolute;
-    width: 100vw;
+    width: $width;
     height: 2px;
     background: var(--jc-gray);
     top: 50%;

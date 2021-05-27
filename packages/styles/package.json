@@ -6,7 +6,8 @@
   "scripts": {
     "compile": "sass src/style.scss dist/index.css",
     "minify": "postcss dist/index.css > dist/index.min.css",
-    "build": "npm run compile && npm run minify"
+    "build": "npm run compile && npm run minify",
+    "watch": "sass src/style.scss dist/index.css --watch"
   },
   "keywords": [],
   "author": "Alex MacArthur",
