@@ -7,7 +7,7 @@ type CommentProps = {
 
 export default ({ comment }: CommentProps) => {
   const formattedContent = useMemo(
-    () => comment.content.replace(/\n/g, "<br/><br/>"),
+    () => comment.content.replace(/(?:\r\n|\r|\n)/g, "<br/>"),
     []
   );
   const { isPending } = comment;
