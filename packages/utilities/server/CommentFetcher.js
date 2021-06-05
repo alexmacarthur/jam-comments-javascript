@@ -10,7 +10,6 @@ const COMMENTS_QUERY = `
       items {
         createdAt
         name
-        emailAddress
         content
         path
         id
@@ -78,6 +77,9 @@ ${JSON.stringify(errors)}`
 
     return dummyComments.map((comment, index) => {
       comment.createdAt = descendingDates[index];
+
+      // Mimic how the data will be retrieved in production.
+      delete comment.emailAddress;
 
       return comment;
     });
