@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/react",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "A React component for rendering comments from JamComments.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
