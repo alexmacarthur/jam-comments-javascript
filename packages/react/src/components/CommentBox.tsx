@@ -9,14 +9,13 @@ import { CREATE_COMMENT as CREATE_COMMENT_QUERY } from "../queries";
 const getCurrentTime = () => new Date().getTime();
 const minimumSubmissionTime = 1000;
 
-type CommentBoxProps = {
-  newComment: any;
-  domain: string;
-  apiKey: string;
-  platform: string;
-};
-
-export default ({ newComment, domain, apiKey, platform }: CommentBoxProps) => {
+export default ({
+  newComment,
+  domain,
+  apiKey,
+  platform,
+  parent = null,
+}: CommentBoxProps) => {
   const isMounted = useIsMounted();
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,12 +43,15 @@ export default ({ newComment, domain, apiKey, platform }: CommentBoxProps) => {
       domain,
       content,
       emailAddress,
+      parent,
       path: window.location.pathname,
     };
 
     let response;
 
     try {
+      console.log(variables);
+      return;
       response = await client.send(CREATE_COMMENT_QUERY, variables);
 
       if (response?.errors?.length) {

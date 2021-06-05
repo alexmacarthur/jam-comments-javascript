@@ -12,10 +12,16 @@ interface Comment {
   site: any;
   isPending?: boolean
 }
-
-interface JamCommentsProps {
-  initialComments?: Comment[];
+interface CommentBoxProps {
   domain: string;
   apiKey: string;
-  platform?: string;
+  platform: string;
+  newComment: Function;
+  parent?: number
 }
+
+interface JamCommentsProps extends CommentBoxProps {
+  initialComments?: Comment[];
+}
+
+
