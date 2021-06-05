@@ -6,7 +6,10 @@ type CommentProps = {
 };
 
 export default ({ comment }: CommentProps) => {
-  comment.content = useMemo(() => comment.content.replace(/\n/g, "<br>\n"), []);
+  const formattedContent = useMemo(
+    () => comment.content.replace(/\n/g, "<br/><br/>"),
+    []
+  );
   const { isPending } = comment;
 
   return (
@@ -34,7 +37,7 @@ export default ({ comment }: CommentProps) => {
         </span>
       </span>
       <div className={"jc-Comment-content"}>
-        <p dangerouslySetInnerHTML={{ __html: comment.content }} />
+        <p dangerouslySetInnerHTML={{ __html: formattedContent }} />
       </div>
     </div>
   );
