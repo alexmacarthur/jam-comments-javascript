@@ -24,6 +24,10 @@
 
   &-replyForm {
     margin-top: 1rem;
+
+    @include for-tablet-landscape-up() {
+      padding-left: 3rem;
+    }
   }
 
   &-details {
