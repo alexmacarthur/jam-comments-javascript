@@ -11,6 +11,7 @@ interface Comment {
   name: string;
   site: any;
   isPending?: boolean
+  children?: Comment[]
 }
 interface CommentBoxProps {
   domain: string;

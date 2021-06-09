@@ -13,6 +13,12 @@ const COMMENTS_QUERY = `
         content
         path
         id
+        children {
+          createdAt
+          id
+          name
+          content
+        }
       }
       meta {
         hasMore
@@ -91,9 +97,9 @@ ${JSON.stringify(errors)}`
    * @returns Promise<array>
    */
   async getAllComments(path = "") {
-    if (this.isDev) {
-      return this._prepareDummyComments();
-    }
+    // if (this.isDev) {
+    //   return this._prepareDummyComments();
+    // }
 
     let allComments = [];
     let skip = 0;

@@ -15,7 +15,11 @@ export const CREATE_COMMENT = `
       domain: $domain
       parent: $parent
     ) {
-      parent
+      parent {
+        name
+        path
+        content
+      }
       createdAt
       name
       emailAddress

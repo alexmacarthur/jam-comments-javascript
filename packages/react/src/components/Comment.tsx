@@ -2,18 +2,20 @@ import React, { useMemo, useState, useContext } from "react";
 import { toPrettyDate, toIsoString } from "../utils/formatDate";
 import CommentBox from "./CommentBox";
 import ApiContext from "../apiContext";
+import CommentList from "./CommentList";
 
 type CommentProps = {
   comment: Comment;
+  isReply: boolean;
 };
 
-export default ({ comment }: CommentProps) => {
+const Comment = ({ comment, isReply = false }: CommentProps) => {
   const apiContext = useContext(ApiContext) as CommentBoxProps;
   const formattedContent = useMemo(
     () => comment.content.replace(/(?:\r\n|\r|\n)/g, "<br/>"),
     []
   );
-  const { isPending } = comment;
+  const { isPending, children } = comment;
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyText, setReplyText] = useState("Reply");
 
@@ -52,11 +54,16 @@ export default ({ comment }: CommentProps) => {
 
       <div className={"jc-Comment-actions"}>
         <ul className={"jc-Comment-actionList"}>
-          <li>
-            <button className={"jc-Comment-actionButton"} onClick={toggleReply}>
-              {replyText}
-            </button>
-          </li>
+          {!isReply && (
+            <li>
+              <button
+                className={"jc-Comment-actionButton"}
+                onClick={toggleReply}
+              >
+                {replyText}
+              </button>
+            </li>
+          )}
         </ul>
       </div>
 
@@ -65,6 +72,10 @@ export default ({ comment }: CommentProps) => {
           <CommentBox {...apiContext} parent={Number(comment.id)} />
         </div>
       ) : null}
+
+      {children && <CommentList comments={children} isReplies={true} />}
     </div>
   );
 };
+
+export default Comment;

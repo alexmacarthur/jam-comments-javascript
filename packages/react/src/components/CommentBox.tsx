@@ -16,6 +16,7 @@ export default ({
   platform,
   parent = null,
 }: CommentBoxProps) => {
+  const isReply = parent !== null;
   const isMounted = useIsMounted();
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,8 +51,6 @@ export default ({
     let response;
 
     try {
-      console.log(variables);
-      return;
       response = await client.send(CREATE_COMMENT_QUERY, variables);
 
       if (response?.errors?.length) {
@@ -93,7 +92,15 @@ export default ({
           isSubmitting ? "is-submitting" : ""
         }`}
       >
-        <h3>Leave a Comment</h3>
+        <h3 className="jc-CommentBox-heading">
+          Leave a {isReply ? "Reply" : "Comment"}
+        </h3>
+
+        {/* {isReply &&
+          <span>
+            If email notifications are enabled, both the site owner and comment author will be sent a message about your reply.
+          </span>
+        } */}
 
         {formErrorMessage && <Message>{formErrorMessage}</Message>}
         {formSuccessMessage && (

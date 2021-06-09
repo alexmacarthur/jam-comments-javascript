@@ -2,21 +2,34 @@ import React from "react";
 import Comment from "./Comment";
 
 const pluralize = (items: Comment[], word: string): string => {
-  return items.length === 1 ? word : `${word}s`;
+  const onlyOne = items.length === 1;
+
+  if (word === "reply") {
+    return onlyOne ? word : `replies`;
+  }
+
+  return onlyOne ? word : `${word}s`;
 };
 
-export default ({ comments }) => {
+interface CommentListProps {
+  comments: Comment[];
+  isReplies: boolean;
+}
+
+export default ({ comments, isReplies = false }: CommentListProps) => {
   return (
-    <div className={"jc-CommentList"}>
+    <div
+      className={`jc-CommentList ${isReplies ? "jc-CommentList--replies" : ""}`}
+    >
       <span className={"jc-CommentList-count"}>
-        {comments.length} {pluralize(comments, "comment")}
+        {comments.length} {pluralize(comments, isReplies ? "reply" : "comment")}
       </span>
 
       <ul className={"jc-CommentList-list"}>
         {comments.map((comment) => {
           return (
             <li key={comment.id} className={"jc-CommentList-item"}>
-              <Comment comment={comment} />
+              <Comment comment={comment} isReply={isReplies} />
             </li>
           );
         })}
