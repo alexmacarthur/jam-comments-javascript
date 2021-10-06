@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/styles",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "./index.js",
   "description": "",
   "scripts": {
