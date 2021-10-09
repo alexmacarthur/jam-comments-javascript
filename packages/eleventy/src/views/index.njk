@@ -8,13 +8,13 @@
   data-jam-comments-service-endpoint="{{ serviceEndpoint }}"
   data-jam-comments-key="{{ apiKey }}"
 >
-  <div class="jc-CommentBox">
-    <div class="jc-CommentBox-loadingDots" style="display: none;">
+  <div class="jc-CommentBox" data-jam-comments-component="box">
+    <div class="jc-CommentBox-loadingDots" data-jam-comments-component="loadingDots" style="display: none;">
       {{ loadingSvg | safe }}
     </div>
 
     <div class="jc-CommentBox-inputs">
-      <h3>Leave a Comment</h3>
+      <h3 data-jam-comments-component="formHeading">Leave a Comment</h3>
 
       <div
         class="jc-Message jc-Message--error"
@@ -55,18 +55,9 @@
       </form>
     </div>
   </div>
-  <div class="jc-CommentList">
-    <span class="jc-CommentList-count">
-      <span data-jam-comments-component="count">{{ comments.length }}</span> comments
-    </span>
-    <ul class="jc-CommentList-list" data-jam-comments-component="list">
-      {{ macros.comment(comment={}, style="display: none;") }}
 
-      {% for comment in comments %}
-        {{ macros.comment(comment=comment) }}
-      {% endfor %}
-    </ul>
-  </div>
+  {{ macros.commentList(comments) }}
+
 </div>
 
 <script>{{ js | safe }}</script>

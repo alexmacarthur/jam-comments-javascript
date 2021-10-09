@@ -8,7 +8,8 @@
     "prettify": "prettier \"./**/*.{js,tsx,md}\" --write",
     "lint": "eslint --fix \"./packages/**/*.{js,tsx}\"",
     "publish": "lerna publish",
-    "bootstrap": "lerna bootstrap --force-local"
+    "bootstrap": "lerna bootstrap --force-local",
+    "test": "lerna run test"
   },
   "repository": {
     "type": "git",

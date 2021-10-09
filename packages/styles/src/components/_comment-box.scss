@@ -79,5 +79,9 @@
 
   &-contactInput {
     display: none;
+
+    .jc-Comment-replyForm & {
+      display: flex;
+    }
   }
 }

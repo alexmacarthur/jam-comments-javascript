@@ -11,8 +11,8 @@ const fs = require("fs");
  */
 const setEnvironmentVariables = (js, domain, apiKey) => {
   return js
-    .replace(/JAM_COMMENTS_DOMAIN/, domain)
-    .replace(/JAM_COMMENTS_API_KEY/, apiKey);
+    .replace(/JAM_COMMENTS_DOMAIN/i, domain)
+    .replace(/JAM_COMMENTS_API_KEY/i, apiKey);
 };
 
 const dateFromUnix = (unix) => {

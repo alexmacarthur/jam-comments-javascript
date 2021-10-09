@@ -16,4 +16,4 @@ const countComments = (comments) => {
   }, comments).length;
 };
 
-export default countComments;
+module.exports = countComments;

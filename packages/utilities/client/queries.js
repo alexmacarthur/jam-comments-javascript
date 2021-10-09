@@ -4,20 +4,25 @@ export const CREATE_COMMENT_QUERY = `
     $path: String!,
     $content: String!,
     $domain: String!,
+    $parent: ID,
     $emailAddress: String
   ){
     createComment(
       name: $name,
       path: $path,
       content: $content,
+      domain: $domain,
+      parent: $parent,
       emailAddress: $emailAddress
-      domain: $domain
     ) {
       createdAt
       name
       emailAddress
       content
       id
+      parent {
+        id
+      }
       site {
         domain
       }

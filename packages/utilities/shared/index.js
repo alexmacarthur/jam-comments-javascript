@@ -1,8 +1,9 @@
-const chalk = require("chalk");
 const getServiceEndpoint = require("./getServiceEndpoint");
 const log = require("./log");
+const countComments = require("./countComments");
 
 module.exports = {
-  getServiceEndpoint,
   log,
+  countComments,
+  getServiceEndpoint,
 };

@@ -13,7 +13,11 @@ const {
   CommentFetcher,
   utilities: { filterByUrl },
 } = require("@jam-comments/utilities/server");
-const getServiceEndpoint = require("@jam-comments/utilities/shared/getServiceEndpoint");
+const {
+  getServiceEndpoint,
+  countComments,
+} = require("@jam-comments/utilities/shared");
+const isDev = require("@jam-comments/utilities/shared/isDev");
 const env = nunjucks.configure(path.join(__dirname, "views"), {
   noCache: true,
 });
@@ -26,6 +30,7 @@ const env = nunjucks.configure(path.join(__dirname, "views"), {
 const commentForm = async function (options, url) {
   const fetcher = new CommentFetcher(options);
   const comments = await fetcher.getAllComments();
+  const filteredComments = filterByUrl(comments, url);
   const { domain, apiKey } = options;
   const loadingSvg = getFileContents(`assets/img/loading.svg`);
   const css = getCompiledAsset("css");
@@ -39,8 +44,13 @@ const commentForm = async function (options, url) {
     return toPrettyDate(time);
   });
 
+  env.addFilter("countComments", (comments) => {
+    return countComments(comments);
+  });
+
   return env.render("index.njk", {
-    comments: filterByUrl(comments, url),
+    comments: isDev() ? comments : filteredComments,
+    // comments: filteredComments,
     css,
     js,
     loadingSvg,

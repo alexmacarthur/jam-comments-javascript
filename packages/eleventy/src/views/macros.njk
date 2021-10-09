@@ -1,38 +1,83 @@
-{% macro comment(comment = {}, style) %}
-  <li class="jc-CommentList-item" style="{{ style }}">
-    <div class="jc-Comment">
-      <span class="jc-Comment-details">
-        <h6 class="jc-Comment-name" data-jam-comments-component="name">
-          {{comment.name}}
-        </h6>
-        <span class="jc-Comment-meta">
-          <a
-            id="comment-{{comment.id}}"
-            class="jc-Comment-anchor"
-            href="#comment-{{comment.id}}"
-            aria-label="comment anchor link"
-            data-jam-comments-component="anchor"
+{% macro comment(comment = {}, style = "", allowReply = true) %}
+  <div 
+    class="jc-Comment" 
+    data-jam-comments-component="comment"
+    data-jam-comments-id="{{comment.id}}"
+  >
+    <span class="jc-Comment-details">
+      <h6 class="jc-Comment-name" data-jam-comments-component="name">
+        {{comment.name}}
+      </h6>
+      <span class="jc-Comment-meta">
+        <a
+          id="comment-{{comment.id}}"
+          class="jc-Comment-anchor"
+          href="#comment-{{comment.id}}"
+          aria-label="comment anchor link"
+          data-jam-comments-component="anchor"
+        >
+          <time
+            class="jc-Comment-date"
+            {% if comment.createdAt %}
+              dateTime="{{ (comment.createdAt | iso) }}"
+            {% endif %}
+            data-jam-comments-component="createdAt"
           >
-            <time
-              class="jc-Comment-date"
-              {% if comment.createdAt %}
-                dateTime="{{ (comment.createdAt | iso) }}"
-              {% endif %}
-              data-jam-comments-component="createdAt"
-            >
-              {% if comment.createdAt %}
-                {{ comment.createdAt | prettyDate }}
-              {% endif %}
-            </time>
-          </a>
-        </span>
+            {% if comment.createdAt %}
+              {{ comment.createdAt | prettyDate }}
+            {% endif %}
+          </time>
+        </a>
       </span>
-      <div class="jc-Comment-content">
-        <p data-jam-comments-component="content">
-          {{comment.content}}
-        </p>
-      </div>
+    </span>
+    <div class="jc-Comment-content">
+      <p data-jam-comments-component="content">
+        {{comment.content}}
+      </p>
     </div>
-  </li>
+
+    <div class="jc-Comment-actions">
+      <ul class="jc-Comment-actionList">
+        {% if allowReply %}
+          <li data-jam-comments-component="replyButtonItem">
+            <button
+              class="jc-Comment-actionButton"
+              data-jam-comments-component="replyButton"
+            >
+              Reply
+            </button>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="jc-Comment-replyForm" data-jam-comments-component="replyBox"></div>
+
+  </div>
 {% endmacro %}
 
+{% macro commentList(comments = [], isReplies = false) %}
+  <div class="jc-CommentList {% if isReplies %}jc-CommentList--replies {% endif %}" {% if isReplies %}data-jam-comments-component="replyList" {% endif %}>
+    <span class="jc-CommentList-count" data-jam-comments-component="count">
+      {{ comments | countComments }}
+      {% if isReplies %}replies{% else %}comments{% endif %}
+    </span>
+
+    <ul class="jc-CommentList-list" data-jam-comments-component="list">
+      <li class="jc-CommentList-item" style="display: none;">
+        {{ comment({}) }}
+      </li>
+
+      {% for commentObject in comments %}
+        <li class="jc-CommentList-item" style="{{ style }}">
+          {{ comment(comment=commentObject, style="", allowReply=(not isReplies)) }}
+
+          {% if commentObject.children.length %}
+            {{ commentList(comments=commentObject.children, isReplies=true) }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% endmacro %}
