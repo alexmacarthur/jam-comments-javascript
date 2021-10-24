@@ -1,7 +1,7 @@
-const { getServiceEndpoint, log } = require("../shared");
+import { getServiceEndpoint, log } from "../shared";
 const { QuestClient } = require("graphql-quest");
-const isDevCheck = require("../shared/isDev");
-const dummyComments = require("./dummy-comments.json");
+import isDevCheck from "../shared/isDev";
+import dummyComments from "./dummy-comments.json";
 
 const PER_PAGE = 50;
 const COMMENTS_QUERY = `
@@ -28,6 +28,10 @@ const COMMENTS_QUERY = `
   }`;
 
 class CommentFetcher {
+  isDev;
+  domain;
+  client;
+  
   constructor({ domain, apiKey, isDev = isDevCheck() }) {
     this.isDev = isDev;
     this.domain = domain;
@@ -45,7 +49,10 @@ class CommentFetcher {
    * @param {number} skip
    * @returns {object}
    */
-  async _getBatchOfComments({ skip = 0, path = "" }) {
+  async _getBatchOfComments({ skip = 0, path = "" }): Promise<{
+    comments: any[],
+    hasMore: boolean,
+  }> {
     const { data, errors } = await this.client.send(COMMENTS_QUERY, {
       domain: this.domain,
       status: "approved",
@@ -86,6 +93,7 @@ ${JSON.stringify(errors)}`
       comment.createdAt = descendingDates[index];
 
       // Mimic how the data will be retrieved in production.
+      // @ts-ignore
       delete comment.emailAddress;
 
       return comment;
@@ -102,7 +110,7 @@ ${JSON.stringify(errors)}`
       return this._prepareDummyComments();
     }
 
-    let allComments = [];
+    let allComments: any[] = [];
     let skip = 0;
     let hasMore = false;
 
@@ -117,4 +125,4 @@ ${JSON.stringify(errors)}`
   }
 }
 
-module.exports = CommentFetcher;
+export default CommentFetcher;

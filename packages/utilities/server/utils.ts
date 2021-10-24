@@ -1,6 +1,6 @@
 const URL = require("url");
 
-const parsePath = (urlOrPath) => {
+export const parsePath = (urlOrPath) => {
   return URL.parse(urlOrPath).pathname.replace(/^\/|\/$/g, "");
 };
 
@@ -10,7 +10,7 @@ const parsePath = (urlOrPath) => {
  * @param {array} comments
  * @param {string} url
  */
-const filterByUrl = (comments, urlOrPath) => {
+export const filterByUrl = (comments, urlOrPath) => {
   const pagePath = parsePath(urlOrPath);
 
   return comments.filter((comment) => {
@@ -22,8 +22,4 @@ const filterByUrl = (comments, urlOrPath) => {
 
     return commentPath === pagePath;
   });
-};
-
-module.exports = {
-  filterByUrl,
 };

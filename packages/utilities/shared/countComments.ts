@@ -1,4 +1,4 @@
-const getChildren = (comment) => {
+const getChildren = (comment): any[] => {
   if (!comment.children) return [];
 
   return comment.children.reduce((nestedChildren, child) => {
@@ -10,10 +10,10 @@ const getChildren = (comment) => {
   }, comment.children);
 };
 
-const countComments = (comments) => {
+const countComments = (comments: any[]): any[] => {
   return comments.reduce((allComments, comment) => {
     return [...allComments, ...getChildren(comment)];
   }, comments).length;
 };
 
-module.exports = countComments;
+export default countComments;

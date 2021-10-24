@@ -1,4 +1,4 @@
-const sortComments = (comments) => {
+const sortComments = (comments): any[] => {
   const sortedComments = [...comments];
 
   for (const comment of comments) {

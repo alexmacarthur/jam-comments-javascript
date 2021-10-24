@@ -2,16 +2,33 @@
   "name": "@jam-comments/utilities",
   "version": "0.1.5",
   "description": "Various JavaScript utilities for JamComments.",
-  "main": "dist/index.js",
+  "main": "dist-client/index.umd.js",
   "files": [
     "client/",
     "server/",
     "shared/",
     "dist/"
   ],
+  "exports": {
+    "./client": {
+      "import": "./dist-client/index.es.js",
+      "require": "./dist-client/index.umd.js"
+    },
+    "./server": {
+      "import": "./dist-server/index.es.js",
+      "require": "./dist-server/index.umd.js"
+    },
+    "./shared": {
+      "import": "./dist-shared/index.es.js",
+      "require": "./dist-shared/index.umd.js"
+    }
+  },
   "scripts": {
-    "watch": "parcel watch client/index.js -d dist/index.js",
-    "build": "parcel build client/index.js -d dist/index.js",
+    "watch": "concurrently \"npm run build:client -- --mode=development --watch\" \"npm run build:server -- --mode=development --watch\" \"npm run build:shared -- --mode=development --watch\"",
+    "build:client": "BUILD_SCOPE=client vite build",
+    "build:server": "BUILD_SCOPE=server vite build",
+    "build:shared": "BUILD_SCOPE=shared vite build",
+    "build": "npm run build:client && npm run build:server && npm run build:shared",
     "test": "jest --config ./jest.config.js",
     "prettify": "prettier ./**/*.{js,md} --write"
   },
@@ -23,17 +40,18 @@
     "chalk": "^4.1.0",
     "graphql-quest": "^1.0.2",
     "node-fetch": "^2.6.1",
-    "parcel": "^1.12.4",
     "shuffle-array": "^1.0.1"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.15.0",
     "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.4",
+    "concurrently": "^6.3.0",
     "jest": "^27.2.1",
     "jest-cli": "^27.2.1",
-    "parcel-bundler": "^1.12.4",
     "prettier": "^2.2.1",
-    "ts-jest": "^27.0.5"
+    "ts-jest": "^27.0.5",
+    "vite": "^2.6.10"
   },
   "publishConfig": {
     "access": "public"

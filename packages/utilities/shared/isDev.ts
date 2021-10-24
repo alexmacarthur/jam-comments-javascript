@@ -1,4 +1,4 @@
-const isDev = () => {
+const isDev = (): boolean => {
   const processIsDefined = typeof process !== "undefined";
   const env =
     processIsDefined &&
@@ -9,4 +9,4 @@ const isDev = () => {
   return env !== "production";
 };
 
-module.exports = isDev;
+export default isDev;

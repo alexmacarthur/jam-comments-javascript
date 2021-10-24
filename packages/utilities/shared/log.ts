@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 
-const log = (message) => {
+const log = (message):void => {
   console.log(`${chalk.magenta("JamComments:")} ${message}`);
 };
 
-module.exports = log;
+export default log;

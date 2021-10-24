@@ -11,13 +11,13 @@ const {
 require("isomorphic-fetch");
 const {
   CommentFetcher,
-  utilities: { filterByUrl },
+  filterByUrl,
 } = require("@jam-comments/utilities/server");
 const {
   getServiceEndpoint,
   countComments,
+  isDev,
 } = require("@jam-comments/utilities/shared");
-const isDev = require("@jam-comments/utilities/shared/isDev");
 const env = nunjucks.configure(path.join(__dirname, "views"), {
   noCache: true,
 });
