@@ -33,8 +33,12 @@ const commentForm = async function (options, url) {
   const filteredComments = filterByUrl(comments, url);
   const { domain, apiKey } = options;
   const loadingSvg = getFileContents(`assets/img/loading.svg`);
-  const css = getCompiledAsset("css");
-  const js = setEnvironmentVariables(getCompiledAsset("js"), domain, apiKey);
+  const css = getCompiledAsset("style.css");
+  const js = setEnvironmentVariables(
+    getCompiledAsset("index.umd.js"),
+    domain,
+    apiKey
+  );
 
   env.addFilter("iso", (time) => {
     return toIsoString(time);

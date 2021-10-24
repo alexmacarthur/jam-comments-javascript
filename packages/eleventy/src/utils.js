@@ -25,10 +25,10 @@ const dateFromUnix = (unix) => {
  * @param {string} asset
  * @return {string}
  */
-const getCompiledAsset = (asset) => {
+const getCompiledAsset = (assetName) => {
   try {
     return fs.readFileSync(
-      `${path.join(__dirname, `assets/dist/index.${asset}`)}`,
+      `${path.join(__dirname, `assets/dist/${assetName}`)}`,
       "utf8"
     );
   } catch (e) {

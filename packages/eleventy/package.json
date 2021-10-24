@@ -7,8 +7,8 @@
   "main": "./.eleventy.js",
   "homepage": "https://jamcomments.com",
   "scripts": {
-    "watch": "NODE_ENV=development JAM_COMMENTS_SERVICE_ENDPOINT=http://localhost:4000 parcel watch src/assets/js/index.js -d src/assets/dist",
-    "build": "parcel build src/assets/js/index.js -d src/assets/dist"
+    "watch": "NODE_ENV=development JAM_COMMENTS_SERVICE_ENDPOINT=http://localhost:4000 vite build --watch",
+    "build": "vite build"
   },
   "files": [
     ".eleventy.js",
@@ -25,17 +25,16 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/styles": "^0.0.12",
+    "@jam-comments/styles": "^0.0.14",
     "@jam-comments/utilities": "^0.1.5",
     "isomorphic-fetch": "^3.0.0",
     "nunjucks": "^3.2.2"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.11.0",
-    "parcel": "^1.12.4",
-    "parcel-bundler": "^1.12.4",
     "prettier": "^2.1.2",
-    "sass": "^1.27.0"
+    "sass": "^1.27.0",
+    "vite": "^2.6.10"
   },
   "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2"
 }
