@@ -2,8 +2,7 @@ import * as React from "react";
 import ApiContext from "./apiContext";
 import CommentBox from "./components/CommentBox";
 import CommentList from "./components/CommentList";
-import sortComments from "@jam-comments/utilities/shared/sortComments";
-import countComments from "@jam-comments/utilities/shared/countComments";
+import { sortComments } from "@jam-comments/utilities/shared";
 import "@jam-comments/styles";
 
 const { useState } = React;

@@ -17,7 +17,7 @@ interface CommentBoxProps {
   domain: string;
   apiKey: string;
   platform: string;
-  newComment: Function;
+  newComment?: Function;
   parent?: number;
   forceFormOpen?: boolean;
   onSubmission?: (newComment: Comment) => any;

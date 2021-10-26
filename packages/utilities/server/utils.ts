@@ -1,4 +1,4 @@
-const URL = require("url");
+import URL from "url";
 
 export const parsePath = (urlOrPath) => {
   return URL.parse(urlOrPath).pathname.replace(/^\/|\/$/g, "");

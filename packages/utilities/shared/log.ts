@@ -1,4 +1,4 @@
-const chalk = require("chalk");
+import chalk from "chalk";
 
 const log = (message):void => {
   console.log(`${chalk.magenta("JamComments:")} ${message}`);

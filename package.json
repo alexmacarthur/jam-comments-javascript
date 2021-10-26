@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "lerna run test && lerna run build",
-    "prettify": "prettier \"./**/*.{js,tsx,md}\" --write",
-    "lint": "eslint --fix \"./packages/**/*.{js,tsx}\"",
+    "prettify": "prettier \"./**/*.{js,tsx?,md}\" --write",
+    "lint": "eslint --fix \"./packages/**/*.{js,tsx?}\"",
     "publish": "lerna publish",
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test"

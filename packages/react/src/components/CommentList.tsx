@@ -1,6 +1,6 @@
 import React from "react";
 import Comment from "./Comment";
-import countComments from "@jam-comments/utilities/shared/countComments";
+import { countComments } from "@jam-comments/utilities/shared";
 
 const pluralize = (commentCount: number, word: `reply` | `comment`) => {
   const onlyOne = commentCount === 1;
