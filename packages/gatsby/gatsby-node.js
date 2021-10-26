@@ -1,13 +1,8 @@
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
-
 require("isomorphic-fetch");
-const log = require("@jam-comments/utilities/shared/log");
-const isDev = require("@jam-comments/utilities/shared/isDev");
+const { log, isDev } = require("@jam-comments/utilities/shared");
 const {
   CommentFetcher,
-  utilities: { filterByUrl },
+  filterByUrl,
 } = require("@jam-comments/utilities/server");
 
 exports.sourceNodes = async (

@@ -1,5 +1,5 @@
 import { getServiceEndpoint, log } from "../shared";
-const { QuestClient } = require("graphql-quest");
+import { QuestClient } from "graphql-quest";
 import isDevCheck from "../shared/isDev";
 import dummyComments from "./dummy-comments.json";
 

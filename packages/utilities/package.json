@@ -1,8 +1,9 @@
 {
   "name": "@jam-comments/utilities",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist-client/index.umd.js",
+  "types": "dist-client/client/index.d.ts",
   "files": [
     "client/",
     "server/",
@@ -21,13 +22,17 @@
     "./shared": {
       "import": "./dist-shared/index.es.js",
       "require": "./dist-shared/index.umd.js"
+    },
+    "./*": {
+      "import": "./dist-client/index.es.js",
+      "require": "./dist-client/index.umd.js"
     }
   },
   "scripts": {
-    "watch": "concurrently \"npm run build:client -- --mode=development --watch\" \"npm run build:server -- --mode=development --watch\" \"npm run build:shared -- --mode=development --watch\"",
-    "build:client": "BUILD_SCOPE=client vite build",
-    "build:server": "BUILD_SCOPE=server vite build",
-    "build:shared": "BUILD_SCOPE=shared vite build",
+    "watch": "concurrently \"npm run build:client -- --watch\" \"npm run build:server -- --watch\" \"npm run build:shared -- --watch\"",
+    "build:client": "BUILD_SCOPE=client vite build && tsc --outDir dist-client",
+    "build:server": "BUILD_SCOPE=server vite build && tsc --outDir dist-server",
+    "build:shared": "BUILD_SCOPE=shared vite build && tsc --outDir dist-shared",
     "build": "npm run build:client && npm run build:server && npm run build:shared",
     "test": "jest --config ./jest.config.js",
     "prettify": "prettier ./**/*.{js,md} --write"
@@ -40,9 +45,11 @@
     "chalk": "^4.1.0",
     "graphql-quest": "^1.0.2",
     "node-fetch": "^2.6.1",
-    "shuffle-array": "^1.0.1"
+    "shuffle-array": "^1.0.1",
+    "url-parse": "^1.5.3"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.15.8",
     "@babel/preset-typescript": "^7.15.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.4",

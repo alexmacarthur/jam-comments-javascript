@@ -11,7 +11,9 @@ afterAll(() => {
 });
 
 test("it should return production service endpoint when no override is set.", () => {
-  process.env = {};
+  process.env = {
+    NODE_ENV: "production",
+  };
 
   const result = getServiceEndpoint();
 

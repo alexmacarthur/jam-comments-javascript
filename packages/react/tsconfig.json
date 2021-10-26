@@ -1,20 +1,13 @@
 {
+  "extends": "../../tsconfig-base.json",
   "compilerOptions": {
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "module": "es6",
-    "moduleResolution": "node",
-    "noImplicitAny": false,
-    "outDir": "./dist",
-    "preserveConstEnums": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "target": "es5",
-    "typeRoots": ["./node_modules/@types", "src/types"],
-    "rootDir": "src"
+    "outDir": "dist",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
   },
-  "exclude": ["node_modules", "typings"]
+  "include": [
+    "src"
+  ]
 }

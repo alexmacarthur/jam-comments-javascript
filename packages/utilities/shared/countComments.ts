@@ -10,7 +10,7 @@ const getChildren = (comment): any[] => {
   }, comment.children);
 };
 
-const countComments = (comments: any[]): any[] => {
+const countComments = (comments: any[]): number => {
   return comments.reduce((allComments, comment) => {
     return [...allComments, ...getChildren(comment)];
   }, comments).length;

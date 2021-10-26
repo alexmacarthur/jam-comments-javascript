@@ -1,12 +1,8 @@
-import * as React from "react";
+import React, { useState } from "react";
 import ApiContext from "./apiContext";
 import CommentBox from "./components/CommentBox";
 import CommentList from "./components/CommentList";
-import sortComments from "@jam-comments/utilities/shared/sortComments";
-import countComments from "@jam-comments/utilities/shared/countComments";
-import "@jam-comments/styles";
-
-const { useState } = React;
+import { sortComments } from "@jam-comments/utilities/shared";
 
 const validateApiKeyAndDomain = (values) => {
   Object.entries(values).forEach(([key, value]) => {
@@ -18,12 +14,13 @@ const validateApiKeyAndDomain = (values) => {
   });
 };
 
-const JamComments = ({
+const JamCommentsReact = ({
   initialComments = [],
   platform = "",
   domain,
   apiKey,
 }: JamCommentsProps) => {
+
   validateApiKeyAndDomain({
     JAM_COMMENTS_DOMAIN: domain,
     JAM_COMMENTS_API_KEY: apiKey,
@@ -56,4 +53,4 @@ const JamComments = ({
   );
 };
 
-export default JamComments;
+export default JamCommentsReact;

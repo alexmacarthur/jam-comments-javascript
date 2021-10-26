@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Message from "./Message";
 import formInputsToValues from "../utils/formInputsToValues";
-import LoadingDots from "../assets/loading-dots.svg";
+import LoadingDots from "./LoadingDots";
 import useIsMounted from "../utils/useIsMounted";
 import getClient from "../getClient";
 import { CREATE_COMMENT as CREATE_COMMENT_QUERY } from "../queries";
@@ -85,6 +85,7 @@ export default ({
 
   return (
     <div className="jc-CommentBox">
+
       {isSubmitting && (
         <div className="jc-CommentBox-loadingDots">
           <LoadingDots />

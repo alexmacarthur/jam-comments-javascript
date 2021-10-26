@@ -1,7 +1,7 @@
 {
   "name": "@jam-comments/styles",
-  "version": "0.0.15",
-  "main": "./index.js",
+  "version": "0.0.16",
+  "module": "./index.js",
   "description": "",
   "scripts": {
     "compile": "sass src/style.scss dist/index.css",
@@ -9,6 +9,10 @@
     "build": "npm run compile && npm run minify",
     "watch": "sass src/style.scss dist/index.css --watch"
   },
+  "files": [
+    "./index.js", 
+    "dist"
+  ],
   "keywords": [],
   "author": "Alex MacArthur",
   "license": "ISC",

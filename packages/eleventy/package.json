@@ -1,14 +1,15 @@
 {
   "name": "@jam-comments/eleventy",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "The official plugin for integrating JamComments into your Eleventy site.",
   "main": "./.eleventy.js",
+  "types": "src/assets/dist/index.d.ts",
   "homepage": "https://jamcomments.com",
   "scripts": {
     "watch": "NODE_ENV=development JAM_COMMENTS_SERVICE_ENDPOINT=http://localhost:4000 vite build --watch",
-    "build": "vite build"
+    "build": "vite build && tsc"
   },
   "files": [
     ".eleventy.js",
@@ -25,15 +26,17 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/styles": "^0.0.15",
-    "@jam-comments/utilities": "^0.1.6",
+    "@jam-comments/styles": "^0.0.16",
+    "@jam-comments/utilities": "^0.1.7",
     "isomorphic-fetch": "^3.0.0",
     "nunjucks": "^3.2.2"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.11.0",
+    "@types/jest": "^27.0.2",
     "prettier": "^2.1.2",
     "sass": "^1.27.0",
+    "typescript": "^4.4.4",
     "vite": "^2.6.10"
   },
   "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2"
