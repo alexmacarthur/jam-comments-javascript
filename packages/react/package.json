@@ -48,7 +48,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/styles": "^0.0.12",
+    "@jam-comments/styles": "^0.0.15",
     "@jam-comments/utilities": "^0.1.6",
     "graphql-quest": "^1.0.2"
   },
