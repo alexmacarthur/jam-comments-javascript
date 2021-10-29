@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/styles",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "module": "./index.js",
   "description": "",
   "scripts": {
@@ -10,7 +10,7 @@
     "watch": "sass src/style.scss dist/index.css --watch"
   },
   "files": [
-    "./index.js", 
+    "./index.js",
     "dist"
   ],
   "keywords": [],
