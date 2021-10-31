@@ -3,8 +3,8 @@ const isDev = (): boolean => {
   const env =
     processIsDefined &&
     process.env &&
-    process.env.NODE_ENV &&
-    process.env.NODE_ENV.toLowerCase();
+    process.env['NODE_ENV'] &&
+    process.env['NODE_ENV'].toLowerCase();
 
   return env !== "production";
 };
