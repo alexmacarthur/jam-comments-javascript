@@ -1,23 +1,7 @@
 import { defineConfig } from "vite";
 import path from "path";
-import postcss from 'rollup-plugin-postcss'
-import reactSvg from 'rollup-plugin-react-svg';
 
 export default defineConfig({
-  plugins: [
-    reactSvg({
-      svgo: {
-        plugins: [],
-        multipass: true,
-      },
-      jsx: false,
-      include: null,
-      exclude: null
-    }),
-    postcss({
-      extract: true
-    })
-  ],
   build: {
     cssCodeSplit: false,
     lib: {

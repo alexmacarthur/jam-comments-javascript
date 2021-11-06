@@ -18,7 +18,7 @@ const SCOPES = {
   },
   server: {
     build: {
-      target: 'node14',
+      target: "node14",
       lib: {
         entry: path.resolve(__dirname, `server/index.ts`),
         name: "JamComments",

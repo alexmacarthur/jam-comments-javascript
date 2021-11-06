@@ -5,7 +5,8 @@ export const CREATE_COMMENT_QUERY = `
     $content: String!,
     $domain: String!,
     $parent: ID,
-    $emailAddress: String
+    $emailAddress: String,
+    $password: String
   ){
     createComment(
       name: $name,
@@ -13,7 +14,8 @@ export const CREATE_COMMENT_QUERY = `
       content: $content,
       domain: $domain,
       parent: $parent,
-      emailAddress: $emailAddress
+      emailAddress: $emailAddress,
+      password: $password
     ) {
       createdAt
       name

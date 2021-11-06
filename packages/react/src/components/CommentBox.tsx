@@ -1,13 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Message from "./Message";
 import formInputsToValues from "../utils/formInputsToValues";
 import LoadingDots from "./LoadingDots";
 import useIsMounted from "../utils/useIsMounted";
 import getClient from "../getClient";
-import { CREATE_COMMENT as CREATE_COMMENT_QUERY } from "../queries";
+import { CREATE_COMMENT_QUERY } from "@jam-comments/utilities/client";
+import { getTimeInMilliseconds } from "@jam-comments/utilities/shared";
+import useFocusTimer from "../utils/useFocusTimer";
 
-const getCurrentTime = () => new Date().getTime();
-const minimumSubmissionTime = 1000;
+const MINIMUM_SUBMISSION_TIME = 1000;
+const MINIMUM_COMPLETION_TIME = 3000;
 
 export default ({
   newComment,
@@ -25,22 +27,43 @@ export default ({
   const [formErrorMessage, setFormError] = useState("");
   const [formSuccessMessage, setFormSuccess] = useState("");
   const [shouldShowFullForm, setShouldShowFullForm] = useState(false);
+  const diff = useFocusTimer(formRef);
+
+  const postSubmissionTimeRemaining = (startTime): number => {
+    const remaining =
+      MINIMUM_SUBMISSION_TIME - (getTimeInMilliseconds() - startTime);
+    return remaining > 0 ? remaining : 0;
+  };
+
+  const onPostSuccess = (newCommentData, startTime) => {
+    setTimeout(() => {
+      if (!isMounted.current) return;
+
+      setFormSuccess("Comment submitted!");
+      setIsSubmitting(false);
+      newComment(newCommentData);
+      onSubmission(newCommentData);
+    }, postSubmissionTimeRemaining(startTime));
+  };
 
   const submitComment = async (e) => {
     e.preventDefault();
 
     const client = getClient(apiKey, platform);
-    const startTime = getCurrentTime();
+    const startTime = getTimeInMilliseconds();
+
+    // It might be a friggin' bot!
+    if (diff() < MINIMUM_COMPLETION_TIME) {
+      onPostSuccess(null, startTime);
+      return;
+    }
 
     setFormError("");
     setIsSubmitting(true);
 
-    let mutationParams = formInputsToValues(formRef.current);
-
-    formRef.current.reset();
-
-    const { name, content, emailAddress } = mutationParams;
-
+    const { name, content, emailAddress, password } = formInputsToValues(
+      formRef.current
+    );
     const variables = {
       name,
       domain,
@@ -48,44 +71,29 @@ export default ({
       emailAddress,
       parent,
       path: window.location.pathname,
+      password,
     };
 
-    let response;
+    formRef.current.reset();
 
     try {
-      response = await client.send(CREATE_COMMENT_QUERY, variables);
+      const response = await client.send(CREATE_COMMENT_QUERY, variables);
 
       if (response?.errors?.length) {
-        console.error(response.errors[0].message);
-        setFormError("Sorry, something went wrong!");
-        return;
+        throw response.errors[0].message;
       }
 
-      setFormSuccess("Comment submitted!");
-    } catch (e) {
-      setFormError("Sorry, something went wrong!");
+      onPostSuccess(response.data.createComment, startTime);
+    } catch (e: any) {
+      console.error(e.message);
+      onSubmission(null);
       setIsSubmitting(false);
-    } finally {
-      const remaining = minimumSubmissionTime - (getCurrentTime() - startTime);
-      const delay = remaining > 0 ? remaining : 0;
-
-      setTimeout(() => {
-        if (!isMounted.current) return;
-
-        setIsSubmitting(false);
-
-        if (response?.data?.createComment) {
-          newComment(response.data.createComment);
-        }
-
-        onSubmission(response?.data?.createComment);
-      }, delay);
+      setFormError("Sorry, something went wrong!");
     }
   };
 
   return (
     <div className="jc-CommentBox">
-
       {isSubmitting && (
         <div className="jc-CommentBox-loadingDots">
           <LoadingDots />
@@ -100,12 +108,6 @@ export default ({
         <h3 className="jc-CommentBox-heading">
           Leave a {isReply ? "Reply" : "Comment"}
         </h3>
-
-        {/* {isReply &&
-          <span>
-            If email notifications are enabled, both the site owner and comment author will be sent a message about your reply.
-          </span>
-        } */}
 
         {formErrorMessage && <Message>{formErrorMessage}</Message>}
         {formSuccessMessage && (
@@ -137,6 +139,17 @@ export default ({
             </small>
           </label>
 
+          <label className="block jc-Password">
+            Password:
+            <br />
+            <input
+              type="text"
+              name="password"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </label>
+
           {(shouldShowFullForm || forceFormOpen) && (
             <>
               <label className={"jc-CommentBox-label"}>
@@ -150,7 +163,12 @@ export default ({
               </label>
 
               <span className={"jc-CommentBox-buttonWrapper"}>
-                <button className={"jc-CommentBox-button"}>Submit</button>
+                <button
+                  className={"jc-CommentBox-button"}
+                  disabled={isSubmitting}
+                >
+                  Submit
+                </button>
               </span>
             </>
           )}

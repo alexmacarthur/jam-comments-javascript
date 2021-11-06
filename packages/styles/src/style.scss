@@ -6,3 +6,8 @@
 @import './components/message';
 @import './components/shell';
 
+.jc-Password {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
