@@ -1,8 +1,10 @@
 import { QuestClient } from "graphql-quest";
 import { formatFormValues, getCurrentTime, toPrettyDate } from "./utils";
 import { CREATE_COMMENT_QUERY } from "./queries";
+import FocusTimer from "./FocusTimer";
 
 export default function CommentController(shell, platform = "") {
+  const { diff } = FocusTimer(shell.querySelectorAll('input, textarea'));
   const minimumSubmissionTime = 1000;
   const commentCount = shell.querySelector(
     '[data-jam-comments-component="count"]'
@@ -122,7 +124,7 @@ export default function CommentController(shell, platform = "") {
     const form = e.target;
     const box = form.closest('[data-jam-comments-component="box"]');
     const startTime = getCurrentTime();
-    const { content, name, emailAddress } = formatFormValues(form.elements);
+    const { content, name, emailAddress, password } = formatFormValues(form.elements);
     const loadingSvg = box.querySelector(
       "[data-jam-comments-component='loadingDots']"
     );
@@ -132,6 +134,8 @@ export default function CommentController(shell, platform = "") {
       domain: "JAM_COMMENTS_DOMAIN",
       content,
       emailAddress,
+      password,
+      duration: diff(),
       parent: form.dataset.jamCommentsInReplyTo,
       path: shell.dataset.jamCommentsUrl || window.location.pathname,
     };

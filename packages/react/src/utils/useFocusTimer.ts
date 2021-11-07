@@ -1,4 +1,4 @@
-import { useRef, useEffect, Ref } from 'react';
+import { useRef, useEffect } from 'react';
 import { getTimeInMilliseconds } from "@jam-comments/utilities/shared";
 
 const useFocusTimer = (formRef) => {

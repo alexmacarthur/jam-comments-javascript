@@ -29,3 +29,9 @@ test("it should use override env variable when it is set.", () => {
 
   expect(result).toEqual("http://localhost:4000");
 });
+
+test("it should use explicitly provided endpoint", () => {
+  const result = getServiceEndpoint("http://whatever.com");
+
+  expect(result).toEqual("http://whatever.com");
+});

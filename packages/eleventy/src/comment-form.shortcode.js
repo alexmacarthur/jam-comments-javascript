@@ -62,7 +62,9 @@ const commentForm = async function (options, url) {
     apiKey,
     url,
     apiKey,
-    serviceEndpoint: `${getServiceEndpoint()}/graphql`,
+    serviceEndpoint: `${getServiceEndpoint(
+      process.env?.JAM_COMMENTS_SERVICE_ENDPOINT
+    )}/graphql`,
   });
 };
 
