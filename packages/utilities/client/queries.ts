@@ -4,6 +4,7 @@ export const CREATE_COMMENT_QUERY = `
     $path: String!,
     $content: String!,
     $domain: String!,
+    $duration: Int!,
     $parent: ID,
     $emailAddress: String,
     $password: String
@@ -12,6 +13,7 @@ export const CREATE_COMMENT_QUERY = `
       name: $name,
       path: $path,
       content: $content,
+      duration: $duration,
       domain: $domain,
       parent: $parent,
       emailAddress: $emailAddress,

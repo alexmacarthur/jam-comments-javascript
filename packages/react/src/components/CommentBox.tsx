@@ -9,7 +9,6 @@ import { getTimeInMilliseconds } from "@jam-comments/utilities/shared";
 import useFocusTimer from "../utils/useFocusTimer";
 
 const MINIMUM_SUBMISSION_TIME = 1000;
-const MINIMUM_COMPLETION_TIME = 3000;
 
 export default ({
   newComment,
@@ -35,28 +34,11 @@ export default ({
     return remaining > 0 ? remaining : 0;
   };
 
-  const onPostSuccess = (newCommentData, startTime) => {
-    setTimeout(() => {
-      if (!isMounted.current) return;
-
-      setFormSuccess("Comment submitted!");
-      setIsSubmitting(false);
-      newComment(newCommentData);
-      onSubmission(newCommentData);
-    }, postSubmissionTimeRemaining(startTime));
-  };
-
   const submitComment = async (e) => {
     e.preventDefault();
 
     const client = getClient(apiKey, platform);
     const startTime = getTimeInMilliseconds();
-
-    // It might be a friggin' bot!
-    if (diff() < MINIMUM_COMPLETION_TIME) {
-      onPostSuccess(null, startTime);
-      return;
-    }
 
     setFormError("");
     setIsSubmitting(true);
@@ -72,6 +54,7 @@ export default ({
       parent,
       path: window.location.pathname,
       password,
+      duration: diff(),
     };
 
     formRef.current.reset();
@@ -83,7 +66,14 @@ export default ({
         throw response.errors[0].message;
       }
 
-      onPostSuccess(response.data.createComment, startTime);
+      setTimeout(() => {
+        if (!isMounted.current) return;
+
+        setFormSuccess("Comment submitted!");
+        setIsSubmitting(false);
+        newComment(response.data.createComment);
+        onSubmission(response.data.createComment);
+      }, postSubmissionTimeRemaining(startTime));
     } catch (e: any) {
       console.error(e.message);
       onSubmission(null);

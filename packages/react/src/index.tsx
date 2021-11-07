@@ -28,8 +28,6 @@ const JamCommentsReact = ({
   const [comments, setComments] = useState(initialComments);
 
   const newComment = (newComment: Comment) => {
-    if (!newComment) return;
-
     newComment.isPending = true;
 
     setComments(sortComments([newComment, ...comments]));
