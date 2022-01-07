@@ -11,10 +11,6 @@ type CommentProps = {
 
 const Comment = ({ comment, isReply = false }: CommentProps) => {
   const apiContext = useContext(ApiContext) as CommentBoxProps;
-  const formattedContent = useMemo(
-    () => comment.content.replace(/(?:\r\n|\r|\n)/g, "<br/>"),
-    []
-  );
   const { isPending, children } = comment;
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyText, setReplyText] = useState("Reply");
@@ -48,9 +44,10 @@ const Comment = ({ comment, isReply = false }: CommentProps) => {
           ) : null}
         </span>
       </span>
-      <div className={"jc-Comment-content"}>
-        <p dangerouslySetInnerHTML={{ __html: formattedContent }} />
-      </div>
+      <div
+        className={"jc-Comment-content"}
+        dangerouslySetInnerHTML={{ __html: comment.content }}
+      ></div>
 
       <div className={"jc-Comment-actions"}>
         <ul className={"jc-Comment-actionList"}>

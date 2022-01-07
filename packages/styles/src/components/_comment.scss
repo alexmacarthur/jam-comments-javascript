@@ -36,6 +36,10 @@
 
   &-content {
     padding-bottom: 12px;
+
+    > * + * {
+      margin-top: var(--jc-paragraph-spacing);
+    }
   }
 
   &-name {

@@ -3,7 +3,7 @@
     "id": "1",
     "name": "Joanne King",
     "emailAddress": "joanne@example.com",
-    "content": "Sit laudantium dolore ut. Expedita labore et qui facilis soluta esse voluptatem. Consequuntur qui aut maxime culpa. Quo sunt ipsam at quasi nihil modi eius. Ipsa vel quos autem rem doloribus.",
+    "content": "<blockquote>This is some random quote.</blockquote><p>That's good stuff! Thanks for posting.</p>",
     "path": null,
     "createdAt": "1620462061499",
     "status": "approved"

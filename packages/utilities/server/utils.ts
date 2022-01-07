@@ -24,3 +24,22 @@ export const filterByUrl = (comments: any[], urlOrPath: string): any[] => {
     return commentPath === pagePath;
   });
 };
+
+export const makeHtmlReady = (content: string): string => {
+  if (/(^<[a-z]+>)(.*)(<\/[a-z]+>)$/.test(content)) {
+    return content;
+  }
+
+  return content
+    // break into pieces by line break
+    .split(/(?:\r\n|\r|\n)/)
+
+    // remove remaining empty items
+    .filter(text => !!text)
+
+    // trim and wrap in paragraph tags
+    .map(text => `<p>${text.trim()}</p>`)
+
+    // turn it back into a big chunk o' text
+    .join('');
+}

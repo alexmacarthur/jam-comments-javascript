@@ -2,6 +2,7 @@ import { getServiceEndpoint, log } from "../shared";
 import { QuestClient } from "graphql-quest";
 import isDevCheck from "../shared/isDev";
 import dummyComments from "./dummy-comments.json";
+import { makeHtmlReady } from "./utils";
 
 const PER_PAGE = 50;
 const COMMENTS_QUERY = `
@@ -100,6 +101,14 @@ ${JSON.stringify(errors)}`
     });
   }
 
+  _prepareContent(comments: any[]) {
+    return comments.map(c => {
+      c.content = makeHtmlReady(c.content);
+
+      return c;
+    });
+  }
+
   /**
    * Get all the comments until there are no more remaining.
    *
@@ -107,7 +116,7 @@ ${JSON.stringify(errors)}`
    */
   async getAllComments(path = "") {
     if (this.isDev) {
-      return this._prepareDummyComments();
+      return this._prepareContent(this._prepareDummyComments());
     }
 
     let allComments: any[] = [];
@@ -121,7 +130,7 @@ ${JSON.stringify(errors)}`
       allComments = [...allComments, ...freshFetch.comments];
     } while (hasMore);
 
-    return allComments;
+    return this._prepareContent(allComments);
   }
 }
 

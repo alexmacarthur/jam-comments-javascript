@@ -1,4 +1,4 @@
-import { parsePath } from "./utils";
+import { parsePath, makeHtmlReady } from "./utils";
 
 describe("parsePath()", () => {
   it("parses path correctly", () => {
@@ -17,5 +17,21 @@ describe("parsePath()", () => {
     const result = parsePath("https://example.com////howdy/there/pardner////");
 
     expect(result).toEqual("howdy/there/pardner");
+  });
+});
+
+describe("makeHtmlReady()", () => {
+  it("turns line breaks into paragraph tags", () => {
+    const original = "Hello. \n Goodbye.   \n\n Ok!";
+    const result = makeHtmlReady(original);
+
+    expect(result).toEqual("<p>Hello.</p><p>Goodbye.</p><p>Ok!</p>");
+  });
+
+  it("doesn't bother with content already wrapped in HTML", () => {
+    const original = "<strong>More content.</strong><p>Enjoy!</p>";
+    const result = makeHtmlReady(original);
+
+    expect(result).toEqual("<strong>More content.</strong><p>Enjoy!</p>");
   });
 });
