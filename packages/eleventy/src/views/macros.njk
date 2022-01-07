@@ -31,9 +31,7 @@
       </span>
     </span>
     <div class="jc-Comment-content">
-      <p data-jam-comments-component="content">
-        {{comment.content}}
-      </p>
+      {{comment.content | safe}}
     </div>
 
     <div class="jc-Comment-actions">
