@@ -11,8 +11,8 @@ const getServiceEndpoint = (explicitEndpoint = null): string => {
     if(explicitEndpoint) {
         return explicitEndpoint;
     }
-    
-    return process.env.NODE_ENV === "production" ? DEFAULT_SERVICE_ENDPOINT : DEVELOPMENT_SERVICE_ENDPOINT;
+
+    return process.env['NODE_ENV'] === "production" ? DEFAULT_SERVICE_ENDPOINT : DEVELOPMENT_SERVICE_ENDPOINT;
 };
 
 export default getServiceEndpoint;
