@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/react",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "description": "A React component for rendering comments from JamComments.",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@jam-comments/styles": "^0.0.19",
-    "@jam-comments/utilities": "^0.1.14",
+    "@jam-comments/utilities": "^0.1.15",
     "graphql-quest": "^1.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
