@@ -64,12 +64,12 @@ describe("sortComments()", () => {
     expect(result[0].children[0].children[0].children[0].name).toMatch(/pet/);
   });
 
-  it("sibling comments are in descending order.", () => {
+  it("sibling comments are in ascending order.", () => {
     const result = sortComments(comments);
 
     expect(result[0].children[0].children[0].children[0]).toHaveProperty(
       "name",
-      "other pet"
+      "pet"
     );
   });
 });

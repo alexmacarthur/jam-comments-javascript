@@ -14,7 +14,7 @@ const sortComments = (comments): any[] => {
     sortedComments[parentIndex].children = sortedComments[
       parentIndex
     ].children.sort((a, b) => {
-      if (Number(a.id) < Number(b.id)) return 1;
+      if (Number(a.id) > Number(b.id)) return 1;
 
       return -1;
     });
