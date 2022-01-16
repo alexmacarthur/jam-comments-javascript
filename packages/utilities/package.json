@@ -5,10 +5,9 @@
   "main": "dist-client/index.umd.js",
   "types": "dist-client/client/index.d.ts",
   "files": [
-    "client/",
-    "server/",
-    "shared/",
-    "dist/"
+    "dist-client/",
+    "dist-server/",
+    "dist-shared/"
   ],
   "exports": {
     "./client": {
