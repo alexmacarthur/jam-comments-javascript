@@ -8,12 +8,20 @@
   "types": "dist/index.d.ts",
   "exports": {
     "./ui": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.es.js",
       "require": "./dist/index.umd.js"
     },
     "./*": {
       "import": "./gatsby-node.js",
       "require": "./gatsby-node.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "ui": [
+        "./dist/index.d.ts"
+      ]
     }
   },
   "scripts": {
