@@ -1,8 +1,20 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import JamCommentsReact from "@jam-comments/react";
 import styles from "@jam-comments/styles";
 
-const JamComments = ({ pageContext, apiKey, domain }) => {
+interface JamCommentsProps {
+  pageContext: {
+    [key: string]: any;
+  };
+  apiKey: string;
+  domain: string;
+}
+
+const JamComments = ({
+  pageContext,
+  apiKey,
+  domain,
+}: JamCommentsProps): ReactElement => {
   const initialComments =
     pageContext && pageContext.comments ? pageContext.comments : [];
 

@@ -65,6 +65,7 @@
     "@jam-comments/react": "^0.0.38",
     "@jam-comments/styles": "^0.0.19",
     "@types/jest": "^27.0.2",
+    "@types/react": "^17.0.38",
     "babel-loader": "^8.1.0",
     "dotenv": "^8.2.0",
     "install-peers-cli": "^2.2.0",
