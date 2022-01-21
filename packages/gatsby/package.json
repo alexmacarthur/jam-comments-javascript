@@ -5,6 +5,7 @@
   "license": "GPL-2.0",
   "description": "The Gatsby plugin for Jam Comments.",
   "main": "gatsby-node.js",
+  "types": "dist/index.d.ts",
   "exports": {
     "./ui": {
       "import": "./dist/index.es.js",
