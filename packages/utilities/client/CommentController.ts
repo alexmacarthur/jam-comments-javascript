@@ -214,7 +214,7 @@ export default function CommentController(shell, platform = "") {
    * @return {void}
    */
   const appendComment = (commentData) => {
-    const contentKeysToReplace = ["createdAt", "name"];
+    const contentKeysToReplace = ["createdAt", "name", "content"];
     let commentListToAppendTo = commentList;
 
     commentData.createdAt = `${toPrettyDate(commentData.createdAt)} (pending)`;

@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import path from "path";
+import { baseRollupOptions } from "../../shared-build-config";
 
 const SCOPES = {
   client: {
@@ -10,6 +11,7 @@ const SCOPES = {
         fileName: (format) => `index.${format}.js`,
       },
       rollupOptions: {
+        ...baseRollupOptions,
         output: {
           dir: "dist-client",
         },
@@ -25,6 +27,7 @@ const SCOPES = {
         fileName: (format) => `index.${format}.js`,
       },
       rollupOptions: {
+        ...baseRollupOptions,
         output: {
           dir: "dist-server",
         },
@@ -39,6 +42,7 @@ const SCOPES = {
         fileName: (format) => `index.${format}.js`,
       },
       rollupOptions: {
+        ...baseRollupOptions,
         output: {
           dir: "dist-shared",
         },
