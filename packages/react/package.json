@@ -39,8 +39,8 @@
     "@jam-comments/styles": "^0.0.19",
     "@jam-comments/utilities": "^0.1.16",
     "graphql-quest": "^1.0.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
   },
   "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2"
 }
