@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/gatsby",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "The Gatsby plugin for Jam Comments.",
@@ -62,7 +62,7 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
-    "@jam-comments/react": "^0.0.38",
+    "@jam-comments/react": "^0.0.39",
     "@jam-comments/styles": "^0.0.19",
     "@types/jest": "^27.0.2",
     "@types/react": "^17.0.38",
