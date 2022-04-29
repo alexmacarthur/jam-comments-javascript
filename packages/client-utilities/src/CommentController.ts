@@ -21,7 +21,7 @@ export default function CommentController(shell, platform = "") {
   const replyButtons = shell.querySelectorAll(
     '[data-jam-comments-component="replyButton"]'
   );
-  const client = new QuestClient({
+  const client = QuestClient({
     endpoint: shell.dataset.jamCommentsServiceEndpoint,
     headers: {
       "x-api-key": shell.dataset.jamCommentsKey,

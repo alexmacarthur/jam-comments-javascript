@@ -1,0 +1,39 @@
+{
+  "name": "@jam-comments/client-utilities",
+  "version": "0.0.1",
+  "description": "Various JavaScript utilities for JamComments.",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "watch": "npm run build -- --watch",
+    "build": "vite build && tsc",
+    "test": "jest --config ./jest.config.js",
+    "prettify": "prettier ./**/*.{js,md,ts} --write"
+  },
+  "keywords": [],
+  "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
+  "homepage": "https://jamcomments.com",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "@jam-comments/shared-utilities": "^0.0.1",
+    "graphql-quest": "^1.1.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.4",
+    "jest": "^27.2.1",
+    "jest-cli": "^27.2.1",
+    "prettier": "^2.2.1",
+    "ts-jest": "^27.0.5",
+    "vite": "^2.6.10"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

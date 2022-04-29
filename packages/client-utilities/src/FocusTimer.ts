@@ -1,4 +1,4 @@
-import { getTimeInMilliseconds } from "../shared";
+import { getTimeInMilliseconds } from "@jam-comments/shared-utilities";
 
 interface FocusTimerReturn {
     diff: () => null | number
