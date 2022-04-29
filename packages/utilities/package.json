@@ -1,10 +1,11 @@
 {
   "name": "@jam-comments/utilities",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist-client/index.umd.js",
-  "types": "dist/types/combined/index.d.ts",
+  "types": "dist-types/combined/index.d.ts",
   "files": [
+    "dist-types/",
     "dist-client/",
     "dist-server/",
     "dist-shared/"
