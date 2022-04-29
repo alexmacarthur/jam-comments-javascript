@@ -6,15 +6,12 @@ export default defineConfig({
   build: {
     target: "node14",
     lib: {
-      entry: path.resolve(__dirname, `server/index.ts`),
+      entry: path.resolve(__dirname, `src/index.ts`),
       name: "JamComments",
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       ...baseRollupOptions,
-      output: {
-        dir: "dist-server",
-      },
     },
   },
 });
