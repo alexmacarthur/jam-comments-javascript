@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Remove old combined types.
+rm -rf ./dist/types/combined
+mkdir ./dist/types/combined
+
+# Join all imports into single file.
+cat ./dist/types/client/index.d.ts ./dist/types/server/index.d.ts ./dist/types/shared/index.d.ts > ./dist/types/combined/index.d.ts
+
+# Remove uneeded index files.
+rm ./dist/types/client/index.d.ts
+rm ./dist/types/shared/index.d.ts
+rm ./dist/types/server/index.d.ts
+
+# Move all type files into same directory.
+mv -v ./dist/types/client/* ./dist/types/combined
+mv -v ./dist/types/shared/* ./dist/types/combined
+mv -v ./dist/types/server/* ./dist/types/combined

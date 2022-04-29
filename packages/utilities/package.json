@@ -1,9 +1,9 @@
 {
   "name": "@jam-comments/utilities",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist-client/index.umd.js",
-  "types": "dist-client/client/index.d.ts",
+  "types": "dist/types/combined/index.d.ts",
   "files": [
     "dist-client/",
     "dist-server/",
@@ -29,10 +29,10 @@
   },
   "scripts": {
     "watch": "concurrently \"npm run build:client -- --watch\" \"npm run build:server -- --watch\" \"npm run build:shared -- --watch\"",
-    "build:client": "BUILD_SCOPE=client vite build && tsc --outDir dist-client",
-    "build:server": "BUILD_SCOPE=server vite build && tsc --outDir dist-server",
-    "build:shared": "BUILD_SCOPE=shared vite build && tsc --outDir dist-shared",
-    "build": "npm run build:client && npm run build:server && npm run build:shared",
+    "build:client": "BUILD_SCOPE=client vite build && tsc",
+    "build:server": "BUILD_SCOPE=server vite build && tsc",
+    "build:shared": "BUILD_SCOPE=shared vite build && tsc",
+    "build": "npm run build:client && npm run build:server && npm run build:shared && sh postbuild",
     "test": "jest --config ./jest.config.js",
     "prettify": "prettier ./**/*.{js,md} --write"
   },
