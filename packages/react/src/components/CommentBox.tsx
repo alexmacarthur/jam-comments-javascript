@@ -4,8 +4,8 @@ import formInputsToValues from "../utils/formInputsToValues";
 import LoadingDots from "./LoadingDots";
 import useIsMounted from "../utils/useIsMounted";
 import getClient from "../getClient";
-import { CREATE_COMMENT_QUERY } from "@jam-comments/utilities/client";
-import { getTimeInMilliseconds } from "@jam-comments/utilities/shared";
+import { CREATE_COMMENT_QUERY } from "@jam-comments/client-utilities";
+import { getTimeInMilliseconds } from "@jam-comments/shared-utilities";
 import useFocusTimer from "../utils/useFocusTimer";
 
 const MINIMUM_SUBMISSION_TIME = 1000;

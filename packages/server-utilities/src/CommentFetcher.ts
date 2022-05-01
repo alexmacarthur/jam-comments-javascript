@@ -1,8 +1,8 @@
 import {
   getServiceEndpoint,
-  log,
   isDev as isDevCheck,
 } from "@jam-comments/shared-utilities";
+import log from "./log";
 import { QuestClient } from "graphql-quest";
 import dummyComments from "./dummy-comments.json";
 import { makeHtmlReady } from "./utils";

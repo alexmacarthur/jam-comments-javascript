@@ -1,13 +1,14 @@
 import * as React from "react";
 import JamCommentsReact from "@jam-comments/react";
-import { CommentFetcher } from "@jam-comments/utilities/server";
+import { CommentFetcher } from "@jam-comments/server-utilities";
 import styles from "@jam-comments/styles";
 
 export const JamComments = ({ comments, apiKey, domain }) => {
-  
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: styles.replace(/\n|\r/g, "")}}></style>
+      <style
+        dangerouslySetInnerHTML={{ __html: styles.replace(/\n|\r/g, "") }}
+      ></style>
 
       <JamCommentsReact
         platform={"next"}

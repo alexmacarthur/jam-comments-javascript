@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/client-utilities",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -11,7 +11,7 @@
   "scripts": {
     "watch": "npm run build -- --watch",
     "build": "vite build && tsc",
-    "test": "jest --config ./jest.config.js",
+    "test": "echo 'no tests'",
     "prettify": "prettier ./**/*.{js,md,ts} --write"
   },
   "keywords": [],

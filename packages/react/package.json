@@ -35,10 +35,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "dependencies": {
+    "@jam-comments/client-utilities": "^0.0.1",
+    "@jam-comments/shared-utilities": "^0.0.1",
     "@jam-comments/styles": "^0.0.19",
-    "@jam-comments/utilities": "^0.1.16",
-    "graphql-quest": "^1.0.2",
+    "graphql-quest": "^1.1.2",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0"
   },

@@ -1,9 +1,10 @@
 require("isomorphic-fetch");
-const { log, isDev } = require("@jam-comments/utilities/shared");
+const { isDev } = require("@jam-comments/shared-utilities");
 const {
+  log,
   CommentFetcher,
   filterByUrl,
-} = require("@jam-comments/utilities/server");
+} = require("@jam-comments/server-utilities");
 
 exports.sourceNodes = async (
   { actions, cache, createContentDigest },

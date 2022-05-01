@@ -54,16 +54,17 @@
   },
   "homepage": "https://jamcomments.com",
   "dependencies": {
-    "@jam-comments/utilities": "^0.1.16",
-    "graphql-quest": "^1.0.2",
+    "@jam-comments/react": "^0.0.39",
+    "@jam-comments/server-utilities": "^0.0.1",
+    "@jam-comments/shared-utilities": "^0.0.1",
+    "@jam-comments/styles": "^0.0.19",
+    "graphql-quest": "^1.1.2",
     "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
-    "@jam-comments/react": "^0.0.39",
-    "@jam-comments/styles": "^0.0.19",
     "@types/jest": "^27.0.2",
     "@types/react": "^17.0.38",
     "babel-loader": "^8.1.0",

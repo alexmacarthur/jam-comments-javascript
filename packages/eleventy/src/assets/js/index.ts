@@ -1,5 +1,5 @@
-import "@jam-comments/styles";
-import { CommentController } from "@jam-comments/utilities/client";
+import "@jam-comments/styles/dist/index.css";
+import { CommentController } from "@jam-comments/client-utilities";
 
 // Initialize each comment form found on the page. This
 // should only ever be one, but you can never know.

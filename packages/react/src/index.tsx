@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ApiContext from "./apiContext";
 import CommentBox from "./components/CommentBox";
 import CommentList from "./components/CommentList";
-import { sortComments } from "@jam-comments/utilities/shared";
+import { sortComments } from "@jam-comments/shared-utilities";
 
 const validateApiKeyAndDomain = (values) => {
   Object.entries(values).forEach(([key, value]) => {
