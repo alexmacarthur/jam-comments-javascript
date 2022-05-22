@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/next",
-  "version": "0.0.36",
+  "version": "0.1.0",
   "description": "A library for integrating JamComments into a Next.js application.",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -40,7 +40,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/react": "^0.0.39",
+    "@jam-comments/react": "^0.1.0",
     "@jam-comments/server-utilities": "^0.0.1",
     "@jam-comments/styles": "^0.0.19",
     "graphql-quest": "^1.0.4"
