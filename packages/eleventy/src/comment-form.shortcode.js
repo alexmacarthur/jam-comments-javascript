@@ -16,7 +16,6 @@ const {
 const {
   getServiceEndpoint,
   countComments,
-  isDev,
 } = require("@jam-comments/shared-utilities");
 const env = nunjucks.configure(path.join(__dirname, "views"), {
   noCache: true,
@@ -53,8 +52,7 @@ const commentForm = async function (options, url) {
   });
 
   return env.render("index.njk", {
-    comments: isDev() ? comments : filteredComments,
-    // comments: filteredComments,
+    comments: filteredComments,
     css,
     js,
     loadingSvg,
