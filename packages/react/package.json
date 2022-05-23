@@ -8,7 +8,8 @@
   "scripts": {
     "build": "vite build && tsc",
     "watch": "vite build --watch",
-    "start": "vite serve examples"
+    "start": "vite serve examples",
+    "prepare": "npm run build"
   },
   "files": [
     "src",

@@ -7,7 +7,8 @@
     "compile": "sass src/style.scss dist/index.css",
     "minify": "postcss dist/index.css > dist/index.min.css",
     "build": "npm run compile && npm run minify",
-    "watch": "sass src/style.scss dist/index.css --watch"
+    "watch": "sass src/style.scss dist/index.css --watch",
+    "prepare": "npm run build"
   },
   "files": [
     "index.js",

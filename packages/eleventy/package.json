@@ -9,7 +9,8 @@
   "homepage": "https://jamcomments.com",
   "scripts": {
     "watch": "NODE_ENV=development JAM_COMMENTS_SERVICE_ENDPOINT=http://localhost:4000 vite build --watch",
-    "build": "vite build && tsc"
+    "build": "vite build && tsc",
+    "prepare": "npm run build"
   },
   "files": [
     ".eleventy.js",

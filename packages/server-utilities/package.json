@@ -16,7 +16,8 @@
     "watch": "npm run build -- --watch",
     "build": "vite build && tsc",
     "test": "jest --config ./jest.config.js",
-    "prettify": "prettier ./**/*.{js,md,ts} --write"
+    "prettify": "prettier ./**/*.{js,md,ts} --write",
+    "prepare": "npm run build"
   },
   "keywords": [],
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",

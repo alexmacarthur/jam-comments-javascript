@@ -28,7 +28,8 @@
     "watch": "vite build --watch",
     "build": "vite build && tsc",
     "prettier": "prettier --write \"**/*.{md,js}\"",
-    "install-peers": "install-peers -f"
+    "install-peers": "install-peers -f",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
