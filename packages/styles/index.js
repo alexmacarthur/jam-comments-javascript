@@ -1,3 +1,3 @@
-import styles from "./dist/index.css";
+import styles from "./dist/index.min.css";
 
 export default styles;

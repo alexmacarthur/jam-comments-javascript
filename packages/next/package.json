@@ -42,7 +42,7 @@
   "dependencies": {
     "@jam-comments/react": "^0.1.0",
     "@jam-comments/server-utilities": "^0.0.2",
-    "@jam-comments/styles": "^0.0.22",
+    "@jam-comments/styles": "^0.0.23",
     "graphql-quest": "^1.1.2"
   },
   "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2"

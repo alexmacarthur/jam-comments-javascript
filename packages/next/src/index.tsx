@@ -6,9 +6,7 @@ import styles from "@jam-comments/styles";
 export const JamComments = ({ comments, apiKey, domain }) => {
   return (
     <>
-      <style
-        dangerouslySetInnerHTML={{ __html: styles.replace(/\n|\r/g, "") }}
-      ></style>
+      <style dangerouslySetInnerHTML={{ __html: styles }}></style>
 
       <JamCommentsReact
         platform={"next"}
