@@ -27,10 +27,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/client-utilities": "^0.0.1",
-    "@jam-comments/server-utilities": "^0.0.1",
-    "@jam-comments/shared-utilities": "^0.0.1",
-    "@jam-comments/styles": "^0.0.19",
+    "@jam-comments/client-utilities": "^0.0.4",
+    "@jam-comments/server-utilities": "^0.0.4",
+    "@jam-comments/shared-utilities": "^0.0.4",
+    "@jam-comments/styles": "^0.0.24",
     "isomorphic-fetch": "^3.0.0",
     "nunjucks": "^3.2.3"
   },
