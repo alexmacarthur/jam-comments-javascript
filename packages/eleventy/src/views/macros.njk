@@ -3,6 +3,7 @@
     class="jc-Comment" 
     data-jam-comments-component="comment"
     data-jam-comments-id="{{comment.id}}"
+    id="comment-{{comment.id}}"
   >
     <span class="jc-Comment-details">
       <h6 class="jc-Comment-name" data-jam-comments-component="name">
@@ -10,7 +11,6 @@
       </h6>
       <span class="jc-Comment-meta">
         <a
-          id="comment-{{comment.id}}"
           class="jc-Comment-anchor"
           href="#comment-{{comment.id}}"
           aria-label="comment anchor link"
