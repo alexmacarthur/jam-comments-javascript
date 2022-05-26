@@ -14,6 +14,7 @@ const Comment = ({ comment, isReply = false }: CommentProps) => {
   const { isPending, children } = comment;
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyText, setReplyText] = useState("Reply");
+  const commentId = `comment-${comment.id}`;
 
   const toggleReply = () => {
     setReplyText(showReplyForm ? "Reply" : "Cancel Reply");
@@ -21,14 +22,14 @@ const Comment = ({ comment, isReply = false }: CommentProps) => {
   };
 
   return (
-    <div className={"jc-Comment"} data-comment-id={comment.id}>
+    <div className={"jc-Comment"} data-comment-id={comment.id} id={commentId}>
       <span className={"jc-Comment-details"}>
         <h6 className={"jc-Comment-name"}>{comment.name}</h6>
 
         <span className="jc-Comment-meta">
           <a
             className={"jc-Comment-anchor"}
-            href={`#comment-${comment.id}`}
+            href={`#${commentId}`}
             aria-label="comment anchor link"
           >
             <time
