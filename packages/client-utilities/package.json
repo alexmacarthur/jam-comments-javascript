@@ -9,6 +9,7 @@
     "dist/"
   ],
   "scripts": {
+    "start": "vite",
     "watch": "npm run build -- --watch",
     "build": "vite build && tsc",
     "test": "echo 'No tests yet...'",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-typescript": "^7.15.0",
+    "@jam-comments/styles": "^0.0.24",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.4",
     "jest": "^27.2.1",
