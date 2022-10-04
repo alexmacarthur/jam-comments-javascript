@@ -1,12 +1,13 @@
-import { QuestClient } from "graphql-quest";
 import { formatFormValues, getCurrentTime, toPrettyDate } from "./utils";
-import { CREATE_COMMENT_QUERY } from "./queries";
 import FocusTimer from "./FocusTimer";
 import DataSelector from "./DataSelector";
+import CommentRequest from "./CommentRequest";
+import { Comment } from "./types";
 
 declare global {
   interface Element {
-    all: () => NodeListOf<HTMLElement>, 
+    style: any, 
+    innerText: any
   }
 }
 
@@ -24,13 +25,13 @@ export default function CommentController({ root, platform}: ControllerParams) {
   const message = select("message");
   const primaryCommentBox = select("commentBox");
   const replyButtons = selectAll("replyButton");
-  const client = QuestClient({
-    endpoint: root.dataset.jamCommentsServiceEndpoint,
-    headers: {
-      "x-api-key": root.dataset.jamCommentsKey,
-      "x-platform": platform,
-    },
-  });
+  const request = CommentRequest({
+    endpoint: root.dataset.jamCommentsServiceEndpoint, 
+    apiKey: root.dataset.jamCommentsKey, 
+    platform, 
+    path: root.dataset.jamCommentsUrl || window.location.pathname, 
+    domain: root.dataset.jamCommentsDomain
+});
 
   /**
    * Create a fresh clone of the primary comment box for use in a reply.
@@ -53,8 +54,7 @@ export default function CommentController({ root, platform}: ControllerParams) {
     ) as HTMLElement;
     const commentId = comment.dataset.jamCommentsId;
     const replyBox = select("replyBox", comment);
-    console.log(comment, replyBox);
-    const existingReplyBox = select("commentBox", replyBox);
+    const existingReplyBox = select("commentBox", replyBox as HTMLElement);
 
     if (existingReplyBox) {
       replyButton.textContent = "Reply";
@@ -103,46 +103,44 @@ export default function CommentController({ root, platform}: ControllerParams) {
   /**
    * In response to a submission click event, submit a new comment to the service.
    */
-  const submitComment = (e) => {
+  const submitComment = async (e) => {
+    hideError();
     e.preventDefault();
 
     const form = e.target;
     const box = form.closest('[data-jam-comments-component="box"]');
     const startTime = getCurrentTime();
-    const { content, name, emailAddress, password } = formatFormValues(form.elements);
+    const { content, name, email_address, password } = formatFormValues(form.elements);
     const loadingSvg = select("loadingDots", box);
 
-    const variables = {
-      name,
-      domain: "JAM_COMMENTS_DOMAIN",
-      content,
-      emailAddress,
-      password,
-      duration: diff(),
-      parent: form.dataset.jamCommentsInReplyTo,
-      path: root.dataset.jamCommentsUrl || window.location.pathname,
-    };
+    try {
+      const { data } = await request.post({
+        name, 
+        email_address,
+        content, 
+        // diff: diff(),
+        // "parent_comment_id": 253,
+      });
 
-    // Show the loading dots.
-    loadingSvg.style.display = "";
-
-    client.send(CREATE_COMMENT_QUERY, variables).then((result) => {
+      // Show the loading dots.
+      loadingSvg.style.display = "";
+  
       const remaining = minimumSubmissionTime - (getCurrentTime() - startTime);
       const delay = remaining > 0 ? remaining : 0;
 
-      if (result.errors || !result.data) {
-        loadingSvg.style.display = "none";
-        return showError();
-      }
-
       setTimeout(() => {
         loadingSvg.style.display = "none";
-        appendComment(result.data.createComment);
+        appendComment(data);
         cleanUpReplyBoxes(form);
         bumpCount();
         form.reset();
       }, delay);
-    });
+    } catch(e) {
+      console.error(e);
+      loadingSvg.style.display = "none";
+      return showError((e as Error).message);
+    }
+
   };
 
   /**
@@ -175,23 +173,29 @@ export default function CommentController({ root, platform}: ControllerParams) {
    *
    * @return {void}
    */
-  const showError = () => {
+  const showError = (messageText = "Oh no! Something went wrong while trying to submit that comment.") => {
     message.style.display = "";
-    (message.firstElementChild as HTMLElement).innerText =
-      "Oh no! Something went wrong while trying to submit that comment.";
+    (message.firstElementChild as HTMLElement).innerText = messageText;
   };
+
+  /**
+   * Hide the error message. 
+   * 
+   * @returns {void}
+   */
+  const hideError = () => message.style.display = "none";
 
   /**
    * Clone list item and attach to list of comments with latest comment data.
    */
-  const appendComment = (commentData) => {
+  const appendComment = (commentData: Comment) => {
     const contentKeysToReplace = ["createdAt", "name", "content"];
     let commentListToAppendTo = commentList;
 
-    commentData.createdAt = `${toPrettyDate(commentData.createdAt)} (pending)`;
+    commentData.created_at = `${toPrettyDate(commentData.created_at)} (pending)`;
 
     const { id } = commentData;
-    const parentId = commentData.parent?.id;
+    const parentId = commentData.parent_comment_id;
     const clonedItem = commentList.querySelector("li").cloneNode(true) as HTMLElement;
 
     // Set the text content for each element piece.
