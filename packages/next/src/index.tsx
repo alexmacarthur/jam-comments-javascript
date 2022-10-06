@@ -1,30 +1,31 @@
 import * as React from "react";
-import JamCommentsReact from "@jam-comments/react";
-import { CommentFetcher } from "@jam-comments/server-utilities";
-import styles from "@jam-comments/styles";
 
-export const JamComments = ({ comments, apiKey, domain }) => {
-  return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: styles }}></style>
+interface IFetchData {
+  path: string, 
+  domain: string, 
+  apiKey: string
+}
 
-      <JamCommentsReact
-        platform={"next"}
-        initialComments={comments}
-        apiKey={apiKey}
-        domain={domain}
-      />
-    </>
-  );
-};
+export const JamComments = ({ markup }) => <div dangerouslySetInnerHTML={{__html: markup}}></div>
 
-export const fetchByPath = async ({ apiKey, domain, path }) => {
-  const fetcher = new CommentFetcher({
-    domain,
-    apiKey,
+export const fetchData = async ({
+  path, 
+  domain, 
+  apiKey
+}: IFetchData): Promise<string> => {
+  const params = new URLSearchParams({
+    path, 
+    domain, 
+    force_embed: '1'
+  })
+  
+  const response = await fetch(`http://localhost/api/markup?${params}`, {
+    method: 'GET', 
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      Accept: 'application/json'
+    }
   });
 
-  const comments = await fetcher.getAllComments(path);
-
-  return comments;
-};
+  return await response.text();
+}
