@@ -1,4 +1,3 @@
-import CommentController from "./CommentController";
-import { CREATE_COMMENT_QUERY } from "./queries";
+import { markupFetcher } from "./markupFetcher";
 
-export { CommentController, CREATE_COMMENT_QUERY };
+export { markupFetcher };
