@@ -1,7 +1,9 @@
 import chalk from "chalk";
 
-const log = (message):void => {
+export const log = (message: string): void => {
   console.log(`${chalk.magenta("JamComments:")} ${message}`);
 };
 
-export default log;
+export const logError = (message: string): void => {
+  console.error(`JamComments: ${message}`);
+}

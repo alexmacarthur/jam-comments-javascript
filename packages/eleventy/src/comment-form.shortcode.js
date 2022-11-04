@@ -1,68 +1,34 @@
-const path = require("path");
-const nunjucks = require("nunjucks");
-const {
-  toIsoString,
-  toPrettyDate,
-  getCompiledAsset,
-  getFileContents,
-  setEnvironmentVariables,
-} = require("./utils");
-
 require("isomorphic-fetch");
 const {
-  CommentFetcher,
-  filterByUrl,
+  logError,
+  markupFetcher,
 } = require("@jam-comments/server-utilities");
-const {
-  getServiceEndpoint,
-  countComments,
-} = require("@jam-comments/shared-utilities");
-const env = nunjucks.configure(path.join(__dirname, "views"), {
-  noCache: true,
-});
+
+const fetchMarkup = markupFetcher("eleventy");
+
+const fetchCommentData = async ({ path, domain, apiKey }) => {
+  try {
+    return await fetchMarkup({
+      path, domain, apiKey, embedScript: true
+    });
+  } catch(e) {
+    logError(e);
+    return null;
+  }
+}
 
 /**
  * Render the comment form.
  *
  * @param {object} options
  */
-const commentForm = async function (options, url) {
-  const fetcher = new CommentFetcher(options);
-  const comments = await fetcher.getAllComments();
-  const filteredComments = filterByUrl(comments, url);
+const commentForm = function (options, path) {
   const { domain, apiKey } = options;
-  const loadingSvg = getFileContents(`assets/img/loading.svg`);
-  const css = getCompiledAsset("style.css");
-  const js = setEnvironmentVariables(
-    getCompiledAsset("index.umd.js"),
+
+  return fetchCommentData({
+    path, 
     domain,
     apiKey
-  );
-
-  env.addFilter("iso", (time) => {
-    return toIsoString(time);
-  });
-
-  env.addFilter("prettyDate", (time) => {
-    return toPrettyDate(time);
-  });
-
-  env.addFilter("countComments", (comments) => {
-    return countComments(comments);
-  });
-
-  return env.render("index.njk", {
-    comments: filteredComments,
-    css,
-    js,
-    loadingSvg,
-    domain,
-    apiKey,
-    url,
-    apiKey,
-    serviceEndpoint: `${getServiceEndpoint(
-      process.env?.JAM_COMMENTS_SERVICE_ENDPOINT
-    )}/graphql`,
   });
 };
 

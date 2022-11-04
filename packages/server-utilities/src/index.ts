@@ -1,3 +1,4 @@
-export { default as log } from "./log";
-export { default as CommentFetcher } from './CommentFetcher';
-export * from './utils';
+import { markupFetcher } from "./markupFetcher";
+
+export { log, logError } from "./log";
+export { markupFetcher };

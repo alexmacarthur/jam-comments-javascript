@@ -1,37 +1,24 @@
-import React, { ReactElement } from "react";
-import JamCommentsReact from "@jam-comments/react";
-import styles from "@jam-comments/styles";
+import React, { ReactElement, useEffect, useRef } from "react";
+import { initialize } from "@jam-comments/client"
 
 interface JamCommentsProps {
   pageContext: {
     [key: string]: any;
-  };
-  apiKey: string;
-  domain: string;
+  }
 }
 
-const JamComments = ({
-  pageContext,
-  apiKey,
-  domain,
-}: JamCommentsProps): ReactElement => {
-  const initialComments =
-    pageContext && pageContext.comments ? pageContext.comments : [];
+const JamComments = ({ pageContext }: JamCommentsProps): ReactElement => {
+  const { markup } = pageContext.jamComments;
+  const rootRef = useRef(null);
 
-  return (
-    <>
-      <style
-        dangerouslySetInnerHTML={{ __html: styles.replace(/\n|\r/g, "") }}
-      ></style>
+  useEffect(() => {
+    if(!rootRef.current) return;
 
-      <JamCommentsReact
-        platform={"gatsby"}
-        initialComments={initialComments}
-        apiKey={apiKey}
-        domain={domain}
-      />
-    </>
-  );
+    initialize(rootRef.current.querySelector('.jc-Shell'));
+
+  }, [rootRef.current]);
+
+  return <div ref={rootRef} dangerouslySetInnerHTML={{__html: markup }}></div>
 };
 
 export default JamComments;

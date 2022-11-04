@@ -1,30 +1,18 @@
 import * as React from "react";
-import JamCommentsReact from "@jam-comments/react";
-import { CommentFetcher } from "@jam-comments/server-utilities";
-import styles from "@jam-comments/styles";
+import { useEffect } from "react";
+import { initialize } from "@jam-comments/client";
+import { markupFetcher } from "@jam-comments/server-utilities";
 
-export const JamComments = ({ comments, apiKey, domain }) => {
-  return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: styles }}></style>
+export const JamComments = ({ markup }) => {
+    const rootRef = React.useRef(null);
+    
+    useEffect(() => {
+        if(!rootRef.current) return;
 
-      <JamCommentsReact
-        platform={"next"}
-        initialComments={comments}
-        apiKey={apiKey}
-        domain={domain}
-      />
-    </>
-  );
-};
+        initialize(rootRef.current.querySelector('.jc-Shell'));
+    }, [rootRef.current]);
 
-export const fetchByPath = async ({ apiKey, domain, path }) => {
-  const fetcher = new CommentFetcher({
-    domain,
-    apiKey,
-  });
+  return <div ref={rootRef} dangerouslySetInnerHTML={{__html: markup }}></div>
+}
 
-  const comments = await fetcher.getAllComments(path);
-
-  return comments;
-};
+export const fetchMarkup = markupFetcher("next");

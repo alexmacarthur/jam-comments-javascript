@@ -1,65 +1,37 @@
 require("isomorphic-fetch");
-const { isDev } = require("@jam-comments/shared-utilities");
 const {
-  log,
-  CommentFetcher,
-  filterByUrl,
+  logError,
+  markupFetcher
 } = require("@jam-comments/server-utilities");
 
-exports.sourceNodes = async (
-  { actions, cache, createContentDigest },
-  configOptions
-) => {
-  const { api_key: apiKey, domain } = configOptions;
-  const { createNode } = actions;
+const fetchMarkup = markupFetcher("gatsby");
+const JAM_COMMENTS_CONFIG = {};
 
-  const fetcher = new CommentFetcher({ domain, apiKey });
-  const comments = await fetcher.getAllComments();
+exports.onPreInit = (_, pluginOptions) => {
+  JAM_COMMENTS_CONFIG.apiKey = pluginOptions.apiKey;
+  JAM_COMMENTS_CONFIG.domain = pluginOptions.domain;
+}
 
-  log(`Fetched a total of ${comments.length} comments.`);
-
-  for (let comment of comments) {
-    const nodeData = Object.assign(
-      { ...comment },
-      {
-        id: comment.id,
-        parent: null,
-        children: [],
-        internal: {
-          type: `JamComment`,
-          mediaType: "text/plain",
-          contentDigest: createContentDigest(comment.content),
-        },
-      }
-    );
-
-    createNode(nodeData);
+const fetchCommentData = async (pagePath) => {
+  try {
+    return await fetchMarkup({
+      path: pagePath, 
+      domain: JAM_COMMENTS_CONFIG.domain,
+      apiKey: JAM_COMMENTS_CONFIG.apiKey 
+    });
+  } catch(e) {
+    logError(e);
+    return null;
   }
-
-  await cache.set("jamComments", comments);
-};
+}
 
 /**
  * When each page is created, attach any of its comments to page context.
  */
-exports.onCreatePage = async ({ page, actions, cache }) => {
+exports.onCreatePage = async ({ page, actions }) => {
   const { createPage, deletePage } = actions;
-  const cachedComments = await cache.get("jamComments");
-
-  // Nothing in the cache! Don't bother.
-  if (!cachedComments) {
-    return;
-  }
-
-  // We're dealing with "dummy" comments, so just let them go.
-  const comments = isDev()
-    ? cachedComments
-    : filterByUrl(cachedComments, page.path);
-
-  // No comments for this post were found. We're done.
-  if (!comments.length) {
-    return;
-  }
+  const pagePath = page.path.replace(/\/+$/, '') || "";
+  const markup = await fetchCommentData(pagePath);
 
   deletePage(page);
 
@@ -67,7 +39,9 @@ exports.onCreatePage = async ({ page, actions, cache }) => {
     ...page,
     context: {
       ...page.context,
-      comments,
+      jamComments: {
+        markup
+      }
     },
   });
 };

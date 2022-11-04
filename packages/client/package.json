@@ -1,6 +1,6 @@
 {
-  "name": "@jam-comments/server-utilities",
-  "version": "1.0.0",
+  "name": "@jam-comments/client",
+  "version": "0.0.1",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -8,14 +8,10 @@
   "files": [
     "dist/"
   ],
-  "exports": {
-    "import": "./dist/index.es.js",
-    "require": "./dist/index.umd.js"
-  },
   "scripts": {
     "watch": "npm run build -- --watch",
     "build": "vite build && tsc",
-    "test": "echo 'No tests here...'",
+    "test": "echo 'No tests yet...'",
     "prettify": "prettier ./**/*.{js,md,ts} --write",
     "prepare": "npm run build"
   },
@@ -25,16 +21,13 @@
   "license": "GPL-2.0",
   "dependencies": {
     "@jam-comments/shared-utilities": "^0.0.1",
-    "graphql-quest": "^1.1.2",
-    "typescript": "^4.6.4",
-    "url-parse": "^1.5.3"
+    "graphql-quest": "^1.1.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-typescript": "^7.15.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.4",
-    "concurrently": "^6.3.0",
     "jest": "^27.2.1",
     "jest-cli": "^27.2.1",
     "prettier": "^2.2.1",
