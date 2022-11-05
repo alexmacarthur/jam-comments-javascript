@@ -38,11 +38,11 @@ export const markupFetcher = (platform: string): Function => {
         });
 
         if(response.status === 401) {
-            throw `Unauthorized! Are your domain and API key set correctly?`;
+            throw `JamComments: Unauthorized! Are your domain and API key set correctly?`;
         }
 
         if(!response.ok) {
-            throw `Request failed! Status code: ${response.status}, message: ${response.statusText}`;
+            throw `JamComments request failed! Status code: ${response.status}, message: ${response.statusText}`;
         }
 
         return await response.text();
