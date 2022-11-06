@@ -8,6 +8,7 @@ export const JamComments = ({ markup }) => {
     
     useEffect(() => {
         if(!rootRef.current) return;
+        console.log("Initializing JamComments...", rootRef.current.querySelector('.jc-Shell'));
 
         initialize(rootRef.current.querySelector('.jc-Shell'));
     }, [rootRef.current]);
