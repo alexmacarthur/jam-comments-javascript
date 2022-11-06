@@ -24,8 +24,7 @@ export const markupFetcher = (platform: string): Function => {
         const params = new URLSearchParams({
             path,
             domain, 
-            force_embed: '1', 
-            embed_script: embedScript ? '1' : '0'
+            forced_embed_js: embedScript ? '1' : '0'
         });
 
         const response = await fetch(`${getBaseUrl()}/api/markup?${params}`, {

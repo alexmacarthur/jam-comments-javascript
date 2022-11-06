@@ -15,7 +15,6 @@ const JamComments = ({ pageContext }: JamCommentsProps): ReactElement => {
     if(!rootRef.current) return;
 
     initialize(rootRef.current.querySelector('.jc-Shell'));
-
   }, [rootRef.current]);
 
   return <div ref={rootRef} dangerouslySetInnerHTML={{__html: markup }}></div>
