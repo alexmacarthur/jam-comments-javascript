@@ -103,7 +103,7 @@ export default function CommentController({ root }: ControllerParams) {
      * In response to a submission click event, submit a new comment to the service.
      */
     const submitComment = async (e) => {
-        hideError();
+        hideMessage();
         e.preventDefault();
 
         const form = e.target;
@@ -137,6 +137,7 @@ export default function CommentController({ root }: ControllerParams) {
                 cleanUpReplyBoxes(form);
                 bumpCount();
                 form.reset();
+                showSuccess("Comment successfully submitted!");
             }, delay);
         } catch (e) {
             console.error(e);
@@ -180,22 +181,37 @@ export default function CommentController({ root }: ControllerParams) {
     const showError = (
         messageText = "Oh no! Something went wrong while trying to submit that comment."
     ) => {
+        message.classList.remove("jc-Message--success");
+        message.classList.add("jc-Message--error");
         message.style.display = "";
         (message.firstElementChild as HTMLElement).innerText = messageText;
     };
+
+    /**
+     * Display a generic success message.
+     *
+     * @return {void}
+     */
+    const showSuccess = (messageText: string) => {
+        message.classList.remove("jc-Message--error");
+        message.classList.add("jc-Message--success");
+        message.style.display = "";
+        (message.firstElementChild as HTMLElement).innerText = messageText;
+    };
+    
 
     /**
      * Hide the error message.
      *
      * @returns {void}
      */
-    const hideError = () => (message.style.display = "none");
+    const hideMessage = () => (message.style.display = "none");
 
     /**
      * Clone list item and attach to list of comments with latest comment data.
      */
     const appendComment = (commentData: Comment) => {
-        const contentKeysToReplace = ["createdAt", "name", "content"];
+        const contentKeysToReplace = ["created_at", "name", "content"];
         let commentListToAppendTo = commentList;
 
         commentData.created_at = `${toPrettyDate(
