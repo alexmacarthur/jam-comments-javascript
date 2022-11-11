@@ -198,7 +198,7 @@ export default function CommentController({ root }: ControllerParams) {
         message.style.display = "";
         (message.firstElementChild as HTMLElement).innerText = messageText;
     };
-    
+
 
     /**
      * Hide the error message.
