@@ -56,22 +56,19 @@
   "homepage": "https://jamcomments.com",
   "dependencies": {
     "@jam-comments/client": "^1.0.2",
-    "@jam-comments/server-utilities": "^0.0.2",
+    "@jam-comments/server-utilities": "^1.0.2",
     "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/preset-react": "^7.9.4",
-    "@types/jest": "^27.0.2",
-    "@types/react": "^17.0.38",
-    "babel-loader": "^8.1.0",
-    "dotenv": "^8.2.0",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
+    "dotenv": "^16.0.3",
     "install-peers-cli": "^2.2.0",
-    "lint-staged": "^10.1.7",
-    "prettier": "^1.19.1",
-    "typescript": "^4.4.4",
-    "vite": "^2.6.11"
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "terser": "^5.15.1",
+    "typescript": "^4.9.3",
+    "vite": "^3.2.4"
   },
   "publishConfig": {
     "access": "public"

@@ -1,9 +1,13 @@
 import { defineConfig } from "vite";
 import path from "path";
-import { baseRollupOptions } from "../../shared-build-config";
+import {
+  baseRollupOptions,
+  baseViteBuildOptions,
+} from "../../shared-build-config";
 
 export default defineConfig({
   build: {
+    ...baseViteBuildOptions,
     lib: {
       entry: path.resolve(__dirname, "src/index.tsx"),
       name: "JamComments",

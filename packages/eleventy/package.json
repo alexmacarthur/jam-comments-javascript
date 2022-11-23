@@ -28,8 +28,8 @@
     "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^1.0.1",
-    "prettier": "^2.6.2"
+    "@11ty/eleventy": "^1.0.2",
+    "prettier": "^2.7.1"
   },
   "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2"
 }

@@ -18,16 +18,15 @@ export const markupFetcher = (platform: string): Function => {
     return async ({
         path, 
         domain, 
-        apiKey, 
-        embedScript = false
+        apiKey
     }: IFetchData) => {
         const params = new URLSearchParams({
-            path,
-            domain, 
-            forced_embed_js: embedScript ? '1' : '0'
+            path: path || "/",
+            domain
         });
 
-        const response = await fetch(`${getBaseUrl()}/api/markup?${params}`, {
+        const requestUrl = `${getBaseUrl()}/api/markup?${params}`;
+        const response = await fetch(requestUrl, {
             method: 'GET', 
             headers: {
                 Authorization: `Bearer ${apiKey}`,
@@ -41,7 +40,7 @@ export const markupFetcher = (platform: string): Function => {
         }
 
         if(!response.ok) {
-            throw `JamComments request failed! Status code: ${response.status}, message: ${response.statusText}`;
+            throw `JamComments request failed! Status code: ${response.status}, message: ${response.statusText}, request URL: ${requestUrl}`;
         }
 
         return await response.text();
