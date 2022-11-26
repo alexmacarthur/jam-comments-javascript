@@ -14,7 +14,7 @@ const getBaseUrl = () => {
     return "https://go.jamcomments.com";
 }
 
-export const markupFetcher = (platform: string): Function => {
+export const markupFetcher = (platform: string, fetchImplementation = fetch): Function => {
     return async ({
         path, 
         domain, 
@@ -26,7 +26,7 @@ export const markupFetcher = (platform: string): Function => {
         });
 
         const requestUrl = `${getBaseUrl()}/api/markup?${params}`;
-        const response = await fetch(requestUrl, {
+        const response = await fetchImplementation(requestUrl, {
             method: 'GET', 
             headers: {
                 Authorization: `Bearer ${apiKey}`,

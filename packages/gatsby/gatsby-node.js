@@ -1,7 +1,7 @@
-require("isomorphic-fetch");
+const nodeFetch = require("node-fetch");
 const { logError, markupFetcher } = require("@jam-comments/server-utilities");
 
-const fetchMarkup = markupFetcher("gatsby");
+const fetchMarkup = markupFetcher("gatsby", nodeFetch);
 const JAM_COMMENTS_CONFIG = {};
 
 exports.onPreInit = (_, pluginOptions) => {
@@ -28,8 +28,6 @@ const fetchCommentData = async (pagePath) => {
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage, deletePage } = actions;
   const pagePath = page.path.replace(/\/+$/, "") || "";
-
-  console.log("Page: ", pagePath);
   const markup = await fetchCommentData(pagePath);
 
   deletePage(page);
