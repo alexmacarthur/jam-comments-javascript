@@ -56,7 +56,7 @@
   "homepage": "https://jamcomments.com",
   "dependencies": {
     "@jam-comments/client": "^1.0.3",
-    "@jam-comments/server-utilities": "^1.0.4",
+    "@jam-comments/server-utilities": "^1.0.5",
     "node-fetch": "^2.6.7"
   },
   "devDependencies": {
