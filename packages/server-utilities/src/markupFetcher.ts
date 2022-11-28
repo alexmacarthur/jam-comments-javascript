@@ -6,6 +6,14 @@ interface IFetchData {
   embedScript?: boolean
 }
 
+const isProduction = (): boolean => {
+    if(typeof process === 'undefined') {
+        return false;
+    }
+
+    return process.env?.NODE_ENV === 'production' || process.env?.JAM_COMMENTS_ENV == 'production';
+}
+
 const getBaseUrl = () => {
     if(typeof process !== 'undefined' && process.env?.JAM_COMMENTS_BASE_URL) {
         return process.env['JAM_COMMENTS_BASE_URL'];
@@ -24,6 +32,10 @@ export const markupFetcher = (platform: string, fetchImplementation = fetch): Fu
             path: path || "/",
             domain
         });
+
+        if(!isProduction()) {
+            params.set('stub', 'true');
+        }
 
         const requestUrl = `${getBaseUrl()}/api/markup?${params}`;
         const response = await fetchImplementation(requestUrl, {
