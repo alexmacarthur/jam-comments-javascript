@@ -4,7 +4,6 @@ const JamCommentsMap = new Map();
 
 export const initialize = (root: HTMLElement | Element): typeof CommentController => {
     if(JamCommentsMap.has(root)) {
-        console.log('Already initialized for node:', root);
         return JamCommentsMap.get(root);
     }
 

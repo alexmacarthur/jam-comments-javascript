@@ -1,31 +1,11 @@
 /**
- * Given a timestamp, convert it to a Date object.
- *
- * @param {number} unix
- * @return {Date}
- */
-export const dateFromUnix = (unix) => {
-    return new Date(Number(unix));
-};
-
-/**
- * Convert unix timestamp to ISO string.
- *
- * @param {number} unix
- * @return {string}
- */
-export const toIsoString = (unix) => {
-    return dateFromUnix(unix).toISOString();
-};
-
-/**
  * Convert a Unix timestamp to a nice, pretty format.
  *
  * @param {integer} unix
  * @return {string}
  */
-export const toPrettyDate = (unix) => {
-    let date = dateFromUnix(unix);
+export const toPrettyDate = (isoDate: string) => {
+    let date = new Date(isoDate);
     let hoursOffset = date.getTimezoneOffset() / 60;
     date.setHours(date.getHours() - hoursOffset);
     let dateString = date.toLocaleString("en-US").split(",");
