@@ -14,7 +14,7 @@
     "build": "vite build && tsc",
     "test": "echo 'No tests yet...'",
     "prettify": "prettier ./**/*.{js,md,ts} --write",
-    "prepare": "npm run build"
+    "prepare": "npm install && npm run build"
   },
   "keywords": [],
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
