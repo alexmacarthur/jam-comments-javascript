@@ -29,7 +29,7 @@
     "build": "vite build && tsc",
     "prettier": "prettier --write \"**/*.{md,js}\"",
     "install-peers": "install-peers -f",
-    "prepare": "npm install && npm run build"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
