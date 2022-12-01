@@ -2,7 +2,7 @@ const nodeFetch = require("node-fetch");
 const { logError, markupFetcher } = require("@jam-comments/server-utilities");
 
 const CLIENT_SCRIPT_URL =
-  "https://unpkg.com/@jam-comments/client@1.0.3/dist/index.umd.js";
+  "https://unpkg.com/@jam-comments/client@1.0.4/dist/index.umd.js";
 
 const fetchMarkup = markupFetcher("eleventy", nodeFetch);
 
