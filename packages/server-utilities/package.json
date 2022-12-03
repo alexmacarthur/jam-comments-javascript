@@ -2,21 +2,22 @@
   "name": "@jam-comments/server-utilities",
   "version": "1.0.5",
   "description": "Various JavaScript utilities for JamComments.",
-  "main": "dist/index.umd.js",
-  "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist/"
   ],
   "exports": {
-    "import": "./dist/index.es.js",
-    "require": "./dist/index.umd.js"
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.js"
   },
   "scripts": {
     "watch": "npm run build -- --watch",
-    "build": "vite build && tsc",
-    "test": "echo 'No tests here...'",
-    "prettify": "prettier ./**/*.{js,md,ts} --write",
+    "build": "rm -rf dist && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --module es2020 --outDir dist/esm",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "test": "vitest run src",
     "prepare": "npm run build"
   },
   "keywords": [],
@@ -24,16 +25,13 @@
   "homepage": "https://jamcomments.com",
   "license": "GPL-2.0",
   "dependencies": {
-    "@jam-comments/server-utilities": "^1.0.5",
-    "@jam-comments/shared-utilities": "^0.0.4",
-    "graphql-quest": "^1.1.2",
-    "typescript": "^4.9.3",
-    "url-parse": "^1.5.10"
+    "typescript": "^4.9.3"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
     "prettier": "^2.7.1",
-    "vite": "^3.2.4"
+    "vite": "^3.2.4",
+    "vitest": "^0.25.3"
   },
   "publishConfig": {
     "access": "public"

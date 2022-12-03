@@ -1,43 +1,30 @@
 interface IFetchData {
-  path: string, 
-  domain: string, 
-  apiKey: string, 
-  platform: string,
-  embedScript?: boolean
-}
-
-const isProduction = (): boolean => {
-    if(typeof process === 'undefined') {
-        return false;
-    }
-
-    return process.env?.NODE_ENV === 'production' || process.env?.JAM_COMMENTS_ENV == 'production';
-}
-
-const getBaseUrl = () => {
-    if(typeof process !== 'undefined' && process.env?.JAM_COMMENTS_BASE_URL) {
-        return process.env['JAM_COMMENTS_BASE_URL'];
-    }
-    
-    return "https://go.jamcomments.com";
+  path: string;
+  domain: string;
+  apiKey: string;
+  platform: string;
+  baseUrl: string;
+  environment?: string;
 }
 
 export const markupFetcher = (platform: string, fetchImplementation = fetch): Function => {
     return async ({
         path, 
-        domain, 
-        apiKey
+        domain,
+        apiKey, 
+        baseUrl = 'https://go.jamcomments.com',
+        environment = 'production'
     }: IFetchData) => {
         const params = new URLSearchParams({
             path: path || "/",
             domain
         });
 
-        if(!isProduction()) {
+        if(environment !== 'production') {
             params.set('stub', 'true');
         }
 
-        const requestUrl = `${getBaseUrl()}/api/markup?${params}`;
+        const requestUrl = `${baseUrl}/api/markup?${params}`;
         const response = await fetchImplementation(requestUrl, {
             method: 'GET', 
             headers: {
@@ -48,11 +35,11 @@ export const markupFetcher = (platform: string, fetchImplementation = fetch): Fu
         });
 
         if(response.status === 401) {
-            throw `JamComments: Unauthorized! Are your domain and API key set correctly?`;
+            throw new Error(`Unauthorized! Are your domain and JamComments API key set correctly?`);
         }
 
         if(!response.ok) {
-            throw `JamComments request failed! Status code: ${response.status}, message: ${response.statusText}, request URL: ${requestUrl}`;
+            throw new Error(`JamComments request failed! Status code: ${response.status}, message: ${response.statusText}, request URL: ${requestUrl}`);
         }
 
         return await response.text();

@@ -3,6 +3,9 @@ import path from "path";
 import { baseRollupOptions } from "../../shared-build-config";
 
 export default defineConfig({
+  test: {
+    restoreMocks: true,
+  },
   build: {
     target: "node14",
     lib: {
