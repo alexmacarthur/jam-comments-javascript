@@ -1,17 +1,22 @@
 interface IFetchData {
-  path: string, 
-  domain: string, 
-  apiKey: string, 
-  platform: string,
-  embedScript?: boolean
+  path: string;
+  domain: string;
+  apiKey: string;
+  platform: string;
+  embedScript?: boolean;
 }
 
-const isProduction = (): boolean => {
-    if(typeof process === 'undefined') {
-        return false;
+export const isProduction = (): boolean => {
+    if(typeof process?.env !== 'undefined') {
+        return process.env?.NODE_ENV === 'production' || process.env?.JAM_COMMENTS_ENV == 'production';
     }
-
-    return process.env?.NODE_ENV === 'production' || process.env?.JAM_COMMENTS_ENV == 'production';
+    
+    if(typeof import.meta?.env !== 'undefined') {
+        return import.meta.env?.NODE_ENV === 'production' || import.meta.env?.JAM_COMMENTS_ENV == 'production';
+    }
+    
+    console.log("HEOWYD", typeof import.meta?.env);
+    return false;
 }
 
 const getBaseUrl = () => {

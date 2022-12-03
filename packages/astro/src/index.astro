@@ -1,0 +1,36 @@
+---
+import pkg from "@jam-comments/server-utilities";
+import nodeFetch from "node-fetch";
+const { markupFetcher, logError } = pkg;
+
+export interface Props {
+  path: string;
+}
+
+const CLIENT_SCRIPT_URL =
+  "https://unpkg.com/@jam-comments/client@1.0.4/dist/index.umd.js";
+const fetchMarkup = markupFetcher("astro", nodeFetch as any);
+const fetchCommentData = async (pagePath: string) => {
+  try {
+    return await fetchMarkup({
+      path: pagePath,
+      domain: import.meta.env.JAM_COMMENTS_DOMAIN,
+      apiKey: import.meta.env.JAM_COMMENTS_API_KEY,
+    });
+  } catch (e) {
+    logError(e as string);
+    return null;
+  }
+};
+
+const { path } = Astro.props;
+const markup = await fetchCommentData(path);
+---
+
+<div set:html={markup}></div>
+
+<script src={CLIENT_SCRIPT_URL}></script>
+<script>
+  const root = document.querySelector('[data-jam-comments-component="shell"]');
+  (JamComments as any).initialize(root);
+</script>

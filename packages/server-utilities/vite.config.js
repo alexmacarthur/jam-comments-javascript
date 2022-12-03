@@ -3,6 +3,7 @@ import path from "path";
 import { baseRollupOptions } from "../../shared-build-config";
 
 export default defineConfig({
+  test: {},
   build: {
     target: "node14",
     lib: {
