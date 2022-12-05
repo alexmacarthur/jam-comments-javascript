@@ -1,12 +1,13 @@
 {
   "name": "@jam-comments/astro",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
-  "description": "The official plugin for integrating JamComments into your Astro site.",
+  "description": "Easily add performant, SEO-friendly comments to your Astro blog with JamComments.",
   "main": "./src/index.astro",
   "types": "./index.d.ts",
   "homepage": "https://jamcomments.com",
+  "repository": "github:alexmacarthur/jam-comments-javascript",
   "scripts": {
     "build": "echo 'No build step here...'"
   },
@@ -14,11 +15,12 @@
     "src"
   ],
   "keywords": [
-    "jamstack",
-    "jam-comments",
     "astro",
+    "astro-component",
+    "blogging",
     "comments",
-    "blogging"
+    "jamstack",
+    "jam-comments"
   ],
   "publishConfig": {
     "access": "public"
