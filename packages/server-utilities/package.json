@@ -1,9 +1,8 @@
 {
   "name": "@jam-comments/server-utilities",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist/"
