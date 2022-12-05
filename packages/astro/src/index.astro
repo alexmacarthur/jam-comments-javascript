@@ -16,7 +16,8 @@ const fetchCommentData = async (pagePath: string) => {
       path: pagePath,
       domain: import.meta.env.JAM_COMMENTS_DOMAIN,
       apiKey: import.meta.env.JAM_COMMENTS_API_KEY,
-      baseUrl: import.meta.env.JAM_COMMENTS_BASE_URL
+      baseUrl: import.meta.env.JAM_COMMENTS_BASE_URL,
+      environment: import.meta.env.JAM_COMMENTS_ENVIRONMENT
     });
   } catch (e) {
     logError(e as string);
