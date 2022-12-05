@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/server-utilities": "^1.0.5",
+    "@jam-comments/server-utilities": "^2.0.0",
     "astro": "^1.6.12",
     "node-fetch": "^3.3.0"
   },
