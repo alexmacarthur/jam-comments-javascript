@@ -1,16 +1,12 @@
 {
   "name": "@jam-comments/server-utilities",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist/cjs/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist/"
   ],
-  "exports": {
-    "import": "./dist/esm/index.js",
-    "require": "./dist/cjs/index.js"
-  },
   "scripts": {
     "watch": "npm run build -- --watch",
     "build": "rm -rf dist && npm run build:esm && npm run build:cjs",
