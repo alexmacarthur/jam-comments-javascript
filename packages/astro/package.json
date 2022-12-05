@@ -1,10 +1,11 @@
 {
   "name": "@jam-comments/astro",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "The official plugin for integrating JamComments into your Astro site.",
   "main": "./src/index.astro",
+  "types": "./index.d.ts",
   "homepage": "https://jamcomments.com",
   "scripts": {
     "build": "echo 'No build step here...'"
@@ -23,7 +24,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/server-utilities": "^2.0.1",
+    "@jam-comments/server-utilities": "^2.0.2",
     "astro": "^1.6.12",
     "node-fetch": "^3.3.0"
   },
