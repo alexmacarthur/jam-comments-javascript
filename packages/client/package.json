@@ -21,6 +21,8 @@
   "homepage": "https://jamcomments.com",
   "license": "GPL-2.0",
   "dependencies": {
+    "@types/alpinejs": "^3.7.1",
+    "alpinejs": "^3.10.5",
     "dotenv": "^16.0.3"
   },
   "devDependencies": {

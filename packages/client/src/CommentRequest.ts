@@ -6,6 +6,14 @@ interface ICommentRequest {
     domain: string;
 }
 
+interface ICommentData {
+    name: string;
+    email: string;
+    content: string;
+    path: string;
+    domain: string;
+}
+
 const CommentRequest = ({
     endpoint,
     apiKey,
@@ -14,7 +22,7 @@ const CommentRequest = ({
     domain,
 }: ICommentRequest) => {
     return {
-        post: async (commentData) => {
+        post: async (commentData: ICommentData) => {
             commentData.path = path;
             commentData.domain = domain;
 

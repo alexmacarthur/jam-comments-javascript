@@ -12,19 +12,8 @@ export const toPrettyDate = (isoDate: string) => {
     return dateString[0].trim();
 };
 
-/**
- * Given a list of elements, convert the values into an object.
- *
- * @param {NodeList} htmlElementCollection
- * @return {object}
- */
-export const formatFormValues = (htmlElementCollection) => {
-    return [...htmlElementCollection].reduce((acc, item) => {
-        if (!item.name) return acc;
-
-        acc[item.name] = item.value;
-        return acc;
-    }, {});
+export const formatFormValues = (formData: FormData) => {
+    return Object.fromEntries(formData.entries());
 };
 
 export const getCurrentTime = () => new Date().getTime();
