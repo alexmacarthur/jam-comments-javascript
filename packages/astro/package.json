@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/astro",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "Easily add performant, SEO-friendly comments to your Astro blog with JamComments.",
@@ -12,7 +12,8 @@
     "build": "echo 'No build step here...'"
   },
   "files": [
-    "src"
+    "src", 
+    "index.d.ts"
   ],
   "keywords": [
     "astro",
