@@ -6,4 +6,4 @@ export const log = (message: string): void => {
 
 export const logError = (message: string): void => {
   console.error(`JamComments: ${message}`);
-}
+};

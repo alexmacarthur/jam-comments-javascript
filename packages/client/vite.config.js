@@ -5,18 +5,10 @@ import {
   baseRollupOptions,
   baseViteBuildOptions,
 } from "../../shared-build-config";
-import { proxyPage } from "vite-plugin-proxy-page";
 
 dotenv.config();
 
 export default defineConfig({
-  plugins: [
-    proxyPage({
-      remoteUrl: process.env.REMOTE_URL,
-      localEntryPoint: "./index.ts",
-      remoteEntryPoint: "resources/js/markup-scripts.ts",
-    }),
-  ],
   build: {
     ...baseViteBuildOptions,
     lib: {

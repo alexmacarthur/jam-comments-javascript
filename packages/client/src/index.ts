@@ -1,18 +1,17 @@
-import CommentController from "./CommentController";
+import Alpine from "alpinejs";
+import jcComment from "./components/jcComment";
+import jcCommentBox from "./components/jcCommentBox";
 
-const JamCommentsMap = new Map();
-
-export const initialize = (root: HTMLElement | Element): typeof CommentController => {
-    if(JamCommentsMap.has(root)) {
-        return JamCommentsMap.get(root);
-    }
-
-    // const controllerInstance = new CommentController({
-    //     root: root as HTMLElement,
-    // });
-
-    JamCommentsMap.set(root, controllerInstance);
-
-    // return controllerInstance;
+if (window) {
+  window.jcAlpine = Alpine;
 }
 
+export const initialize = () => {
+  Alpine.prefix("jc-");
+  Alpine.data("jcComment", jcComment);
+  Alpine.data("jcCommentBox", jcCommentBox);
+
+  if (window.jcAlpine) {
+    jcAlpine.start();
+  }
+};
