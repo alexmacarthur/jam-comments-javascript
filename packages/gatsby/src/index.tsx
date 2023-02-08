@@ -1,23 +1,42 @@
-import React, { ReactElement, useEffect, useRef } from "react";
-import { initialize } from "@jam-comments/client"
+import React, { ReactElement, useEffect } from "react";
 
 interface JamCommentsProps {
   pageContext: {
     [key: string]: any;
+  };
+}
+
+declare global {
+  interface Window {
+    JamComments: {
+      initialize: () => void;
+    };
   }
 }
 
+const CLIENT_SCRIPT_URL =
+  "https://unpkg.com/@jam-comments/client@2.0.0-beta.2/dist/index.umd.js";
+
+const createScriptTagWithSource = (source: string) => {
+  const script = document.createElement("script");
+  script.src = source;
+
+  return script;
+};
+
 const JamComments = ({ pageContext }: JamCommentsProps): ReactElement => {
   const { markup } = pageContext.jamComments;
-  const rootRef = useRef(null);
 
   useEffect(() => {
-    if(!rootRef.current) return;
+    if (typeof window === "undefined") return;
 
-    initialize(rootRef.current.querySelector('.jc-Shell'));
-  }, [rootRef.current]);
+    const script = createScriptTagWithSource(CLIENT_SCRIPT_URL);
+    script.onload = () => window.JamComments.initialize();
 
-  return <div ref={rootRef} dangerouslySetInnerHTML={{__html: markup }}></div>
+    document.body.appendChild(script);
+  }, []);
+
+  return <div dangerouslySetInnerHTML={{ __html: markup }}></div>;
 };
 
 export default JamComments;
