@@ -39,7 +39,7 @@ const markup = await fetchCommentData(path);
 
 <div set:html={markup} />
 
-<script src={CLIENT_SCRIPT_URL}></script>
-<script>
+<script is:inline src={CLIENT_SCRIPT_URL}></script>
+<script is:inline>
   window.JamComments.initialize();
 </script>
