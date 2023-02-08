@@ -7,8 +7,16 @@ export interface Props {
   path: string;
 }
 
+declare global {
+  interface Window {
+    JamComments: {
+      initialize: () => void;
+    };
+  }
+}
+
 const CLIENT_SCRIPT_URL =
-  "https://unpkg.com/@jam-comments/client@1.0.4/dist/index.umd.js";
+  "https://unpkg.com/@jam-comments/client@2.0.0-beta.2/dist/index.umd.js";
 const fetchMarkup = markupFetcher("astro", nodeFetch as any);
 const fetchCommentData = async (pagePath: string) => {
   try {
@@ -17,7 +25,7 @@ const fetchCommentData = async (pagePath: string) => {
       domain: import.meta.env.JAM_COMMENTS_DOMAIN,
       apiKey: import.meta.env.JAM_COMMENTS_API_KEY,
       baseUrl: import.meta.env.JAM_COMMENTS_BASE_URL,
-      environment: import.meta.env.JAM_COMMENTS_ENVIRONMENT
+      environment: import.meta.env.JAM_COMMENTS_ENVIRONMENT,
     });
   } catch (e) {
     logError(e as string);
@@ -29,10 +37,9 @@ const { path } = Astro.props;
 const markup = await fetchCommentData(path);
 ---
 
-<div set:html={markup}></div>
+<div set:html={markup} />
 
 <script src={CLIENT_SCRIPT_URL}></script>
 <script>
-  const root = document.querySelector('[data-jam-comments-component="shell"]');
-  (JamComments as any).initialize(root);
+  window.JamComments.initialize();
 </script>
