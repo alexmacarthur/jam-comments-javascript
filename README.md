@@ -1,14 +1,12 @@
 # jam-comments-javascript
 
-A monorepo for JamComments packages that are distributed through [npm](https://www.npmjs.com/).
+A monorepo for [JamComments](https://jamcomments.com) packages distributed through [npm](https://www.npmjs.com/).
 
 ## Packages
 
+- [@jam-comments/astro](./packages/astro)
+- [@jam-comments/client](./packages/client)
 - [@jam-comments/eleventy](./packages/eleventy)
 - [@jam-comments/gatsby](./packages/gatsby)
-- [@jam-comments/react](./packages/react)
-- [@jam-comments/styles](./packages/styles)
-- [@jam-comments/utilities](./packages/utilities)
-- [@jam-comments/client-utilities](./packages/client-utilities)
+- [@jam-comments/next](./packages/next)
 - [@jam-comments/server-utilities](./packages/server-utilities)
-- [@jam-comments/shared-utilities](./packages/shared-utilities)

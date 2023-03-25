@@ -35,13 +35,9 @@
   },
   "homepage": "https://github.com/alexmacarthur/jam-comments-javascript#readme",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
-    "eslint": "^8.29.0",
-    "eslint-plugin-react": "^7.31.11",
-    "husky": "^8.0.2",
-    "lerna": "^6.1.0",
-    "lint-staged": "^13.1.0",
-    "prettier": "^2.8.0"
+    "husky": "^8.0.3",
+    "lerna": "^6.6.1",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.7"
   }
 }
