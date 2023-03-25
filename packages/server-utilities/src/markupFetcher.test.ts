@@ -20,7 +20,7 @@ describe("markupFetcher", () => {
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "https://go.jamcomments.com/api/markup?path=%2Ftest&domain=test.com",
+      "https://go.jamcomments.com/api/v2/markup?path=%2Ftest&domain=test.com",
       expect.objectContaining({
         headers: expect.objectContaining({
           Accept: "application/json",
@@ -52,7 +52,7 @@ describe("markupFetcher", () => {
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "https://go.jamcomments.com/api/markup?path=%2Ftest&domain=test.com&stub=true",
+      "https://go.jamcomments.com/api/v2/markup?path=%2Ftest&domain=test.com&stub=true",
       expect.anything()
     );
     expect(result).toEqual("results!");
@@ -77,7 +77,7 @@ describe("markupFetcher", () => {
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "http://ur-mom.com/api/markup?path=%2Ftest&domain=test.com",
+      "http://ur-mom.com/api/v2/markup?path=%2Ftest&domain=test.com",
       expect.anything()
     );
     expect(result).toEqual("results!");
@@ -100,7 +100,7 @@ describe("markupFetcher", () => {
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "https://go.jamcomments.com/api/markup?path=%2F&domain=test.com",
+      "https://go.jamcomments.com/api/v2/markup?path=%2F&domain=test.com",
       expect.anything()
     );
     expect(result).toEqual("results!");

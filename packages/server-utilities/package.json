@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/server-utilities",
-  "version": "3.0.0-beta.0",
+  "version": "3.0.1",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist/cjs/index.js",
   "types": "dist/types/index.d.ts",
@@ -13,20 +13,19 @@
     "build:esm": "tsc --module es2020 --outDir dist/esm",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "test": "vitest run src",
+    "format": "prettier --write src/**/*.ts",
     "prepare": "npm run build"
   },
   "keywords": [],
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "homepage": "https://jamcomments.com",
   "license": "GPL-2.0",
-  "dependencies": {
-    "typescript": "^4.9.3"
-  },
   "devDependencies": {
-    "@types/node": "^18.11.9",
-    "prettier": "^2.7.1",
-    "vite": "^3.2.4",
-    "vitest": "^0.25.3"
+    "@types/node": "^18.15.8",
+    "prettier": "^2.8.7",
+    "typescript": "^5.0.2",
+    "vite": "^4.2.1",
+    "vitest": "^0.29.7"
   },
   "publishConfig": {
     "access": "public"
