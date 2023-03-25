@@ -1,19 +1,10 @@
 ---
 import pkg from "@jam-comments/server-utilities";
 import nodeFetch from "node-fetch";
+import type { JamCommentsProps } from "..";
 const { markupFetcher, logError } = pkg;
 
-export interface Props {
-  path: string;
-}
-
-declare global {
-  interface Window {
-    JamComments: {
-      initialize: () => void;
-    };
-  }
-}
+type Props = JamCommentsProps;
 
 const CLIENT_SCRIPT_URL =
   "https://unpkg.com/@jam-comments/client@2.0.0-beta.2/dist/index.umd.js";
