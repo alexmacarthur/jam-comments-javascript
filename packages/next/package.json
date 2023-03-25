@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/next",
-  "version": "3.0.0-beta.2",
+  "version": "3.0.1",
   "description": "A library for integrating JamComments into a Next.js application.",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -22,17 +22,17 @@
   "author": "Alex MacArthur",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^18.11.9",
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "^18.0.9",
-    "@typescript-eslint/eslint-plugin": "^5.44.0",
-    "@typescript-eslint/parser": "^5.44.0",
-    "eslint": "^8.28.0",
-    "eslint-plugin-react": "^7.31.11",
-    "postcss": "^8.4.19",
-    "terser": "^5.15.1",
-    "typescript": "^4.9.3",
-    "vite": "^3.2.4"
+    "@types/node": "^18.15.8",
+    "@types/react": "^18.0.29",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "eslint-plugin-react": "^7.32.2",
+    "postcss": "^8.4.21",
+    "terser": "^5.16.8",
+    "typescript": "^5.0.2",
+    "vite": "^4.2.1"
   },
   "publishConfig": {
     "access": "public"
@@ -40,7 +40,7 @@
   "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2",
   "dependencies": {
     "@jam-comments/client": "^2.0.0-beta.2",
-    "@jam-comments/server-utilities": "^3.0.0-beta.0",
-    "next": "^13.1.6"
+    "@jam-comments/server-utilities": "^3.0.1",
+    "next": "^13.2.4"
   }
 }
