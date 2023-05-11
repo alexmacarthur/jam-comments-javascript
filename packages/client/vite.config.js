@@ -9,6 +9,10 @@ import {
 dotenv.config();
 
 export default defineConfig({
+  test: {
+    environment: 'happy-dom',
+    setupFiles: ['./src/setupTests.ts'],
+  },
   build: {
     ...baseViteBuildOptions,
     lib: {

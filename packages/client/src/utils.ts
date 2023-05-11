@@ -80,3 +80,18 @@ export const attachNewComment = (
     replyListNode: null,
   };
 };
+
+export const getTokenFromCookie = (): string | undefined => {
+  return (document.cookie || "")
+    .split(";")
+    .find((cookie) => {
+      const [key] = cookie.split("=");
+
+      return key.trim() === "jc_token";
+    })
+    ?.split("=")[1];
+};
+
+export const deleteTokenFromCookie = () => {
+  document.cookie = "jc_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+};
