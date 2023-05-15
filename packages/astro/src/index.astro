@@ -7,7 +7,7 @@ const { markupFetcher, logError } = pkg;
 type Props = JamCommentsProps;
 
 const CLIENT_SCRIPT_URL =
-  "https://unpkg.com/@jam-comments/client@2.0.0-beta.2/dist/index.umd.js";
+  "https://unpkg.com/@jam-comments/client@2.1.0/dist/index.umd.js";
 const fetchMarkup = markupFetcher("astro", nodeFetch as any);
 const fetchCommentData = async (pagePath: string) => {
   try {

@@ -37,7 +37,7 @@ describe("jcAuth", () => {
 
         await component.init();
 
-        expect(fetch).toHaveBeenCalledWith("https://example.com/api", expect.objectContaining({
+        expect(fetch).toHaveBeenCalledWith("https://example.com/api/verify", expect.objectContaining({
             method: "POST", 
             headers: {
                 "Authorization": "Bearer 1234", 
@@ -63,7 +63,7 @@ describe("jcAuth", () => {
 
         await component.init();
 
-        expect(fetch).toHaveBeenCalledWith("https://example.com/api", expect.objectContaining({
+        expect(fetch).toHaveBeenCalledWith("https://example.com/api/verify", expect.objectContaining({
             method: "POST", 
             headers: {
                 "Authorization": "Bearer 4567", 
@@ -108,5 +108,26 @@ describe("jcAuth", () => {
 
         expect(fetch).not.toHaveBeenCalled();
         expect(component.isAuthenticated).toBe(false);
+    });
+
+    it("removes jc_token from URL", async () => {
+        // @ts-ignore
+        vi.spyOn(window, 'location', 'get').mockReturnValue({
+            search: 'something=true&jc_token=hello&something-else=ho',
+            pathname: '/hey'
+        });
+
+        const replaceSpy = vi.spyOn(window.history, 'replaceState');
+
+        (fetch as any).mockResolvedValue({
+            json: () => Promise.resolve({ avatar_url: "https://example.com", name: "John Doe" }),
+            ok: true,
+        });
+
+        const component = createMockComponent();
+
+        await component.init();
+
+        expect(replaceSpy).toHaveBeenCalledWith({}, null, "/hey?something=true&something-else=ho");
     });
 });

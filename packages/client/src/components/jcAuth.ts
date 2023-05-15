@@ -1,5 +1,5 @@
 import { getStorage, removeStorage, setStorage } from "../storage";
-import { deleteTokenFromCookie, getTokenFromCookie } from "../utils";
+import { deleteTokenFromCookie, getTokenFromCookie, removeTokenFromUrl } from "../utils";
 
 export const postService = (endpoint: string, token: string) => {
     return fetch(endpoint, {
@@ -46,12 +46,14 @@ export default () => ({
 
         if(!token) return null;
 
-        const response = await postService(this.apiBase, token);
+        const response = await postService(`${this.apiBase}/verify`, token);
 
         // Token is valid! Store it in a cookie.
         if(!response.ok) {
             return null;
         }
+
+        removeTokenFromUrl();
 
         const { avatar_url, name } = await response.json();
 
