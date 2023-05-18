@@ -64,12 +64,13 @@ export default () =>
 
       try {
         const { data }: { data: Comment } = await this.request.post(formData);
+
         this.resultMessage = "Comment successfully submitted!";
         this.resultStatus = "success";
         this.count++;
         this.$el.reset();
 
-        const { commentNode, replyListNode } = await attachNewComment(
+        const { commentNode, replyListNode } = attachNewComment(
           data,
           this.$refs
         );

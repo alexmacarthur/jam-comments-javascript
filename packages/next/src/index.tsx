@@ -2,7 +2,7 @@ import * as React from "react";
 import { markupFetcher } from "@jam-comments/server-utilities";
 
 const { useEffect } = React;
-const CLIENT_SCRIPT_URL = "https://unpkg.com/@jam-comments/client@2.0.0-beta.2/dist/index.umd.js";
+const CLIENT_SCRIPT_URL = "https://unpkg.com/@jam-comments/client@2.1.6/dist/index.umd.js";
 const createScriptTagWithSource = (source: string) => {
   const script = document.createElement("script");
   script.src = source;

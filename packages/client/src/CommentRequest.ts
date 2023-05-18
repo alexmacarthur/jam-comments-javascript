@@ -1,3 +1,5 @@
+import { getTokenFromCookie } from "./utils";
+
 export interface Comment {
   content: string;
   created_at: string;
@@ -41,8 +43,9 @@ const CommentRequest = ({
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
+          Authorization: `Bearer ${apiKey}`, // For the site owner.
           "X-Platform": platform,
+          "X-Jc-Token": getTokenFromCookie(), // For the author.
         },
         body: JSON.stringify(commentData),
       });

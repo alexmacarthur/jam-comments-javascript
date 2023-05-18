@@ -1,4 +1,5 @@
 import Alpine from "alpinejs";
+import jcAuth from "./components/jcAuth";
 import jcComment from "./components/jcComment";
 import jcCommentBox from "./components/jcCommentBox";
 
@@ -8,6 +9,7 @@ if (window) {
 
 export const initialize = () => {
   Alpine.prefix("jc-");
+  Alpine.data("jcAuth", jcAuth);
   Alpine.data("jcComment", jcComment);
   Alpine.data("jcCommentBox", jcCommentBox);
 
