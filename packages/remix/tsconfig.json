@@ -1,0 +1,14 @@
+{
+    "extends": "../../tsconfig-base.json",
+    "compilerOptions": {
+        "jsx": "react",
+        "emitDeclarationOnly": false,
+        "declarationDir": "./dist/types",
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
+        "types": [
+            "node"
+        ]
+    }
+}
