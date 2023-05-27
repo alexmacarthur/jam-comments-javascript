@@ -18,27 +18,38 @@ interface ICommentRequest {
   platform: string;
   path: string;
   domain: string;
+  should_stub?: boolean;
 }
 
 interface ICommentData
-  extends Omit<Comment, "created_at" | "id" | "site" | "status"> {
-  domain: string;
+  extends Omit<
+    Comment,
+    "created_at" | "id" | "site" | "status" | "path" | "domain"
+  > {
+  domain?: string;
+  path?: string;
   time_to_comment: number;
+  should_stub?: boolean;
 }
 
-const CommentRequest = ({
-  endpoint,
-  apiKey,
-  platform,
-  path,
-  domain,
-}: ICommentRequest) => {
+const CommentRequest = (
+  {
+    endpoint,
+    apiKey,
+    platform,
+    path,
+    domain,
+    should_stub = false,
+  }: ICommentRequest,
+  fetchImplementation = fetch
+) => {
   return {
     post: async (commentData: ICommentData) => {
       commentData.path = path;
       commentData.domain = domain;
+      commentData.should_stub = should_stub;
 
-      const response = await fetch(endpoint, {
+      const response = await fetchImplementation(endpoint, {
         method: "POST",
         headers: {
           Accept: "application/json",

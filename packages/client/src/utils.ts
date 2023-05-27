@@ -81,8 +81,8 @@ export const attachNewComment = (
   };
 };
 
-export const getTokenFromCookie = (): string | undefined => {
-  return (document.cookie || "")
+export const getTokenFromCookie = (): string => {
+  const cookie = (document.cookie || "")
     .split(";")
     .find((cookie) => {
       const [key] = cookie.split("=");
@@ -90,6 +90,8 @@ export const getTokenFromCookie = (): string | undefined => {
       return key.trim() === "jc_token";
     })
     ?.split("=")[1];
+
+  return cookie || "";
 };
 
 export const deleteTokenFromCookie = () => {

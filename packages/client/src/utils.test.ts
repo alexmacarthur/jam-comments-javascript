@@ -17,7 +17,7 @@ describe("getTokenFromCookie()", () => {
     document.cookie =
       "your_mom=token;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;";
 
-    expect(getTokenFromCookie()).toEqual(undefined);
+    expect(getTokenFromCookie()).toEqual("");
   });
 });
 

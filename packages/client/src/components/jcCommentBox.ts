@@ -44,6 +44,7 @@ export default () =>
         path:
           this.baseDataAttributes.jamCommentsUrl || window.location.pathname,
         domain: this.baseDataAttributes.jamCommentsDomain,
+        should_stub: !!this.baseDataAttributes.jamCommentsShouldStub,
       });
     },
 
