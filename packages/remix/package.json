@@ -1,0 +1,40 @@
+{
+  "name": "@jam-comments/remix",
+  "version": "0.0.7",
+  "description": "A library for integrating JamComments into a Remix application.",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --module es2020 --outDir ./dist/esm",
+    "build:cjs": "tsc --module commonjs --outDir ./dist/cjs",
+    "format": "prettier --write \"src/**/*.tsx\""
+  },
+  "files": [
+    "./src",
+    "./dist"
+  ],
+  "keywords": [],
+  "author": "Alex MacArthur",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.2.1",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "prettier": "^2.8.8",
+    "typescript": "^5.0.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@jam-comments/server-utilities": "^3.0.1",
+    "node-fetch": "^2.6.11"
+  }
+}
