@@ -3,14 +3,14 @@ const commentForm = require("./src/comment-form.shortcode");
 module.exports = function (eleventyConfig, options) {
   options = options || {};
 
-  const renderCommentForm = async function (url = null) {
-    url = url || (this.page && this.page.url) || null;
+  const renderCommentForm = async function (path = null) {
+    path = path || (this.page && this.page.url) || null;
 
-    if (!url) {
-      throw new Error("JamComments :: No URL was found or passed!");
+    if (!path) {
+      throw new Error("JamComments :: No path was found or passed!");
     }
 
-    return await commentForm(options, url);
+    return await commentForm(options, path);
   };
 
   eleventyConfig.addNunjucksAsyncShortcode("jamcomments", renderCommentForm);

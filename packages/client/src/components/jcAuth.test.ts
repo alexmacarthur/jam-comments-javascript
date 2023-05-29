@@ -4,130 +4,152 @@ import * as jcAuthModule from "./jcAuth";
 const jcAuth = jcAuthModule.default;
 
 const createMockComponent = () => {
-    const component = jcAuth() as any;
+  const component = jcAuth() as any;
 
-    component.$refs = {
-        shell: {
-            dataset: {
-                jamCommentsHost: "https://example.com"
-            }
-        }
-    }
+  component.$refs = {
+    shell: {
+      dataset: {
+        jamCommentsHost: "https://example.com",
+      },
+    },
+  };
 
-    return component;
+  return component;
 };
 
 beforeEach(() => {
-    global.fetch = vi.fn();
+  global.fetch = vi.fn();
 });
 
 describe("jcAuth", () => {
-    it("loads fresh logged-in session from URL parameter", async () => {
-        // @ts-ignore
-        vi.spyOn(window, 'location', 'get').mockReturnValue({
-            search: "?jc_token=1234"
-        });
-
-        (fetch as any).mockResolvedValue({
-            json: () => Promise.resolve({ avatar_url: "https://example.com", name: "John Doe" }),
-            ok: true,
-        });
-
-        const component = createMockComponent();
-
-        await component.init();
-
-        expect(fetch).toHaveBeenCalledWith("https://example.com/api/verify", expect.objectContaining({
-            method: "POST", 
-            headers: {
-                "Accept": "application/json",
-                "X-Jc-Token": "1234"
-            }
-        }));
-        
-        expect(component.isAuthenticated).toBe(true);
-        expect(component.avatar_url).toBe("https://example.com");
-        expect(component.name).toBe("John Doe");
-        expect(document.cookie).toMatch(/jc_token=1234;expires=.+ GMT;path=\/;/);
+  it("loads fresh logged-in session from URL parameter", async () => {
+    // @ts-ignore
+    vi.spyOn(window, "location", "get").mockReturnValue({
+      search: "?jc_token=1234",
     });
 
-    it("loads logged-in session from cookie", async () => {
-        document.cookie = `jc_token=4567;expires=${new Date().toUTCString()};path=/;`;
-
-        (fetch as any).mockResolvedValue({
-            json: () => Promise.resolve({ avatar_url: "https://example.com", name: "John Doe" }),
-            ok: true,
-        });
-
-        const component = createMockComponent();
-
-        await component.init();
-
-        expect(fetch).toHaveBeenCalledWith("https://example.com/api/verify", expect.objectContaining({
-            method: "POST", 
-            headers: {
-                "Accept": "application/json", 
-                "X-Jc-Token": "4567"
-            }
-        }));
-
-        expect(component.isAuthenticated).toBe(true);
-        expect(component.avatar_url).toBe("https://example.com");
-        expect(component.name).toBe("John Doe");
-        expect(document.cookie).toMatch(/jc_token=4567;expires=.+ GMT;path=\/;/);
+    (fetch as any).mockResolvedValue({
+      json: () =>
+        Promise.resolve({
+          avatar_url: "https://example.com",
+          name: "John Doe",
+        }),
+      ok: true,
     });
 
-    it("token is invalid", async () => {
-        // @ts-ignore
-        vi.spyOn(window, 'location', 'get').mockReturnValue({
-            search: "?jc_token=bad-token"
-        });
+    const component = createMockComponent();
 
-        // Authentication failed!
-        (fetch as any).mockResolvedValue({
-            ok: false
-        });
+    await component.init();
 
-        const component = createMockComponent();
+    expect(fetch).toHaveBeenCalledWith(
+      "https://example.com/api/verify",
+      expect.objectContaining({
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "X-Jc-Token": "1234",
+        },
+      })
+    );
 
-        await component.init();
+    expect(component.isAuthenticated).toBe(true);
+    expect(component.avatar_url).toBe("https://example.com");
+    expect(component.name).toBe("John Doe");
+    expect(document.cookie).toMatch(/jc_token=1234;expires=.+ GMT;path=\/;/);
+  });
 
-        expect(fetch).toHaveBeenCalledOnce();
-        expect(component.isAuthenticated).toBe(false);
+  it("loads logged-in session from cookie", async () => {
+    document.cookie = `jc_token=4567;expires=${new Date().toUTCString()};path=/;`;
+
+    (fetch as any).mockResolvedValue({
+      json: () =>
+        Promise.resolve({
+          avatar_url: "https://example.com",
+          name: "John Doe",
+        }),
+      ok: true,
     });
 
-    it("does not validate token when there isn't one", async () => {
-        // @ts-ignore
-        vi.spyOn(window, 'location', 'get').mockReturnValue({
-            search: "?"
-        });
+    const component = createMockComponent();
 
-        const component = createMockComponent();
+    await component.init();
 
-        await component.init();
+    expect(fetch).toHaveBeenCalledWith(
+      "https://example.com/api/verify",
+      expect.objectContaining({
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "X-Jc-Token": "4567",
+        },
+      })
+    );
 
-        expect(fetch).not.toHaveBeenCalled();
-        expect(component.isAuthenticated).toBe(false);
+    expect(component.isAuthenticated).toBe(true);
+    expect(component.avatar_url).toBe("https://example.com");
+    expect(component.name).toBe("John Doe");
+    expect(document.cookie).toMatch(/jc_token=4567;expires=.+ GMT;path=\/;/);
+  });
+
+  it("token is invalid", async () => {
+    // @ts-ignore
+    vi.spyOn(window, "location", "get").mockReturnValue({
+      search: "?jc_token=bad-token",
     });
 
-    it("removes jc_token from URL", async () => {
-        // @ts-ignore
-        vi.spyOn(window, 'location', 'get').mockReturnValue({
-            search: 'something=true&jc_token=hello&something-else=ho',
-            pathname: '/hey'
-        });
-
-        const replaceSpy = vi.spyOn(window.history, 'replaceState');
-
-        (fetch as any).mockResolvedValue({
-            json: () => Promise.resolve({ avatar_url: "https://example.com", name: "John Doe" }),
-            ok: true,
-        });
-
-        const component = createMockComponent();
-
-        await component.init();
-
-        expect(replaceSpy).toHaveBeenCalledWith({}, null, "/hey?something=true&something-else=ho");
+    // Authentication failed!
+    (fetch as any).mockResolvedValue({
+      ok: false,
     });
+
+    const component = createMockComponent();
+
+    await component.init();
+
+    expect(fetch).toHaveBeenCalledOnce();
+    expect(component.isAuthenticated).toBe(false);
+  });
+
+  it("does not validate token when there isn't one", async () => {
+    // @ts-ignore
+    vi.spyOn(window, "location", "get").mockReturnValue({
+      search: "?",
+    });
+
+    const component = createMockComponent();
+
+    await component.init();
+
+    expect(fetch).not.toHaveBeenCalled();
+    expect(component.isAuthenticated).toBe(false);
+  });
+
+  it("removes jc_token from URL", async () => {
+    // @ts-ignore
+    vi.spyOn(window, "location", "get").mockReturnValue({
+      search: "something=true&jc_token=hello&something-else=ho",
+      pathname: "/hey",
+    });
+
+    const replaceSpy = vi.spyOn(window.history, "replaceState");
+
+    (fetch as any).mockResolvedValue({
+      json: () =>
+        Promise.resolve({
+          avatar_url: "https://example.com",
+          name: "John Doe",
+        }),
+      ok: true,
+    });
+
+    const component = createMockComponent();
+
+    await component.init();
+
+    expect(replaceSpy).toHaveBeenCalledWith(
+      {},
+      null,
+      "/hey?something=true&something-else=ho"
+    );
+  });
 });

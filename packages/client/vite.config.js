@@ -10,8 +10,11 @@ dotenv.config();
 
 export default defineConfig({
   test: {
-    environment: 'happy-dom',
-    setupFiles: ['./src/setupTests.ts'],
+    environment: "happy-dom",
+    setupFiles: ["./src/setupTests.ts"],
+  },
+  define: {
+    "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
   },
   build: {
     ...baseViteBuildOptions,

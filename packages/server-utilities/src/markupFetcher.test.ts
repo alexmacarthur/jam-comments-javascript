@@ -17,6 +17,7 @@ describe("markupFetcher", () => {
       path: "/test",
       domain: "test.com",
       apiKey: "123abc",
+      environment: "production",
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
@@ -74,6 +75,33 @@ describe("markupFetcher", () => {
       domain: "test.com",
       apiKey: "123abc",
       baseUrl: "http://ur-mom.com",
+      environment: "production",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://ur-mom.com/api/v2/markup?path=%2Ftest&domain=test.com",
+      expect.anything()
+    );
+    expect(result).toEqual("results!");
+  });
+
+  it("respects production!!!", async () => {
+    const fetchMock = vi.fn().mockImplementation(() => {
+      return {
+        status: 200,
+        ok: true,
+        text: () => "results!",
+      };
+    });
+
+    const fetcher = markupFetcher("test", fetchMock);
+
+    const result = await fetcher({
+      path: "/test",
+      domain: "test.com",
+      apiKey: "123abc",
+      baseUrl: "http://ur-mom.com",
+      environment: "production",
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
@@ -97,6 +125,8 @@ describe("markupFetcher", () => {
     const result = await fetcher({
       path: null,
       domain: "test.com",
+      apiKey: "123abc",
+      environment: "production",
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
@@ -144,5 +174,77 @@ describe("markupFetcher", () => {
         apiKey: "123abc",
       })
     ).rejects.toThrowError(/request failed! Status code: 500/);
+  });
+
+  describe("timezone validation", () => {
+    it("throws error when invalid timezone is provided", async () => {
+      const fetchMock = vi.fn();
+      const fetcher = markupFetcher("test", fetchMock);
+
+      expect(fetchMock).not.toHaveBeenCalled();
+      expect(
+        fetcher({
+          path: "/test",
+          domain: "test.com",
+          apiKey: "123abc",
+          tz: "in/valid",
+          environment: "production",
+        })
+      ).rejects.toThrowError(
+        "The timezone passed to JamComments is invalid: in/valid"
+      );
+    });
+
+    it("does not throw error when valid timezone is provided", async () => {
+      const fetchMock = vi.fn().mockImplementation(() => {
+        return {
+          status: 200,
+          ok: true,
+          text: () => "results!",
+        };
+      });
+
+      const fetcher = markupFetcher("test", fetchMock);
+
+      const result = await fetcher({
+        path: null,
+        domain: "test.com",
+        apiKey: "123abc",
+        tz: "America/New_York",
+        environment: "production",
+      });
+
+      expect(fetchMock).toHaveBeenCalledWith(
+        "https://go.jamcomments.com/api/v2/markup?path=%2F&domain=test.com&tz=America%2FNew_York",
+        expect.anything()
+      );
+      expect(result).toEqual("results!");
+    });
+
+    it("trims a valid timezone", async () => {
+      const fetchMock = vi.fn().mockImplementation(() => {
+        return {
+          status: 200,
+          ok: true,
+          text: () => "results!",
+        };
+      });
+
+      const fetcher = markupFetcher("test", fetchMock);
+
+      const result = await fetcher({
+        path: null,
+        domain: "test.com",
+        apiKey: "123abc",
+        tz: "   America/Chicago   ",
+        environment: "production",
+      });
+
+      expect(fetchMock).toHaveBeenCalledWith(
+        "https://go.jamcomments.com/api/v2/markup?path=%2F&domain=test.com&tz=America%2FChicago",
+        expect.anything()
+      );
+      expect(result).toEqual("results!");
+    });
   });
 });

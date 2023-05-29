@@ -7,6 +7,8 @@ const JAM_COMMENTS_CONFIG = {};
 exports.onPreInit = (_, pluginOptions) => {
   JAM_COMMENTS_CONFIG.apiKey = pluginOptions.apiKey;
   JAM_COMMENTS_CONFIG.domain = pluginOptions.domain;
+  JAM_COMMENTS_CONFIG.environment = pluginOptions.environment;
+  JAM_COMMENTS_CONFIG.tz = pluginOptions.tz;
 };
 
 const fetchCommentData = async (pagePath) => {
@@ -15,6 +17,8 @@ const fetchCommentData = async (pagePath) => {
       path: pagePath,
       domain: JAM_COMMENTS_CONFIG.domain,
       apiKey: JAM_COMMENTS_CONFIG.apiKey,
+      environment: JAM_COMMENTS_CONFIG.environment,
+      tz: JAM_COMMENTS_CONFIG.tz,
     });
   } catch (e) {
     logError(e);

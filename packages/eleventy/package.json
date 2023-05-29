@@ -1,13 +1,14 @@
 {
   "name": "@jam-comments/eleventy",
-  "version": "2.1.2",
+  "version": "2.3.0",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "The official plugin for integrating JamComments into your Eleventy site.",
   "main": "./.eleventy.js",
   "homepage": "https://jamcomments.com",
   "scripts": {
-    "build": "echo 'No build step here...'"
+    "build": "echo 'No build step here...'",
+    "format": "prettier --write ."
   },
   "files": [
     ".eleventy.js",
@@ -24,12 +25,12 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/server-utilities": "^3.0.1",
+    "@jam-comments/server-utilities": "^3.2.1",
     "node-fetch": "^2.6.7"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.0",
-    "prettier": "^2.8.7"
+    "@11ty/eleventy": "^2.0.1",
+    "prettier": "^2.8.8"
   },
   "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2"
 }

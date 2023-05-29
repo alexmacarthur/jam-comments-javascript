@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/next",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "A library for integrating JamComments into a Next.js application.",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -22,24 +22,24 @@
   "author": "Alex MacArthur",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^20.2.0",
-    "@types/react": "^18.2.6",
+    "@types/node": "^20.2.5",
+    "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",
-    "@typescript-eslint/eslint-plugin": "^5.59.6",
-    "@typescript-eslint/parser": "^5.59.6",
-    "eslint": "^8.40.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7",
+    "eslint": "^8.41.0",
     "eslint-plugin-react": "^7.32.2",
-    "postcss": "^8.4.23",
-    "terser": "^5.17.4",
+    "postcss": "^8.4.24",
+    "terser": "^5.17.6",
     "typescript": "^5.0.4",
-    "vite": "^4.3.7"
+    "vite": "^4.3.9"
   },
   "publishConfig": {
     "access": "public"
   },
   "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2",
   "dependencies": {
-    "@jam-comments/server-utilities": "^3.0.1",
-    "next": "^13.4.2"
+    "@jam-comments/server-utilities": "^3.2.1",
+    "next": "^13.4.4"
   }
 }

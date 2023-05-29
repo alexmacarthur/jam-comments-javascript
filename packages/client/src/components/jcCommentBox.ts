@@ -42,7 +42,7 @@ export default () =>
         apiKey: this.baseDataAttributes.jamCommentsKey,
         platform: this.baseDataAttributes.jamCommentsPlatform,
         path:
-          this.baseDataAttributes.jamCommentsUrl || window.location.pathname,
+          this.baseDataAttributes.jamCommentsPath || window.location.pathname,
         domain: this.baseDataAttributes.jamCommentsDomain,
         should_stub: !!this.baseDataAttributes.jamCommentsShouldStub,
       });

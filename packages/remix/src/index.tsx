@@ -3,7 +3,7 @@ import nodeFetch from "node-fetch";
 import { markupFetcher } from "@jam-comments/server-utilities";
 const { useEffect } = React;
 const CLIENT_SCRIPT_URL =
-  "https://unpkg.com/@jam-comments/client@2.1.6/dist/index.umd.js";
+  "https://unpkg.com/@jam-comments/client@2.3.2/dist/index.umd.js";
 const SCRIPT_ID = "jam-comments-script";
 
 const createScriptTagWithSource = (source: string) => {

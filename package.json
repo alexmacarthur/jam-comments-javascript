@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "lerna run test && lerna run build",
-    "format": "prettier \"./**/*.{js,ts,ts,md}\" --write",
+    "format": "prettier \"./**/*.{js,ts,ts,md,tsx,jsx}\" --write",
     "lint": "eslint --fix \"./packages/**/*.{js,tsx,ts}\"",
     "publish": "lerna bootstrap && lerna publish",
     "bootstrap": "lerna bootstrap",
@@ -36,8 +36,8 @@
   "homepage": "https://github.com/alexmacarthur/jam-comments-javascript#readme",
   "devDependencies": {
     "husky": "^8.0.3",
-    "lerna": "^6.6.1",
-    "lint-staged": "^13.2.0",
-    "prettier": "^2.8.7"
+    "lerna": "^6.6.2",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8"
   }
 }

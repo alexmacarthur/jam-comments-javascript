@@ -1,27 +1,42 @@
-interface IFetchData {
+import { getEnvironment, isValidTimezone } from "./utils";
+
+export interface IFetchData {
   path: string;
   domain: string;
   apiKey: string;
-  platform: string;
-  baseUrl: string;
+  tz?: string;
+  baseUrl?: string;
   environment?: string;
 }
 
 export const markupFetcher = (
   platform: string,
-  fetchImplementation = fetch
-): Function => {
+  fetchImplementation: typeof fetch = fetch
+): ((args: IFetchData) => Promise<string>) => {
   return async ({
+    tz = undefined,
     path,
     domain,
     apiKey,
     baseUrl = "https://go.jamcomments.com",
-    environment = "production",
-  }: IFetchData) => {
+    environment = getEnvironment(),
+  }: IFetchData): Promise<string> => {
+    const trimmedTimezone = tz?.trim();
+
+    if (trimmedTimezone && !isValidTimezone(trimmedTimezone)) {
+      throw new Error(
+        `The timezone passed to JamComments is invalid: ${trimmedTimezone}`
+      );
+    }
+
     const params = new URLSearchParams({
       path: path || "/",
       domain,
     });
+
+    if (trimmedTimezone) {
+      params.set("tz", trimmedTimezone);
+    }
 
     if (environment !== "production") {
       params.set("stub", "true");
