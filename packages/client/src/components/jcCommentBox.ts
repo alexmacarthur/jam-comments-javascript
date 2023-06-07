@@ -9,9 +9,9 @@ interface BaseFormAttributes {
   jamCommentsDomain: string;
 }
 
-export default () =>
+export default (openByDefault = false) =>
   ({
-    isOpen: false,
+    isOpen: openByDefault,
     request: null,
     isLoading: false,
     resultMessage: "",

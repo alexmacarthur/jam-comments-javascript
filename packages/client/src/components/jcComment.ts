@@ -1,5 +1,4 @@
 export default () => ({
-  
   get id() {
     return this.$root.dataset.jamCommentsId;
   },
