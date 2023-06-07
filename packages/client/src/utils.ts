@@ -99,14 +99,8 @@ export const deleteTokenFromCookie = () => {
 };
 
 export const removeTokenFromUrl = (location = globalThis.location) => {
-  const searchParams = new URLSearchParams(location.search);
-  searchParams.delete("jc_token");
-  const newSearchParams =
-    Array.from(searchParams).length > 0 ? `?${searchParams.toString()}` : "";
+  const url = new URL(location.href);
+  url.searchParams.delete("jc_token");
 
-  window.history.replaceState(
-    {},
-    null,
-    `${location.pathname}${newSearchParams}`
-  );
+  window.history.replaceState({}, null, url.toString());
 };

@@ -45,7 +45,7 @@ export default () => ({
   },
 
   async loadSession(): Promise<string | null> {
-    const params = new URLSearchParams(window.location.search);
+    const { searchParams: params } = new URL(window.location.href);
     const token = params.get("jc_token") || getTokenFromCookie();
 
     if (!token) return null;
@@ -86,10 +86,21 @@ export default () => ({
     this.setLoggedOutData();
   },
 
-  async logIn() {
+  logIn() {    
+    const queryParams: {
+      comment_url: string;
+      parent_comment?: string;
+    } = {
+      comment_url: window.location.href,
+    }
+
+    if(this.parentCommentId) {
+      queryParams.parent_comment = this.parentCommentId;
+    }
+
     const loginEndpoint = `${
       this.base
-    }/by/login?comment_url=${encodeURIComponent(window.location.href)}`;
+    }/by/login?${(new URLSearchParams(queryParams)).toString()}`;
 
     window.open(loginEndpoint);
   },

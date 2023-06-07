@@ -23,10 +23,9 @@ beforeEach(() => {
 
 describe("jcAuth", () => {
   it("loads fresh logged-in session from URL parameter", async () => {
-    // @ts-ignore
     vi.spyOn(window, "location", "get").mockReturnValue({
-      search: "?jc_token=1234",
-    });
+      href: "https://myblog.com/hey?jc_token=1234"
+    } as Location);
 
     (fetch as any).mockResolvedValue({
       json: () =>
@@ -59,6 +58,10 @@ describe("jcAuth", () => {
   });
 
   it("loads logged-in session from cookie", async () => {
+    vi.spyOn(window, "location", "get").mockReturnValue({
+      href: "https://myblog.com/hey?jc_token=4567"
+    } as Location);
+
     document.cookie = `jc_token=4567;expires=${new Date().toUTCString()};path=/;`;
 
     (fetch as any).mockResolvedValue({
@@ -92,10 +95,9 @@ describe("jcAuth", () => {
   });
 
   it("token is invalid", async () => {
-    // @ts-ignore
     vi.spyOn(window, "location", "get").mockReturnValue({
-      search: "?jc_token=bad-token",
-    });
+      href: "https://myblog.com/hey?jc_token=bad-token",
+    } as Location);
 
     // Authentication failed!
     (fetch as any).mockResolvedValue({
@@ -111,10 +113,9 @@ describe("jcAuth", () => {
   });
 
   it("does not validate token when there isn't one", async () => {
-    // @ts-ignore
     vi.spyOn(window, "location", "get").mockReturnValue({
-      search: "?",
-    });
+      href: "https://myblog.com/hey",
+    } as Location);
 
     const component = createMockComponent();
 
@@ -125,11 +126,9 @@ describe("jcAuth", () => {
   });
 
   it("removes jc_token from URL", async () => {
-    // @ts-ignore
     vi.spyOn(window, "location", "get").mockReturnValue({
-      search: "something=true&jc_token=hello&something-else=ho",
-      pathname: "/hey",
-    });
+      href: "https://myblog.com/hey?something=true&jc_token=hello&something-else=ho",
+    } as Location);
 
     const replaceSpy = vi.spyOn(window.history, "replaceState");
 
@@ -149,7 +148,41 @@ describe("jcAuth", () => {
     expect(replaceSpy).toHaveBeenCalledWith(
       {},
       null,
-      "/hey?something=true&something-else=ho"
+      "https://myblog.com/hey?something=true&something-else=ho"
     );
+  });
+
+  describe("logIn()", () => {
+    it("constructs login URL", () => {
+      const windowSpy = vi.spyOn(window, "open");
+      vi.spyOn(window, "location", "get").mockReturnValue({
+        href: "https://myblog.com/hey",
+      } as Location);
+
+      const component = createMockComponent();
+
+      component.logIn();
+
+      expect(windowSpy).toHaveBeenCalledWith(
+        `https://example.com/by/login?comment_url=${encodeURIComponent('https://myblog.com/hey')}`
+      );
+    });
+
+    it("appends parent comment ID when it exists", () => {
+      const windowSpy = vi.spyOn(window, "open");
+      vi.spyOn(window, "location", "get").mockReturnValue({
+        href: "https://myblog.com/hey",
+      } as Location);
+
+      const component = createMockComponent();
+
+      component.parentCommentId = 3;
+
+      component.logIn();
+
+      expect(windowSpy).toHaveBeenCalledWith(
+        `https://example.com/by/login?comment_url=${encodeURIComponent('https://myblog.com/hey')}&parent_comment=3`
+      );
+    });
   });
 });

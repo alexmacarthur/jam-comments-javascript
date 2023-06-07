@@ -41,25 +41,9 @@ describe("removeTokenFromUrl()", () => {
   }
 
   it("replaces jc_token when it's in the URL", () => {
-    // @ts-ignore
     vi.spyOn(window, "location", "get").mockReturnValue({
-      search: "jc_token=hello",
-      pathname: "/hey",
-    });
-
-    const replaceSpy = getHistorySpy();
-
-    removeTokenFromUrl();
-
-    expect(replaceSpy).toHaveBeenCalledWith({}, null, "/hey");
-  });
-
-  it("preserves multiple query parameters", () => {
-    // @ts-ignore
-    vi.spyOn(window, "location", "get").mockReturnValue({
-      search: "something=true&jc_token=hello&something-else=ho",
-      pathname: "/hey",
-    });
+      href: "https://example.com/hey?jc_token=hello",
+    } as Location);
 
     const replaceSpy = getHistorySpy();
 
@@ -68,16 +52,46 @@ describe("removeTokenFromUrl()", () => {
     expect(replaceSpy).toHaveBeenCalledWith(
       {},
       null,
-      "/hey?something=true&something-else=ho"
+      "https://example.com/hey"
+    );
+  });
+
+  it("preserves hash", () => {
+    vi.spyOn(window, "location", "get").mockReturnValue({
+      href: "https://example.com/hey?jc_token=hello#comment-1",
+    } as Location);
+
+    const replaceSpy = getHistorySpy();
+
+    removeTokenFromUrl();
+
+    expect(replaceSpy).toHaveBeenCalledWith(
+      {},
+      null,
+      "https://example.com/hey#comment-1"
+    );
+  });
+
+  it("preserves multiple query parameters", () => {
+    vi.spyOn(window, "location", "get").mockReturnValue({
+      href: "https://example.com/hey?something=true&jc_token=hello&something-else=ho",
+    } as Location);
+
+    const replaceSpy = getHistorySpy();
+
+    removeTokenFromUrl();
+
+    expect(replaceSpy).toHaveBeenCalledWith(
+      {},
+      null,
+      "https://example.com/hey?something=true&something-else=ho"
     );
   });
 
   it("token isn't there", () => {
-    // @ts-ignore
     vi.spyOn(window, "location", "get").mockReturnValue({
-      search: "something=true&something-else=ho",
-      pathname: "/hey",
-    });
+      href: "https://example.com/hey?something=true&something-else=ho",
+    } as Location);
 
     const replaceSpy = getHistorySpy();
 
@@ -86,7 +100,7 @@ describe("removeTokenFromUrl()", () => {
     expect(replaceSpy).toHaveBeenCalledWith(
       {},
       null,
-      "/hey?something=true&something-else=ho"
+      "https://example.com/hey?something=true&something-else=ho"
     );
   });
 });
