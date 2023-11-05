@@ -1,4 +1,4 @@
-import { getTokenFromCookie } from "./utils";
+import { getTokenFromCookie } from "../utils";
 
 export interface Comment {
   content: string;

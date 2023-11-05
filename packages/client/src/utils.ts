@@ -1,4 +1,4 @@
-import { Comment } from "./CommentRequest";
+import { Comment } from "./requests/CommentRequest";
 
 export const formatFormValues = (formData: FormData) =>
   Object.fromEntries(formData.entries());

@@ -1,4 +1,5 @@
-import CommentRequest, { Comment } from "../CommentRequest";
+import CommentRequest, { Comment } from "../requests/CommentRequest";
+import MarkdownPreviewRequest from "../requests/MarkdownPreviewRequest";
 import { attachNewComment, formatFormValues } from "../utils";
 
 interface BaseFormAttributes {
@@ -15,6 +16,8 @@ export default (openByDefault = false) =>
     request: null,
     isLoading: false,
     resultMessage: "",
+    isShowingPreview: false,
+    preview: "",
     resultStatus: "success",
     startTime: null,
 
@@ -38,7 +41,9 @@ export default (openByDefault = false) =>
 
     init() {
       this.request = CommentRequest({
-        endpoint: this.baseDataAttributes.jamCommentsServiceEndpoint,
+        endpoint:
+          this.baseDataAttributes
+            .jamCommentsServiceEnMarkdownPreviewRequestdpoint,
         apiKey: this.baseDataAttributes.jamCommentsKey,
         platform: this.baseDataAttributes.jamCommentsPlatform,
         path:
@@ -46,11 +51,32 @@ export default (openByDefault = false) =>
         domain: this.baseDataAttributes.jamCommentsDomain,
         should_stub: !!this.baseDataAttributes.jamCommentsShouldStub,
       });
+
+      this.markdownPreviewRequest = MarkdownPreviewRequest({
+        endpoint: this.baseDataAttributes.jamCommentsMarkdownPreviewEndpoint,
+        apiKey: this.baseDataAttributes.jamCommentsKey,
+      });
+    },
+
+    async previewMarkdown(e: InputEvent) {
+      this.isShowingPreview = true;
+
+      const content = this.$refs.content.value;
+
+      if (!content) return;
+
+      const preview = await this.markdownPreviewRequest(content);
+
+      console.log(preview);
+
+      this.preview = preview;
+
+      // const preview = this.$refs.preview as HTMLElement;
+
+      // preview.innerHTML = await this.request.previewMarkdown(textarea.value);
     },
 
     async submit(e: SubmitEvent) {
-      e.preventDefault();
-
       this.isLoading = true;
 
       const formData = formatFormValues(new FormData(this.$el));
