@@ -1,23 +1,32 @@
 const MarkdownPreviewRequest = (
-  { endpoint, apiKey },
+  { endpoint, apiKey }: { endpoint: string; apiKey: string },
   fetchImplementation = fetch
 ) => {
-  return async (content: string): Promise<string> => {
-    const response = await fetchImplementation(endpoint, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`, // For the site owner.
-      },
-      body: JSON.stringify({
-        markdown: content,
-      }),
-    });
+  return async (content: string, signal: AbortSignal): Promise<string> => {
+    try {
+      const response = await fetchImplementation(endpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`, // For the site owner.
+        },
+        signal,
+        body: JSON.stringify({
+          markdown: content,
+        }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    return data.html;
+      return data.html;
+    } catch (e: any) {
+      if (e.name !== "AbortError") {
+        throw e;
+      }
+
+      return "";
+    }
   };
 };
 
