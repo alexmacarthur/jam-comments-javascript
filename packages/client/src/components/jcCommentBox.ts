@@ -2,7 +2,7 @@ import CommentRequest, { Comment } from "../requests/CommentRequest";
 import { BaseFormAttributes } from "../types";
 import { attachNewComment, formatFormValues } from "../utils";
 
-export default (openByDefault = false) =>
+export default (openByDefault: any = false) =>
   ({
     isOpen: openByDefault,
     request: null,
@@ -30,7 +30,7 @@ export default (openByDefault = false) =>
     },
 
     init() {
-      this.request = CommentRequest({
+      this.commentRequest = CommentRequest({
         endpoint: this.baseDataAttributes.jamCommentsServiceEndpoint,
         apiKey: this.baseDataAttributes.jamCommentsKey,
         platform: this.baseDataAttributes.jamCommentsPlatform,
@@ -55,7 +55,9 @@ export default (openByDefault = false) =>
       }
 
       try {
-        const { data }: { data: Comment } = await this.request.post(formData);
+        const { data }: { data: Comment } = await this.commentRequest.post(
+          formData
+        );
 
         this.resultMessage = "Comment successfully submitted!";
         this.resultStatus = "success";

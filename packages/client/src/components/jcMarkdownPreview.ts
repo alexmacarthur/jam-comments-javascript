@@ -6,7 +6,7 @@ export default () => ({
   preview: "",
 
   init() {
-    this.request = MarkdownPreviewRequest({
+    this.markdownPreviewRequest = MarkdownPreviewRequest({
       endpoint: this.baseDataAttributes.jamCommentsMarkdownPreviewEndpoint,
       apiKey: this.baseDataAttributes.jamCommentsKey,
     });
@@ -18,6 +18,7 @@ export default () => ({
 
   async previewMarkdown(e: InputEvent) {
     this.isShowingPreview = true;
+    this.preview = "";
 
     if (this.controller) {
       this.controller.abort();
@@ -34,6 +35,6 @@ export default () => ({
     this.controller = new AbortController();
     const signal = this.controller.signal;
 
-    this.preview = await this.request(content, signal);
+    this.preview = await this.markdownPreviewRequest(content, signal);
   },
 });

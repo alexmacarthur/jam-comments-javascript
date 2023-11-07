@@ -12,8 +12,8 @@ export const initialize = () => {
   Alpine.prefix("jc-");
   Alpine.data("jcAuth", jcAuth);
   Alpine.data("jcComment", jcComment);
-  Alpine.data("jcMarkdown", jcMarkdownPreview);
   Alpine.data("jcCommentBox", jcCommentBox);
+  Alpine.data("jcMarkdown", jcMarkdownPreview);
 
   if (window.jcAlpine) {
     jcAlpine.start();
