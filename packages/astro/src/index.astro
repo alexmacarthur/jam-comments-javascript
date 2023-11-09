@@ -6,8 +6,6 @@ const { markupFetcher, logError } = pkg;
 
 type Props = JamCommentsProps;
 
-const CLIENT_SCRIPT_URL =
-  "https://unpkg.com/@jam-comments/client@2.3.2/dist/index.umd.js";
 const fetchMarkup = markupFetcher("astro", nodeFetch as any);
 
 const fetchCommentData = async ({
@@ -38,8 +36,3 @@ const markup = await fetchCommentData({ path, domain, baseUrl, environment, tz }
 ---
 
 <div set:html={markup} />
-
-<script is:inline src={CLIENT_SCRIPT_URL}></script>
-<script is:inline>
-  window.JamComments.initialize();
-</script>
