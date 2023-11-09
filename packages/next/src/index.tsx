@@ -2,23 +2,21 @@ import * as React from "react";
 import { markupFetcher } from "@jam-comments/server-utilities";
 
 const { useEffect } = React;
-const CLIENT_SCRIPT_URL =
-  "https://unpkg.com/@jam-comments/client@2.3.2/dist/index.umd.js";
-const createScriptTagWithSource = (source: string) => {
-  const script = document.createElement("script");
-  script.src = source;
-
-  return script;
-};
 
 export const JamComments = ({ markup }) => {
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (window.JamComments.isInitialized) return;
 
-    const script = createScriptTagWithSource(CLIENT_SCRIPT_URL);
-    script.onload = () => window.JamComments.initialize();
+    function initJamComments() {
+      window.JamComments.initialize();
+      window.JamComments.isInitialized = true;
+    }
 
-    document.body.appendChild(script);
+    document.addEventListener("alpine:init", initJamComments);
+
+    window.jcAlpine.start();
+
+    return () => document.removeEventListener("alpine:init", initJamComments);
   }, []);
 
   return <div dangerouslySetInnerHTML={{ __html: markup }}></div>;

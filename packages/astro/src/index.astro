@@ -36,3 +36,14 @@ const markup = await fetchCommentData({ path, domain, baseUrl, environment, tz }
 ---
 
 <div set:html={markup} />
+
+<script is:inline>
+  document.addEventListener("alpine:init", () => {
+    window.JamComments.initialize();
+    window.JamComments.isInitialized = true;
+  });
+
+  if (window.jcAlpine) {
+    window.jcAlpine.start();
+  }
+</script>
