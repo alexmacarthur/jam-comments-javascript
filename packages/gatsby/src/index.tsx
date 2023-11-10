@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement, useEffect, useRef } from "react";
 
 interface JamCommentsProps {
   pageContext: {
@@ -10,33 +10,38 @@ declare global {
   interface Window {
     JamComments: {
       initialize: () => void;
+      isInitialized: boolean;
     };
+    jcAlpine: any;
   }
 }
 
-const CLIENT_SCRIPT_URL =
-  "https://unpkg.com/@jam-comments/client@2.3.2/dist/index.umd.js";
-
-const createScriptTagWithSource = (source: string) => {
-  const script = document.createElement("script");
-  script.src = source;
-
-  return script;
-};
-
 const JamComments = ({ pageContext }: JamCommentsProps): ReactElement => {
   const { markup } = pageContext.jamComments;
+  const elRef = useRef<HTMLDivElement>();
+  const hasFiredRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (hasFiredRef.current) return;
+    if (!elRef.current) return;
 
-    const script = createScriptTagWithSource(CLIENT_SCRIPT_URL);
-    script.onload = () => window.JamComments.initialize();
+    if (!window.jcAlpine?.version) {
+      const range = document.createRange();
+      range.selectNode(elRef.current);
+      const documentFragment = range.createContextualFragment(markup);
 
-    document.body.appendChild(script);
+      elRef.current.innerHTML = "";
+      elRef.current.append(documentFragment);
+    }
+
+    setTimeout(() => {
+      window.jcAlpine.start();
+    });
+
+    hasFiredRef.current = true;
   }, []);
 
-  return <div dangerouslySetInnerHTML={{ __html: markup }}></div>;
+  return <div ref={elRef} dangerouslySetInnerHTML={{ __html: markup }}></div>;
 };
 
 export default JamComments;

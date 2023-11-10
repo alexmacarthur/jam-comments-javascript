@@ -1,25 +1,33 @@
 import * as React from "react";
 import { markupFetcher } from "@jam-comments/server-utilities";
 
-const { useEffect } = React;
+const { useRef, useEffect } = React;
 
 export const JamComments = ({ markup }) => {
-  useEffect(() => {
-    if (window.JamComments.isInitialized) return;
+  const elRef = useRef<HTMLDivElement>();
+  const hasFiredRef = useRef<boolean>(false);
 
-    function initJamComments() {
-      window.JamComments.initialize();
-      window.JamComments.isInitialized = true;
+  useEffect(() => {
+    if (hasFiredRef.current) return;
+    if (!elRef.current) return;
+
+    if (!window.jcAlpine.version) {
+      const range = document.createRange();
+      range.selectNode(elRef.current);
+      const documentFragment = range.createContextualFragment(markup);
+
+      elRef.current.innerHTML = "";
+      elRef.current.append(documentFragment);
     }
 
-    document.addEventListener("alpine:init", initJamComments);
+    setTimeout(() => {
+      window.jcAlpine.start();
+    });
 
-    window.jcAlpine.start();
-
-    return () => document.removeEventListener("alpine:init", initJamComments);
+    hasFiredRef.current = true;
   }, []);
 
-  return <div dangerouslySetInnerHTML={{ __html: markup }}></div>;
+  return <div ref={elRef} dangerouslySetInnerHTML={{ __html: markup }}></div>;
 };
 
 export const fetchMarkup = markupFetcher("next");
