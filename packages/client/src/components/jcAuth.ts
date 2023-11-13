@@ -86,21 +86,21 @@ export default () => ({
     this.setLoggedOutData();
   },
 
-  logIn() {    
+  logIn() {
     const queryParams: {
       comment_url: string;
       parent_comment?: string;
     } = {
       comment_url: window.location.href,
-    }
+    };
 
-    if(this.parentCommentId) {
+    if (this.parentCommentId) {
       queryParams.parent_comment = this.parentCommentId;
     }
 
-    const loginEndpoint = `${
-      this.base
-    }/by/login?${(new URLSearchParams(queryParams)).toString()}`;
+    const loginEndpoint = `${this.base}/by/login?${new URLSearchParams(
+      queryParams
+    ).toString()}`;
 
     window.open(loginEndpoint);
   },

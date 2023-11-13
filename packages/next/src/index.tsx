@@ -1,28 +1,20 @@
 import * as React from "react";
-import { markupFetcher } from "@jam-comments/server-utilities";
+import { markupFetcher, reAppendMarkup } from "@jam-comments/server-utilities";
 
-const { useRef, useEffect } = React;
+const { useRef, useLayoutEffect } = React;
 
 export const JamComments = ({ markup }) => {
   const elRef = useRef<HTMLDivElement>();
   const hasFiredRef = useRef<boolean>(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (hasFiredRef.current) return;
     if (!elRef.current) return;
-
-    if (!window.jcAlpine.version) {
-      const range = document.createRange();
-      range.selectNode(elRef.current);
-      const documentFragment = range.createContextualFragment(markup);
-
-      elRef.current.innerHTML = "";
-      elRef.current.append(documentFragment);
+    if (!window.jcAlpine?.version) {
+      reAppendMarkup(elRef.current, markup);
     }
 
-    setTimeout(() => {
-      window.jcAlpine.start();
-    });
+    window.jcAlpine.start();
 
     hasFiredRef.current = true;
   }, []);

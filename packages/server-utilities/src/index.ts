@@ -1,4 +1,3 @@
-import { markupFetcher } from "./markupFetcher";
-
+export { markupFetcher } from "./markupFetcher";
+export { reAppendMarkup } from "./utils";
 export { log, logError } from "./log";
-export { markupFetcher };

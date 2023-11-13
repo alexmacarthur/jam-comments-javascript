@@ -24,7 +24,7 @@ beforeEach(() => {
 describe("jcAuth", () => {
   it("loads fresh logged-in session from URL parameter", async () => {
     vi.spyOn(window, "location", "get").mockReturnValue({
-      href: "https://myblog.com/hey?jc_token=1234"
+      href: "https://myblog.com/hey?jc_token=1234",
     } as Location);
 
     (fetch as any).mockResolvedValue({
@@ -59,7 +59,7 @@ describe("jcAuth", () => {
 
   it("loads logged-in session from cookie", async () => {
     vi.spyOn(window, "location", "get").mockReturnValue({
-      href: "https://myblog.com/hey?jc_token=4567"
+      href: "https://myblog.com/hey?jc_token=4567",
     } as Location);
 
     document.cookie = `jc_token=4567;expires=${new Date().toUTCString()};path=/;`;
@@ -164,7 +164,9 @@ describe("jcAuth", () => {
       component.logIn();
 
       expect(windowSpy).toHaveBeenCalledWith(
-        `https://example.com/by/login?comment_url=${encodeURIComponent('https://myblog.com/hey')}`
+        `https://example.com/by/login?comment_url=${encodeURIComponent(
+          "https://myblog.com/hey"
+        )}`
       );
     });
 
@@ -181,7 +183,9 @@ describe("jcAuth", () => {
       component.logIn();
 
       expect(windowSpy).toHaveBeenCalledWith(
-        `https://example.com/by/login?comment_url=${encodeURIComponent('https://myblog.com/hey')}&parent_comment=3`
+        `https://example.com/by/login?comment_url=${encodeURIComponent(
+          "https://myblog.com/hey"
+        )}&parent_comment=3`
       );
     });
   });

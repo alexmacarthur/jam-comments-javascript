@@ -1,33 +1,38 @@
 import * as React from "react";
-import nodeFetch from "node-fetch";
-import { markupFetcher } from "@jam-comments/server-utilities";
-const { useEffect } = React;
-const CLIENT_SCRIPT_URL =
-  "https://unpkg.com/@jam-comments/client@2.3.2/dist/index.umd.js";
-const SCRIPT_ID = "jam-comments-script";
+import { markupFetcher, reAppendMarkup } from "@jam-comments/server-utilities";
+import { useRef, useEffect } from "react";
 
-const createScriptTagWithSource = (source: string) => {
-  const script = document.createElement("script");
-  script.id = SCRIPT_ID;
-  script.src = source;
+declare global {
+  interface Window {
+    jcAlpine: any;
+  }
+}
 
-  return script;
-};
+const canUseDOM = !!(
+  typeof window !== "undefined" &&
+  window.document &&
+  window.document.createElement
+);
+
+const useLayoutEffect = canUseDOM ? React.useLayoutEffect : () => {};
 
 export const JamComments = ({ markup }) => {
-  useEffect(() => {
-    if (typeof document === "undefined") return;
+  const elRef = useRef<HTMLDivElement>();
+  const hasFiredRef = useRef<boolean>(false);
 
-    const script = createScriptTagWithSource(CLIENT_SCRIPT_URL);
-    script.onload = () => window.JamComments.initialize();
+  useLayoutEffect(() => {
+    if (hasFiredRef.current) return;
+    if (!elRef.current) return;
+    if (!window.jcAlpine?.version) {
+      reAppendMarkup(elRef.current, markup);
+    }
 
-    const existingScript = document.getElementById(SCRIPT_ID);
-    if (existingScript) existingScript.remove();
+    window.jcAlpine.start();
 
-    document.body.appendChild(script);
+    hasFiredRef.current = true;
   }, []);
 
-  return <div dangerouslySetInnerHTML={{ __html: markup }}></div>;
+  return <div ref={elRef} dangerouslySetInnerHTML={{ __html: markup }}></div>;
 };
 
-export const fetchMarkup = markupFetcher("remix", nodeFetch);
+export const fetchMarkup = markupFetcher("remix");

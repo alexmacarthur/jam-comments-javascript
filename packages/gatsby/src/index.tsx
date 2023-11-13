@@ -1,4 +1,5 @@
-import React, { ReactElement, useEffect, useRef } from "react";
+import React, { ReactElement, useLayoutEffect, useRef } from "react";
+import { reAppendMarkup } from "@jam-comments/server-utilities";
 
 interface JamCommentsProps {
   pageContext: {
@@ -8,10 +9,6 @@ interface JamCommentsProps {
 
 declare global {
   interface Window {
-    JamComments: {
-      initialize: () => void;
-      isInitialized: boolean;
-    };
     jcAlpine: any;
   }
 }
@@ -21,22 +18,14 @@ const JamComments = ({ pageContext }: JamCommentsProps): ReactElement => {
   const elRef = useRef<HTMLDivElement>();
   const hasFiredRef = useRef<boolean>(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (hasFiredRef.current) return;
     if (!elRef.current) return;
-
     if (!window.jcAlpine?.version) {
-      const range = document.createRange();
-      range.selectNode(elRef.current);
-      const documentFragment = range.createContextualFragment(markup);
-
-      elRef.current.innerHTML = "";
-      elRef.current.append(documentFragment);
+      reAppendMarkup(elRef.current, markup);
     }
 
-    setTimeout(() => {
-      window.jcAlpine.start();
-    });
+    window.jcAlpine.start();
 
     hasFiredRef.current = true;
   }, []);
