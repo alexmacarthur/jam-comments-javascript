@@ -11,7 +11,7 @@ export interface IFetchData {
 
 export const markupFetcher = (
   platform: string,
-  fetchImplementation: typeof fetch = fetch
+  fetchImplementation: typeof fetch = fetch,
 ): ((args: IFetchData) => Promise<string>) => {
   return async ({
     tz = undefined,
@@ -25,7 +25,7 @@ export const markupFetcher = (
 
     if (trimmedTimezone && !isValidTimezone(trimmedTimezone)) {
       throw new Error(
-        `The timezone passed to JamComments is invalid: ${trimmedTimezone}`
+        `The timezone passed to JamComments is invalid: ${trimmedTimezone}`,
       );
     }
 
@@ -54,13 +54,13 @@ export const markupFetcher = (
 
     if (response.status === 401) {
       throw new Error(
-        `Unauthorized! Are your domain and JamComments API key set correctly?`
+        `Unauthorized! Are your domain and JamComments API key set correctly?`,
       );
     }
 
     if (!response.ok) {
       throw new Error(
-        `JamComments request failed! Status code: ${response.status}, message: ${response.statusText}, request URL: ${requestUrl}`
+        `JamComments request failed! Status code: ${response.status}, message: ${response.statusText}, request URL: ${requestUrl}`,
       );
     }
 

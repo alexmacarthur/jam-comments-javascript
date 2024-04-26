@@ -29,7 +29,7 @@ describe("markupFetcher", () => {
           "X-Platform": "test",
         }),
         method: "GET",
-      })
+      }),
     );
     expect(result).toEqual("results!");
   });
@@ -54,7 +54,7 @@ describe("markupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?path=%2Ftest&domain=test.com&stub=true",
-      expect.anything()
+      expect.anything(),
     );
     expect(result).toEqual("results!");
   });
@@ -80,7 +80,7 @@ describe("markupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "http://ur-mom.com/api/v3/markup?path=%2Ftest&domain=test.com",
-      expect.anything()
+      expect.anything(),
     );
     expect(result).toEqual("results!");
   });
@@ -106,7 +106,7 @@ describe("markupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "http://ur-mom.com/api/v3/markup?path=%2Ftest&domain=test.com",
-      expect.anything()
+      expect.anything(),
     );
     expect(result).toEqual("results!");
   });
@@ -131,7 +131,7 @@ describe("markupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?path=%2F&domain=test.com",
-      expect.anything()
+      expect.anything(),
     );
     expect(result).toEqual("results!");
   });
@@ -152,7 +152,7 @@ describe("markupFetcher", () => {
         path: "/test",
         domain: "test.com",
         apiKey: "123abc",
-      })
+      }),
     ).rejects.toThrowError(/Unauthorized!/);
   });
 
@@ -172,7 +172,7 @@ describe("markupFetcher", () => {
         path: "/test",
         domain: "test.com",
         apiKey: "123abc",
-      })
+      }),
     ).rejects.toThrowError(/request failed! Status code: 500/);
   });
 
@@ -189,9 +189,9 @@ describe("markupFetcher", () => {
           apiKey: "123abc",
           tz: "in/valid",
           environment: "production",
-        })
+        }),
       ).rejects.toThrowError(
-        "The timezone passed to JamComments is invalid: in/valid"
+        "The timezone passed to JamComments is invalid: in/valid",
       );
     });
 
@@ -216,7 +216,7 @@ describe("markupFetcher", () => {
 
       expect(fetchMock).toHaveBeenCalledWith(
         "https://go.jamcomments.com/api/v3/markup?path=%2F&domain=test.com&tz=America%2FNew_York",
-        expect.anything()
+        expect.anything(),
       );
       expect(result).toEqual("results!");
     });
@@ -242,7 +242,7 @@ describe("markupFetcher", () => {
 
       expect(fetchMock).toHaveBeenCalledWith(
         "https://go.jamcomments.com/api/v3/markup?path=%2F&domain=test.com&tz=America%2FChicago",
-        expect.anything()
+        expect.anything(),
       );
       expect(result).toEqual("results!");
     });

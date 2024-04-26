@@ -12,7 +12,9 @@ export function getEnvironment(): string {
     return "production";
   }
 
-  return process.env?.NODE_ENV || "development";
+  return (
+    process.env?.JAM_COMMENTS_ENV || process.env?.NODE_ENV || "development"
+  );
 }
 
 export function reAppendMarkup(element: HTMLElement, markup: string) {

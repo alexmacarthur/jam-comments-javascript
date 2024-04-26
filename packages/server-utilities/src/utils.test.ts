@@ -13,19 +13,48 @@ afterEach(() => {
 });
 
 describe("getEnvironment()", () => {
-  it("returns environment", () => {
-    expect(getEnvironment()).toEqual("test");
+  describe("NODE_ENV is set", () => {
+    it("returns environment", () => {
+      expect(getEnvironment()).toEqual("test");
+    });
+
+    it("falls back to development", () => {
+      process.env.NODE_ENV = undefined;
+
+      expect(getEnvironment()).toEqual("development");
+    });
+
+    it("returns production environment", () => {
+      process.env.NODE_ENV = "production";
+
+      expect(getEnvironment()).toEqual("production");
+    });
   });
 
-  it("falls back to development", () => {
-    process.env.NODE_ENV = undefined;
+  describe("JAM_COMMENTS_ENV is set", () => {
+    it("returns environment", () => {
+      process.env.JAM_COMMENTS_ENV = "staging";
 
-    expect(getEnvironment()).toEqual("development");
-  });
+      expect(getEnvironment()).toEqual("staging");
+    });
 
-  it("returns production environment", () => {
-    process.env.NODE_ENV = "production";
+    it("falls back to NODE_ENV", () => {
+      process.env.JAM_COMMENTS_ENV = undefined;
 
-    expect(getEnvironment()).toEqual("production");
+      expect(getEnvironment()).toEqual("test");
+    });
+
+    it("falls back to development", () => {
+      process.env.JAM_COMMENTS_ENV = undefined;
+      process.env.NODE_ENV = undefined;
+
+      expect(getEnvironment()).toEqual("development");
+    });
+
+    it("returns production environment", () => {
+      process.env.JAM_COMMENTS_ENV = "production";
+
+      expect(getEnvironment()).toEqual("production");
+    });
   });
 });
