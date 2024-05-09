@@ -13,7 +13,9 @@ export function getEnvironment(): string {
   }
 
   return (
-    process.env?.JAM_COMMENTS_ENV || process.env?.NODE_ENV || "development"
+    process.env?.JAM_COMMENTS_ENVIRONMENT ||
+    process.env?.NODE_ENV ||
+    "development"
   );
 }
 

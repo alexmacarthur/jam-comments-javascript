@@ -31,28 +31,28 @@ describe("getEnvironment()", () => {
     });
   });
 
-  describe("JAM_COMMENTS_ENV is set", () => {
+  describe("JAM_COMMENTS_ENVIRONMENT is set", () => {
     it("returns environment", () => {
-      process.env.JAM_COMMENTS_ENV = "staging";
+      process.env.JAM_COMMENTS_ENVIRONMENT = "staging";
 
       expect(getEnvironment()).toEqual("staging");
     });
 
     it("falls back to NODE_ENV", () => {
-      process.env.JAM_COMMENTS_ENV = undefined;
+      process.env.JAM_COMMENTS_ENVIRONMENT = undefined;
 
       expect(getEnvironment()).toEqual("test");
     });
 
     it("falls back to development", () => {
-      process.env.JAM_COMMENTS_ENV = undefined;
+      process.env.JAM_COMMENTS_ENVIRONMENT = undefined;
       process.env.NODE_ENV = undefined;
 
       expect(getEnvironment()).toEqual("development");
     });
 
     it("returns production environment", () => {
-      process.env.JAM_COMMENTS_ENV = "production";
+      process.env.JAM_COMMENTS_ENVIRONMENT = "production";
 
       expect(getEnvironment()).toEqual("production");
     });
