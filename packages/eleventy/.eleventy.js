@@ -10,7 +10,7 @@ module.exports = function (eleventyConfig, options) {
       throw new Error("JamComments :: No path was found or passed!");
     }
 
-    return await commentForm(options, path);
+    return await commentForm(options, path, schema);
   };
 
   eleventyConfig.addNunjucksAsyncShortcode("jamcomments", renderCommentForm);

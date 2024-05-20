@@ -22,9 +22,29 @@ it("injects schema into markup", () => {
 </div>`);
 });
 
-it("returns markup if schema is not found", () => {
+it("injects schema even if comment schema isn't found.", () => {
   const markup = `
 <div id="jcComments">
+  <!-- JC:SCHEMA -->
+</div>`;
+
+  const blogPostSchema = {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+  };
+
+  const result = injectSchema(markup, blogPostSchema);
+
+  expect(result).toEqual(`
+<div id="jcComments">
+  <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting"}</script>
+</div>`);
+});
+
+it("injects markup even if json isn't valid", () => {
+  const markup = `
+<div id="jcComments">
+<div jc-data="jcSchema" data-schema="not-valid-json"></div>
 <!-- JC:SCHEMA -->
 </div>`;
 
@@ -35,24 +55,10 @@ it("returns markup if schema is not found", () => {
 
   const result = injectSchema(markup, blogPostSchema);
 
-  expect(result).toEqual(markup);
-});
-
-it("returns markup if schema is not valid JSON", () => {
-  const markup = `
+  expect(result).toEqual(`
 <div id="jcComments">
-    <div jc-data="jcSchema" data-schema="not-valid-json"></div>
-    <!-- JC:SCHEMA -->
-</div>`;
-
-  const blogPostSchema = {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-  };
-
-  const result = injectSchema(markup, blogPostSchema);
-
-  expect(result).toEqual(markup);
+<script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting"}</script>
+</div>`);
 });
 
 it("injects even when JSON is not HTML-encoded", () => {

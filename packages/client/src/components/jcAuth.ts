@@ -99,7 +99,7 @@ export default () => ({
     }
 
     const loginEndpoint = `${this.base}/by/login?${new URLSearchParams(
-      queryParams
+      queryParams,
     ).toString()}`;
 
     window.open(loginEndpoint);

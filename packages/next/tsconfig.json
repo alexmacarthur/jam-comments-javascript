@@ -1,10 +1,10 @@
 {
-    "extends": "../../tsconfig-base.json",
-    "compilerOptions": {
-        "outDir": "dist",
-        "jsx": "react",
-        "typeRoots": [
-            "./node_modules/@types"
-        ]
-    }
+  "extends": "../../tsconfig-base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "jsx": "react",
+    "typeRoots": ["./node_modules/@types"],
+    "emitDeclarationOnly": false,
+    "types": ["node"]
+  }
 }

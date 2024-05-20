@@ -9,18 +9,18 @@ export const cloneTemplate = (templateToClone: HTMLTemplateElement) =>
 
 export const attachNewComment = (
   data: Comment,
-  refs: any
+  refs: any,
 ): {
   commentNode: HTMLElement;
   replyListNode: HTMLElement | null;
 } => {
   const attachNewCommentTemplate = (
     replyList: HTMLElement,
-    refs: any
+    refs: any,
   ): HTMLElement => {
     const listItem = replyList.querySelector("li") as HTMLElement;
     const newCommentClone = cloneTemplate(
-      refs.newCommentTemplate as HTMLTemplateElement
+      refs.newCommentTemplate as HTMLTemplateElement,
     );
     listItem.append(newCommentClone);
 
@@ -29,13 +29,13 @@ export const attachNewComment = (
 
   const attachCommentListTemplate = (
     queryRoot: HTMLElement,
-    refs: any
+    refs: any,
   ): HTMLUListElement => {
     const replyList = queryRoot.querySelector(
-      '[data-jam-comments-component="commentList"] > ul'
+      '[data-jam-comments-component="commentList"] > ul',
     ) as HTMLElement;
     const clonedTemplate = cloneTemplate(
-      refs.listItemTemplate as HTMLTemplateElement
+      refs.listItemTemplate as HTMLTemplateElement,
     );
     replyList.prepend(clonedTemplate);
 
@@ -46,16 +46,16 @@ export const attachNewComment = (
   if (data.parent_comment_id) {
     // Locate the parent comment.
     const parentComment = refs.shell.querySelector(
-      `[data-jam-comments-id="${data.parent_comment_id}"]`
+      `[data-jam-comments-id="${data.parent_comment_id}"]`,
     ) as HTMLElement;
     let replyListNode = parentComment.parentElement.querySelector(
-      '[data-jam-comments-component="commentList"]'
+      '[data-jam-comments-component="commentList"]',
     );
 
     // If the parent comment does not have a reply list, create one.
     if (!replyListNode) {
       const clonedTemplate = cloneTemplate(
-        refs.replyListTemplate as HTMLTemplateElement
+        refs.replyListTemplate as HTMLTemplateElement,
       );
       parentComment.after(clonedTemplate);
       replyListNode = parentComment.nextElementSibling;
@@ -63,7 +63,7 @@ export const attachNewComment = (
 
     const replyList = attachCommentListTemplate(
       parentComment.parentElement,
-      refs
+      refs,
     );
 
     return {

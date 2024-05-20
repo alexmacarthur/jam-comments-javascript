@@ -8,17 +8,11 @@ export function injectSchema(
     /<div jc-data="jcSchema" data-schema="(.*)"><\/div>/,
   )?.[1];
 
-  if (!commentSchema) {
-    return markup;
+  const json = commentSchema ? parseJson(unescapeHTML(commentSchema)) : null;
+
+  if (json) {
+    schema.comment = json;
   }
-
-  const json = parseJson(unescapeHTML(commentSchema));
-
-  if (!json) {
-    return markup;
-  }
-
-  schema.comment = json;
 
   return markup
     .replace(

@@ -48,7 +48,7 @@ describe("jcAuth", () => {
           Accept: "application/json",
           "X-Jc-Token": "1234",
         },
-      })
+      }),
     );
 
     expect(component.isAuthenticated).toBe(true);
@@ -85,7 +85,7 @@ describe("jcAuth", () => {
           Accept: "application/json",
           "X-Jc-Token": "4567",
         },
-      })
+      }),
     );
 
     expect(component.isAuthenticated).toBe(true);
@@ -148,7 +148,7 @@ describe("jcAuth", () => {
     expect(replaceSpy).toHaveBeenCalledWith(
       {},
       null,
-      "https://myblog.com/hey?something=true&something-else=ho"
+      "https://myblog.com/hey?something=true&something-else=ho",
     );
   });
 
@@ -165,8 +165,8 @@ describe("jcAuth", () => {
 
       expect(windowSpy).toHaveBeenCalledWith(
         `https://example.com/by/login?comment_url=${encodeURIComponent(
-          "https://myblog.com/hey"
-        )}`
+          "https://myblog.com/hey",
+        )}`,
       );
     });
 
@@ -184,8 +184,8 @@ describe("jcAuth", () => {
 
       expect(windowSpy).toHaveBeenCalledWith(
         `https://example.com/by/login?comment_url=${encodeURIComponent(
-          "https://myblog.com/hey"
-        )}&parent_comment=3`
+          "https://myblog.com/hey",
+        )}&parent_comment=3`,
       );
     });
   });

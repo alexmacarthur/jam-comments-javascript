@@ -73,7 +73,7 @@ export default (openByDefault = false) =>
 
         const { commentNode, replyListNode } = attachNewComment(
           data,
-          this.$refs
+          this.$refs,
         );
 
         this.$nextTick(() => {
@@ -98,13 +98,13 @@ export default (openByDefault = false) =>
         new CustomEvent("jc-new-comment", {
           bubbles: true,
           detail: data,
-        })
+        }),
       );
     },
-  } as {
+  }) as {
     isOpen: boolean;
     request: ReturnType<typeof CommentRequest>;
     isLoading: boolean;
     resultMessage: string;
     resultStatus: "success" | "error";
-  });
+  };

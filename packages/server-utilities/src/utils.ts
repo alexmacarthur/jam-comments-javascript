@@ -22,15 +22,6 @@ export function getEnvironment(): string {
   );
 }
 
-export function reAppendMarkup(element: HTMLElement, markup: string) {
-  const range = document.createRange();
-  range.selectNode(element);
-  const documentFragment = range.createContextualFragment(markup);
-
-  element.innerHTML = "";
-  element.append(documentFragment);
-}
-
 export function parseJson(json: string) {
   try {
     return JSON.parse(json);

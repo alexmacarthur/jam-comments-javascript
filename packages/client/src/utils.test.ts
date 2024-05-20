@@ -26,7 +26,7 @@ describe("deleteTokenFromCookie()", () => {
     deleteTokenFromCookie();
 
     expect(document.cookie).toEqual(
-      "jc_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+      "jc_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;",
     );
   });
 });
@@ -52,7 +52,7 @@ describe("removeTokenFromUrl()", () => {
     expect(replaceSpy).toHaveBeenCalledWith(
       {},
       null,
-      "https://example.com/hey"
+      "https://example.com/hey",
     );
   });
 
@@ -68,7 +68,7 @@ describe("removeTokenFromUrl()", () => {
     expect(replaceSpy).toHaveBeenCalledWith(
       {},
       null,
-      "https://example.com/hey#comment-1"
+      "https://example.com/hey#comment-1",
     );
   });
 
@@ -84,7 +84,7 @@ describe("removeTokenFromUrl()", () => {
     expect(replaceSpy).toHaveBeenCalledWith(
       {},
       null,
-      "https://example.com/hey?something=true&something-else=ho"
+      "https://example.com/hey?something=true&something-else=ho",
     );
   });
 
@@ -100,7 +100,7 @@ describe("removeTokenFromUrl()", () => {
     expect(replaceSpy).toHaveBeenCalledWith(
       {},
       null,
-      "https://example.com/hey?something=true&something-else=ho"
+      "https://example.com/hey?something=true&something-else=ho",
     );
   });
 });

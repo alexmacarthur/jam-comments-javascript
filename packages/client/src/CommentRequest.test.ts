@@ -20,7 +20,7 @@ describe("CommentRequest", () => {
         path: "/test",
         domain: "test.com",
       },
-      fetchMock
+      fetchMock,
     );
 
     const result = await request.post({
@@ -49,7 +49,7 @@ describe("CommentRequest", () => {
           domain: "test.com",
           should_stub: false,
         }),
-      })
+      }),
     );
 
     expect(result.data).toEqual(commentMock);
@@ -74,7 +74,7 @@ describe("CommentRequest", () => {
         domain: "test.com",
         should_stub: true,
       },
-      fetchMock
+      fetchMock,
     );
 
     const result = await request.post({
@@ -103,7 +103,7 @@ describe("CommentRequest", () => {
           domain: "test.com",
           should_stub: true,
         }),
-      })
+      }),
     );
 
     expect(result.data).toEqual(commentMock);
@@ -126,7 +126,7 @@ describe("CommentRequest", () => {
         path: "/test",
         domain: "test.com",
       },
-      fetchMock
+      fetchMock,
     );
 
     expect(async () => {

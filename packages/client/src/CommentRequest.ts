@@ -41,7 +41,7 @@ const CommentRequest = (
     domain,
     should_stub = false,
   }: ICommentRequest,
-  fetchImplementation = fetch
+  fetchImplementation = fetch,
 ) => {
   return {
     post: async (commentData: ICommentData) => {

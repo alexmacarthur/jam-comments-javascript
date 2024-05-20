@@ -31,7 +31,7 @@ const fetchCommentData = async ({
  *
  * @param {object} options
  */
-const commentForm = async function (options, path, schema = null) {
+const commentForm = async function (options, path, schema) {
   const { domain, apiKey, environment, tz } = options;
   const markup = await fetchCommentData({
     path,

@@ -11,7 +11,7 @@ export default () => ({
 
   _getAllReplyForms() {
     return this.$refs.shell.querySelectorAll(
-      '[data-jam-comments-component="replyForm"]'
+      '[data-jam-comments-component="replyForm"]',
     );
   },
 });
