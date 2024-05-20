@@ -2,23 +2,26 @@
 import pkg from "@jam-comments/server-utilities";
 import nodeFetch from "node-fetch";
 import type { JamCommentsProps } from "..";
-const { markupFetcher, logError } = pkg;
+import { getCurrentPath } from "./utils";
+const { logError, markupFetcher } = pkg;
 
 type Props = JamCommentsProps;
 
 const fetchMarkup = markupFetcher("astro", nodeFetch as any);
 
-const fetchCommentData = async ({
+async function fetchCommentData({
   tz = undefined,
-  path = undefined, 
-  domain = import.meta.env.JAM_COMMENTS_DOMAIN as string, 
+  path = undefined,
+  schema = undefined,
+  domain = import.meta.env.JAM_COMMENTS_DOMAIN as string,
   apiKey = import.meta.env.JAM_COMMENTS_API_KEY as string,
   baseUrl = import.meta.env.JAM_COMMENTS_BASE_URL as string,
   environment = import.meta.env.JAM_COMMENTS_ENVIRONMENT as string,
-}: JamCommentsProps) => {
+}: JamCommentsProps) {
   try {
     return await fetchMarkup({
       path,
+      schema,
       domain,
       apiKey,
       baseUrl,
@@ -29,10 +32,18 @@ const fetchCommentData = async ({
     logError(e as string);
     return null;
   }
-};
+}
 
-const { path, domain, baseUrl, environment, tz } = Astro.props;
-const markup = await fetchCommentData({ path, domain, baseUrl, environment, tz });
+const { path, domain, baseUrl, environment, tz, schema } = Astro.props as Props;
+
+const markup = await fetchCommentData({
+  path: path || getCurrentPath(Astro),
+  schema,
+  domain,
+  baseUrl,
+  environment,
+  tz,
+});
 ---
 
 <div set:html={markup} />
