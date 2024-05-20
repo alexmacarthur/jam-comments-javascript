@@ -3,7 +3,7 @@ const commentForm = require("./src/comment-form.shortcode");
 module.exports = function (eleventyConfig, options) {
   options = options || {};
 
-  const renderCommentForm = async function (path = null) {
+  const renderCommentForm = async function (path = null, schema = null) {
     path = path || (this.page && this.page.url) || null;
 
     if (!path) {

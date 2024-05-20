@@ -1,13 +1,20 @@
-const nodeFetch = require("node-fetch");
 const { logError, markupFetcher } = require("@jam-comments/server-utilities");
 
-const fetchMarkup = markupFetcher("eleventy", nodeFetch);
+const fetchMarkup = markupFetcher("eleventy");
 
-const fetchCommentData = async ({ path, domain, apiKey, environment, tz }) => {
+const fetchCommentData = async ({
+  path,
+  domain,
+  apiKey,
+  schema,
+  environment,
+  tz,
+}) => {
   try {
     return await fetchMarkup({
       path,
       domain,
+      schema,
       apiKey,
       environment,
       tz,
@@ -24,12 +31,13 @@ const fetchCommentData = async ({ path, domain, apiKey, environment, tz }) => {
  *
  * @param {object} options
  */
-const commentForm = async function (options, path) {
+const commentForm = async function (options, path, schema = null) {
   const { domain, apiKey, environment, tz } = options;
   const markup = await fetchCommentData({
     path,
     domain,
     apiKey,
+    schema,
     environment,
     tz,
   });
