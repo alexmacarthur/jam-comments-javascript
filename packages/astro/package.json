@@ -1,21 +1,31 @@
 {
   "name": "@jam-comments/astro",
-  "version": "2.0.2",
+  "version": "2.5.0",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "Easily add performant, SEO-friendly comments to your Astro blog with JamComments.",
-  "main": "./src/index.astro",
+  "main": "./src/component.astro",
   "types": "./index.d.ts",
   "homepage": "https://jamcomments.com",
   "repository": "github:alexmacarthur/jam-comments-javascript",
   "scripts": {
     "build": "echo 'No build step here...'",
-    "format": "prettier --write src"
+    "format": "prettier --write src",
+    "check": "astro check",
+    "test": "vitest run"
   },
   "files": [
     "src",
     "index.d.ts"
   ],
+  "exports": {
+    ".": {
+      "import": "./src/component.astro"
+    },
+    "./config": {
+      "import": "./src/config.ts"
+    }
+  },
   "keywords": [
     "astro",
     "astro-component",
@@ -28,12 +38,17 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/server-utilities": "^4.0.2",
-    "astro": "^3.4.4",
-    "node-fetch": "^3.3.2"
+    "@astrojs/check": "^0.7.0",
+    "@jam-comments/server-utilities": "^4.3.2",
+    "astro": "^4.8.6",
+    "node-fetch": "^3.3.2",
+    "typescript": "^5.4.5"
   },
   "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2",
   "devDependencies": {
-    "prettier": "^3.0.3"
+    "@types/node": "^20.12.12",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0",
+    "vitest": "^1.6.0"
   }
 }

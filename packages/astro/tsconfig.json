@@ -1,9 +1,10 @@
 {
-    "extends": "../../tsconfig-base.json",
-    "compilerOptions": {
-        "outDir": "dist",
-        "typeRoots": [
-            "./node_modules/@types"
-        ]
-    }
+  "extends": "astro/tsconfigs/base",
+  "compilerOptions": {
+    "verbatimModuleSyntax": false,
+    "moduleResolution": "node",
+    "jsx": "react",
+    "outDir": "dist",
+    "typeRoots": ["./node_modules/@types"]
+  }
 }

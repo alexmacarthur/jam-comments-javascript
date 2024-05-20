@@ -1,5 +1,12 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { getEnvironment } from "./utils";
+import {
+  getEnvironment,
+  createTempDirectory,
+  toSavedFileName,
+  readFile,
+  saveFile,
+} from "./utils";
+import { TEMP_DIRECTORY } from ".";
 
 const env = process.env;
 
@@ -56,5 +63,70 @@ describe("getEnvironment()", () => {
 
       expect(getEnvironment()).toEqual("production");
     });
+  });
+});
+
+describe("createTempDirectory()", () => {
+  it("creates temp directory fresh", () => {
+    const mkdirSyncMock = vi.fn();
+    const existsSyncMock = vi.fn().mockReturnValue(false);
+
+    expect(() =>
+      createTempDirectory(mkdirSyncMock, existsSyncMock),
+    ).not.toThrow();
+    expect(mkdirSyncMock).toHaveBeenCalledWith(TEMP_DIRECTORY);
+  });
+
+  it("does not throw error when it already exists", () => {
+    const mkdirSyncMock = vi.fn().mockImplementation(() => {
+      throw new Error("Directory already exists");
+    });
+    const existsSyncMock = vi.fn().mockReturnValue(true);
+
+    expect(() =>
+      createTempDirectory(mkdirSyncMock, existsSyncMock),
+    ).not.toThrow();
+    expect(mkdirSyncMock).not.toHaveBeenCalledWith();
+  });
+});
+
+describe("toSavedFileName()", () => {
+  it("replaces slashes with double colons", () => {
+    expect(toSavedFileName("/hey/there")).toEqual("hey::there");
+  });
+});
+
+describe("readFile()", () => {
+  it("reads the file", () => {
+    const readFileSyncMock = vi.fn().mockReturnValue("file contents");
+
+    expect(readFile("hey/there", readFileSyncMock)).toEqual("file contents");
+    expect(readFileSyncMock).toHaveBeenCalledWith(
+      `${TEMP_DIRECTORY}/hey::there`,
+      "utf8",
+    );
+  });
+
+  it("returns null when file doesn't exist", () => {
+    const readFileSyncMock = vi.fn().mockImplementation(() => {
+      throw new Error("File not found");
+    });
+
+    expect(readFile("hey/there", readFileSyncMock)).toEqual(null);
+  });
+});
+
+describe("saveFile()", () => {
+  it("saves the file", async () => {
+    const writeFileMock = vi.fn();
+
+    const result = saveFile("hey/there", "file contents", writeFileMock);
+
+    expect(writeFileMock).toHaveBeenCalledWith(
+      `${TEMP_DIRECTORY}/hey::there`,
+      "file contents",
+      expect.any(Function),
+    );
+    expect(result).toBeInstanceOf(Promise);
   });
 });

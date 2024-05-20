@@ -7,7 +7,8 @@ declare global {
 }
 
 export interface JamCommentsProps {
-  path: string;
+  path?: string;
+  schema?: string | object;
   domain?: string;
   apiKey?: string;
   baseUrl?: string;
@@ -15,4 +16,4 @@ export interface JamCommentsProps {
   tz?: string;
 }
 
-export default function JamComments({ path }: JamCommentsProps): JSX.Element;
+export default function JamComments(args: JamCommentsProps): JSX.Element;
