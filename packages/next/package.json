@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/next",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A library for integrating JamComments into a Next.js application.",
   "type": "module",
   "main": "dist/esm/index.js",
@@ -8,10 +8,12 @@
   "types": "dist/esm/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js"
+      "import": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts"
     },
     "./server": {
-      "import": "./dist/esm/server.js"
+      "import": "./dist/esm/server.js",
+      "types": "./dist/esm/server.d.ts"
     }
   },
   "scripts": {

@@ -1,6 +1,5 @@
 import * as React from "react";
-import { markupFetcher, reAppendMarkup } from "@jam-comments/server-utilities";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 
 declare global {
   interface Window {
@@ -21,6 +20,15 @@ export const JamComments = ({ markup }) => {
   const hasFiredRef = useRef<boolean>(false);
 
   useLayoutEffect(() => {
+    function reAppendMarkup(element: HTMLElement, markup: string) {
+      const range = document.createRange();
+      range.selectNode(element);
+      const documentFragment = range.createContextualFragment(markup);
+
+      element.innerHTML = "";
+      element.append(documentFragment);
+    }
+
     if (hasFiredRef.current) return;
     if (!elRef.current) return;
     if (!window.jcAlpine?.version) {
@@ -34,5 +42,3 @@ export const JamComments = ({ markup }) => {
 
   return <div ref={elRef} dangerouslySetInnerHTML={{ __html: markup }}></div>;
 };
-
-export const fetchMarkup = markupFetcher("remix");
