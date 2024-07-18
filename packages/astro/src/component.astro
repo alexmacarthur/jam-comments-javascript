@@ -10,6 +10,7 @@ type Props = JamCommentsProps;
 const fetchMarkup = markupFetcher("astro", nodeFetch as any);
 
 async function fetchCommentData({
+  copy,
   tz = undefined,
   path = undefined,
   schema = undefined,
@@ -27,6 +28,17 @@ async function fetchCommentData({
       baseUrl,
       environment,
       tz,
+      copy: {
+        copy_confirmation_message: copy.confirmationMessage,
+        copy_submit_button: copy.submitButton,
+        copy_name_placeholder: copy.submitButton,
+        copy_email_placeholder: copy.submitButton,
+        copy_comment_placeholder: copy.submitButton,
+        copy_write_tab: copy.submitButton,
+        copy_preview_tab: copy.submitButton,
+        copy_auth_button: copy.submitButton,
+        copy_log_out_button: copy.submitButton,
+      },
     });
   } catch (e) {
     logError(e as string);
@@ -34,7 +46,15 @@ async function fetchCommentData({
   }
 }
 
-const { path, domain, baseUrl, environment, tz, schema } = Astro.props as Props;
+const {
+  path,
+  domain,
+  baseUrl,
+  environment,
+  tz,
+  schema,
+  copy = {},
+} = Astro.props as Props;
 
 const markup = await fetchCommentData({
   path: path || getCurrentPath(Astro),
@@ -43,6 +63,7 @@ const markup = await fetchCommentData({
   baseUrl,
   environment,
   tz,
+  copy,
 });
 ---
 

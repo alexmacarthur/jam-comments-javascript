@@ -1,3 +1,5 @@
+import { CustomCopy } from "@jam-comments/server-utilities";
+
 declare global {
   interface Window {
     JamComments: {
@@ -14,6 +16,7 @@ export interface JamCommentsProps {
   baseUrl?: string;
   environment?: string;
   tz?: string;
+  copy?: CustomCopy;
 }
 
 export default function JamComments(args: JamCommentsProps): JSX.Element;

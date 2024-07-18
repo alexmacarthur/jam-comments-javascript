@@ -11,6 +11,18 @@ import {
   tempDirectoryExists,
 } from "./utils";
 
+export interface CustomCopy {
+  confirmationMessage?: string;
+  submitButton?: string;
+  namePlaceholder?: string;
+  emailPlaceholder?: string;
+  commentPlaceholder?: string;
+  writeTab?: string;
+  previewTab?: string;
+  authButton?: string;
+  logOutButton?: string;
+}
+
 export interface IFetchData {
   path: string;
   domain: string;
@@ -63,11 +75,11 @@ export async function fetchAll(
   }: IBatchFetchData,
   platform: string,
   fetchImplementation: any = fetch,
-  batchMarkupFetcherImpl: any = batchMarkupFetcher,
+  batchMarkupFetcherImpl: any = batchMarkupFetcher
 ) {
   const fetchBatchMarkup = batchMarkupFetcherImpl(
     platform,
-    fetchImplementation,
+    fetchImplementation
   );
 
   createTempDirectory();
@@ -93,7 +105,7 @@ export async function fetchAll(
       });
 
       console.log(
-        `Checking for comment data. Batch: ${current_page}/${last_page}`,
+        `Checking for comment data. Batch: ${current_page}/${last_page}`
       );
 
       const saveMarkupPromises = items.map((item) => {
@@ -117,7 +129,7 @@ export async function fetchAll(
 
 export function batchMarkupFetcher(
   platform: string,
-  fetchImplementation: typeof fetch = fetch,
+  fetchImplementation: typeof fetch = fetch
 ): (args: IBatchFetchData) => Promise<IBatchResponse> {
   return async ({
     tz = undefined,
@@ -132,7 +144,7 @@ export function batchMarkupFetcher(
       { tz, domain, apiKey, baseUrl, environment, page, copy },
       "/api/v3/markup/all",
       fetchImplementation,
-      platform,
+      platform
     );
 
     return response.json();
@@ -150,13 +162,13 @@ export async function fetchFreshMarkup(
     copy = {},
   }: IFetchData,
   fetchImplementation: typeof fetch = fetch,
-  platform: string,
+  platform: string
 ): Promise<string> {
   const response = await makeMarkupRequest(
     { tz, path, domain, apiKey, baseUrl, environment, copy },
     "/api/v3/markup",
     fetchImplementation,
-    platform,
+    platform
   );
 
   return response.text();
@@ -177,13 +189,13 @@ export async function makeMarkupRequest<
   }: T,
   baseServicePath: string,
   fetchImplementation: typeof fetch = fetch,
-  platform: string,
+  platform: string
 ): Promise<Response> {
   const trimmedTimezone = tz?.trim();
 
   if (trimmedTimezone && !isValidTimezone(trimmedTimezone)) {
     throw new Error(
-      `The timezone passed to JamComments is invalid: ${trimmedTimezone}`,
+      `The timezone passed to JamComments is invalid: ${trimmedTimezone}`
     );
   }
 
@@ -223,13 +235,13 @@ export async function makeMarkupRequest<
 
   if (response.status === 401) {
     throw new Error(
-      `Unauthorized! Are your domain and JamComments API key set correctly?`,
+      `Unauthorized! Are your domain and JamComments API key set correctly?`
     );
   }
 
   if (!response.ok) {
     throw new Error(
-      `JamComments request failed! Status code: ${response.status}, message: ${response.statusText}, request URL: ${requestUrl}`,
+      `JamComments request failed! Status code: ${response.status}, message: ${response.statusText}, request URL: ${requestUrl}`
     );
   }
 
@@ -238,7 +250,7 @@ export async function makeMarkupRequest<
 
 export function markupFetcher(
   platform: string,
-  fetchImplementation: typeof fetch = fetch,
+  fetchImplementation: typeof fetch = fetch
 ): (args: IFetchData) => Promise<string> {
   return async ({
     tz = undefined,
@@ -265,7 +277,7 @@ export function markupFetcher(
       : await fetchFreshMarkup(
           { tz, path, domain, apiKey, baseUrl, environment, copy },
           fetchImplementation,
-          platform,
+          platform
         );
 
     if (schema) {
