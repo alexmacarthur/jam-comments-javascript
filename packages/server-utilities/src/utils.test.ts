@@ -5,6 +5,7 @@ import {
   toSavedFileName,
   readFile,
   saveFile,
+  removeFalseyValues,
 } from "./utils";
 import { TEMP_DIRECTORY } from ".";
 
@@ -128,5 +129,28 @@ describe("saveFile()", () => {
       expect.any(Function),
     );
     expect(result).toBeInstanceOf(Promise);
+  });
+});
+
+describe("removeFalseyValues()", () => {
+  it("should remove falsey values", () => {
+    expect(removeFalseyValues({ a: 1, b: 0, d: null, e: "" })).toEqual({
+      a: 1,
+    });
+  });
+
+  it("should remove undefined items", () => {
+    const customCopy = {
+      copy_confirmation_message: "Thank you for your comment!",
+      copy_submit_button: "Submit",
+      copy_name_placeholder: undefined,
+    };
+
+    const result = removeFalseyValues(customCopy);
+
+    expect(result).toEqual({
+      copy_confirmation_message: "Thank you for your comment!",
+      copy_submit_button: "Submit",
+    });
   });
 });

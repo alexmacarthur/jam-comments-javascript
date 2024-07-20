@@ -5,20 +5,34 @@ const fetchMarkup = markupFetcher("gatsby", nodeFetch);
 const JAM_COMMENTS_CONFIG = {};
 
 exports.onPreInit = (_, pluginOptions) => {
-  JAM_COMMENTS_CONFIG.apiKey = pluginOptions.apiKey;
-  JAM_COMMENTS_CONFIG.domain = pluginOptions.domain;
-  JAM_COMMENTS_CONFIG.environment = pluginOptions.environment;
   JAM_COMMENTS_CONFIG.tz = pluginOptions.tz;
+  JAM_COMMENTS_CONFIG.copy = pluginOptions.copy;
+  JAM_COMMENTS_CONFIG.domain = pluginOptions.domain;
+  JAM_COMMENTS_CONFIG.apiKey = pluginOptions.apiKey;
+  JAM_COMMENTS_CONFIG.environment = pluginOptions.environment;
 };
 
 const fetchCommentData = async (pagePath) => {
+  const copy = JAM_COMMENTS_CONFIG.copy;
+
   try {
     return await fetchMarkup({
       path: pagePath,
+      tz: JAM_COMMENTS_CONFIG.tz,
+      copy: removeFalseyValues({
+        copy_confirmation_message: copy.confirmationMessage,
+        copy_submit_button: copy.submitButton,
+        copy_name_placeholder: copy.namePlaceholder,
+        copy_email_placeholder: copy.emailPlaceholder,
+        copy_comment_placeholder: copy.commentPlaceholder,
+        copy_write_tab: copy.writeTab,
+        copy_preview_tab: copy.previewTab,
+        copy_auth_button: copy.authButton,
+        copy_log_out_button: copy.logOutButton,
+      }),
       domain: JAM_COMMENTS_CONFIG.domain,
       apiKey: JAM_COMMENTS_CONFIG.apiKey,
       environment: JAM_COMMENTS_CONFIG.environment,
-      tz: JAM_COMMENTS_CONFIG.tz,
     });
   } catch (e) {
     logError(e);

@@ -1,5 +1,4 @@
 import React, { ReactElement, useLayoutEffect, useRef } from "react";
-import { reAppendMarkup } from "@jam-comments/server-utilities";
 
 interface JamCommentsProps {
   pageContext: {
@@ -19,6 +18,15 @@ const JamComments = ({ pageContext }: JamCommentsProps): ReactElement => {
   const hasFiredRef = useRef<boolean>(false);
 
   useLayoutEffect(() => {
+    function reAppendMarkup(element: HTMLElement, markup: string) {
+      const range = document.createRange();
+      range.selectNode(element);
+      const documentFragment = range.createContextualFragment(markup);
+
+      element.innerHTML = "";
+      element.append(documentFragment);
+    }
+
     if (hasFiredRef.current) return;
     if (!elRef.current) return;
     if (!window.jcAlpine?.version) {

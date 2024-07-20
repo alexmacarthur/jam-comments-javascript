@@ -111,3 +111,9 @@ export function saveFile(
     });
   });
 }
+
+export function removeFalseyValues<T>(obj: T): Partial<T> {
+  const filteredItems = Object.entries(obj).filter(([, value]) => value);
+
+  return Object.fromEntries(filteredItems) as Partial<T>;
+}
