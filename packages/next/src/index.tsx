@@ -1,31 +1,31 @@
-import * as React from "react";
-
-const { useRef, useLayoutEffect } = React;
+import React from "react";
 
 export const JamComments = ({ markup }) => {
-  const elRef = useRef<HTMLDivElement>();
-  const hasFiredRef = useRef<boolean>(false);
+  function initializeComments() {
+    const el = document.getElementById("jcComments");
 
-  useLayoutEffect(() => {
-    function reAppendMarkup(element: HTMLElement, markup: string) {
+    function reAppendMarkup(element, markup) {
       const range = document.createRange();
       range.selectNode(element);
       const documentFragment = range.createContextualFragment(markup);
-
       element.innerHTML = "";
       element.append(documentFragment);
     }
 
-    if (hasFiredRef.current) return;
-    if (!elRef.current) return;
-    if (!window.jcAlpine?.version) {
-      reAppendMarkup(elRef.current, markup);
+    if (!el) {
+      return;
     }
 
-    window.jcAlpine.start();
+    if (!window.jcAlpine?.version) {
+      reAppendMarkup(el, markup);
+    }
 
-    hasFiredRef.current = true;
-  }, []);
+    window.jcAlpine?.start();
+  }
 
-  return <div ref={elRef} dangerouslySetInnerHTML={{ __html: markup }}></div>;
+  if (typeof window !== "undefined") {
+    setTimeout(initializeComments, 0);
+  }
+
+  return <div dangerouslySetInnerHTML={{ __html: markup }}></div>;
 };

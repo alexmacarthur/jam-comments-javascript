@@ -1,5 +1,9 @@
 import nodeFetch from "node-fetch";
-import { logError, markupFetcher, removeFalseyValues } from "@jam-comments/server-utilities";
+import {
+  logError,
+  markupFetcher,
+  removeFalseyValues,
+} from "@jam-comments/server-utilities";
 
 const fetchMarkup = markupFetcher("gatsby", nodeFetch);
 const JAM_COMMENTS_CONFIG = {};
