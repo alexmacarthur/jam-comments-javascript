@@ -1,10 +1,10 @@
-const nodeFetch = require("node-fetch");
-const { logError, markupFetcher } = require("@jam-comments/server-utilities");
+import nodeFetch from "node-fetch";
+import { logError, markupFetcher, removeFalseyValues } from "@jam-comments/server-utilities";
 
 const fetchMarkup = markupFetcher("gatsby", nodeFetch);
 const JAM_COMMENTS_CONFIG = {};
 
-exports.onPreInit = (_, pluginOptions) => {
+export const onPreInit = (_, pluginOptions) => {
   JAM_COMMENTS_CONFIG.tz = pluginOptions.tz;
   JAM_COMMENTS_CONFIG.copy = pluginOptions.copy;
   JAM_COMMENTS_CONFIG.domain = pluginOptions.domain;
@@ -43,7 +43,7 @@ const fetchCommentData = async (pagePath) => {
 /**
  * When each page is created, attach any of its comments to page context.
  */
-exports.onCreatePage = async ({ page, actions }) => {
+export const onCreatePage = async ({ page, actions }) => {
   const { createPage, deletePage } = actions;
   const pagePath = page.path.replace(/\/+$/, "") || "";
   const markup = await fetchCommentData(pagePath);

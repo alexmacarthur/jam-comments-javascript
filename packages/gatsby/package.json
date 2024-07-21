@@ -1,10 +1,10 @@
 {
   "name": "@jam-comments/gatsby",
-  "version": "3.1.0",
+  "version": "3.1.2",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "The Gatsby plugin for Jam Comments.",
-  "main": "gatsby-node.js",
+  "main": "gatsby-node.mjs",
   "types": "dist/index.d.ts",
   "exports": {
     "./ui": {
@@ -13,8 +13,8 @@
       "require": "./dist/index.umd.js"
     },
     "./*": {
-      "import": "./gatsby-node.js",
-      "require": "./gatsby-node.js"
+      "import": "./gatsby-node.mjs",
+      "require": "./gatsby-node.mjs"
     }
   },
   "typesVersions": {
@@ -27,7 +27,7 @@
   "scripts": {
     "watch": "vite build --watch",
     "build": "vite build && tsc",
-    "format": "prettier --write \"**/*.{md,js,tsx}\"",
+    "format": "prettier --write \"**/*.{md,js,tsx,mjs,ts}\"",
     "install-peers": "install-peers -f",
     "prepare": "npm run build"
   },
