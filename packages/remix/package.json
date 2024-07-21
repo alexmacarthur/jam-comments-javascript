@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/remix",
-  "version": "2.0.4",
+  "version": "2.1.1",
   "description": "A library for integrating JamComments into a Remix application.",
   "main": "dist/cjs/index.js",
   "module": "dist/cjs/index.js",
@@ -29,11 +29,11 @@
   "author": "Alex MacArthur",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^20.12.12",
-    "@types/react": "^18.3.2",
+    "@types/node": "^20.14.11",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "prettier": "^3.2.5",
-    "typescript": "^5.4.5"
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.3"
   },
   "publishConfig": {
     "access": "public"
@@ -43,6 +43,6 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@jam-comments/server-utilities": "^5.0.0"
+    "@jam-comments/server-utilities": "^5.3.0"
   }
 }

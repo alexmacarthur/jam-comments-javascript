@@ -8,7 +8,7 @@ import {
 } from "@jam-comments/server-utilities/dist/types/markupFetcher";
 
 type FetchArgs = Omit<IFetchData, "copy"> & {
-  copy: CustomCopy;
+  copy?: CustomCopy;
 };
 
 export const fetchMarkup = function (args: FetchArgs) {
