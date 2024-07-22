@@ -1,16 +1,15 @@
 {
   "name": "@jam-comments/remix",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "A library for integrating JamComments into a Remix application.",
   "type": "module",
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/ems/index.d.ts",
+  "module": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
   "scripts": {
     "prepare": "npm run build",
     "build": "rm -rf dist && npm run build:cjs",
     "build:cjs": "tsc --module commonjs --outDir ./dist/cjs",
-    "build:esm": "tsc --module es2020 --outDir dist/esm",
     "format": "prettier --write src"
   },
   "files": [
@@ -20,10 +19,12 @@
   "exports": {
     ".": {
       "import": "./dist/cjs/index.js",
+      "require": "./dist/cjs/index.js",
       "types": "./dist/cjs/index.d.ts"
     },
     "./server": {
       "import": "./dist/cjs/server.js",
+      "require": "./dist/cjs/server.js",
       "types": "./dist/cjs/server.d.ts"
     }
   },

@@ -59,6 +59,8 @@ describe("fetchAll()", () => {
       domain: "test.com",
       apiKey: "123abc",
       baseUrl: "https://go.jamcomments.com",
+      copy: {},
+      dateFormat: undefined,
       environment: "production",
       page: 1,
       tz: undefined,
@@ -127,6 +129,8 @@ describe("fetchAll()", () => {
       domain: "test.com",
       apiKey: "123abc",
       baseUrl: "https://go.jamcomments.com",
+      copy: {},
+      dateFormat: undefined,
       environment: "production",
       page: 1,
       tz: undefined,
@@ -138,6 +142,8 @@ describe("fetchAll()", () => {
       domain: "test.com",
       apiKey: "123abc",
       baseUrl: "https://go.jamcomments.com",
+      copy: {},
+      dateFormat: undefined,
       environment: "production",
       page: 2,
       tz: undefined,
@@ -180,7 +186,7 @@ describe("fetchAll()", () => {
     expect(deleteTempDirectorySpy).toHaveBeenCalledOnce();
   });
 
-  it.only("handles copy overrides", async () => {
+  it("handles copy overrides", async () => {
     const saveFileSpy = vi.spyOn(utilsExports, "saveFile");
 
     const mockBatchFetcher = vi.fn().mockReturnValue({
@@ -237,6 +243,51 @@ describe("fetchAll()", () => {
     });
 
     expect(saveFileSpy).toHaveBeenCalledTimes(2);
+  });
+
+  it("allows you to pass a custom date format", async () => {
+    const mockBatchFetcher = vi.fn().mockReturnValue({
+      data: [
+        { path: "/test", markup: "markup1" },
+        { path: "/test2", markup: "markup2" },
+      ],
+      meta: {
+        current_page: 1,
+        from: 1,
+        last_page: 1,
+        path: "/test",
+        per_page: 10,
+        to: 2,
+        total: 2,
+      },
+    });
+
+    const batchMarkupFetcherMock = vi.fn().mockImplementation((a, b) => {
+      return mockBatchFetcher;
+    });
+
+    await fetcherExports.fetchAll(
+      {
+        domain: "test.com",
+        apiKey: "123abc",
+        environment: "production",
+        dateFormat: "yyyy-MM-dd",
+      },
+      "test_platform",
+      vi.fn(),
+      batchMarkupFetcherMock,
+    );
+
+    expect(mockBatchFetcher).toHaveBeenCalledWith({
+      domain: "test.com",
+      apiKey: "123abc",
+      baseUrl: "https://go.jamcomments.com",
+      copy: {},
+      dateFormat: "yyyy-MM-dd",
+      environment: "production",
+      page: 1,
+      tz: undefined,
+    });
   });
 });
 
@@ -528,6 +579,31 @@ describe("markupFetcher", () => {
       expect.anything(),
     );
     expect(result).toEqual("results!");
+  });
+
+  it("passes date format string", async () => {
+    const fetchMock = vi.fn().mockImplementation(() => {
+      return {
+        status: 200,
+        ok: true,
+        text: () => "results!",
+      };
+    });
+
+    const fetcher = markupFetcher("test", fetchMock);
+
+    await fetcher({
+      path: null,
+      domain: "test.com",
+      apiKey: "123abc",
+      environment: "production",
+      dateFormat: "yyyy-MM-dd",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2F&date_format=yyyy-MM-dd",
+      expect.anything(),
+    );
   });
 
   it("response isn't ok", async () => {

@@ -4,3 +4,4 @@ dist
 dist-*
 .cache
 *debug.log
+_temp_jc

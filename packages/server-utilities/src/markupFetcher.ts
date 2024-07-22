@@ -31,6 +31,7 @@ export interface IFetchData {
   tz?: string;
   baseUrl?: string;
   environment?: string;
+  dateFormat?: string;
   copy?: {
     copy_confirmation_message?: string;
     copy_submit_button?: string;
@@ -64,12 +65,15 @@ interface IBatchResponse {
   };
 }
 
+const BASE_URL = "https://go.jamcomments.com";
+
 export async function fetchAll(
   {
     tz = undefined,
+    dateFormat = undefined,
     domain,
     apiKey,
-    baseUrl = "https://go.jamcomments.com",
+    baseUrl = BASE_URL,
     environment = getEnvironment(),
     copy = {},
   }: IBatchFetchData,
@@ -101,6 +105,7 @@ export async function fetchAll(
         environment,
         page,
         tz,
+        dateFormat,
         copy,
       });
 
@@ -132,16 +137,17 @@ export function batchMarkupFetcher(
   fetchImplementation: typeof fetch = fetch,
 ): (args: IBatchFetchData) => Promise<IBatchResponse> {
   return async ({
-    tz = undefined,
+    tz,
+    copy,
     domain,
     apiKey,
-    baseUrl = "https://go.jamcomments.com",
+    dateFormat,
+    baseUrl = BASE_URL,
     environment = getEnvironment(),
     page = 1,
-    copy = {},
   }: IBatchFetchData): Promise<IBatchResponse> => {
     const response = await makeMarkupRequest<IBatchFetchData>(
-      { tz, domain, apiKey, baseUrl, environment, page, copy },
+      { tz, domain, apiKey, baseUrl, environment, page, copy, dateFormat },
       "/api/v3/markup/all",
       fetchImplementation,
       platform,
@@ -153,19 +159,20 @@ export function batchMarkupFetcher(
 
 export async function fetchFreshMarkup(
   {
-    tz = undefined,
+    tz,
     path,
+    copy,
     domain,
     apiKey,
-    baseUrl = "https://go.jamcomments.com",
+    dateFormat,
+    baseUrl = BASE_URL,
     environment = getEnvironment(),
-    copy = {},
   }: IFetchData,
   fetchImplementation: typeof fetch = fetch,
   platform: string,
 ): Promise<string> {
   const response = await makeMarkupRequest(
-    { tz, path, domain, apiKey, baseUrl, environment, copy },
+    { tz, path, domain, apiKey, baseUrl, environment, copy, dateFormat },
     "/api/v3/markup",
     fetchImplementation,
     platform,
@@ -178,14 +185,15 @@ export async function makeMarkupRequest<
   T extends Partial<IBatchFetchData & IFetchData>,
 >(
   {
-    tz = undefined,
-    path = undefined,
+    tz,
+    path,
+    page,
     domain,
     apiKey,
-    baseUrl = "https://go.jamcomments.com",
-    environment = getEnvironment(),
-    page = undefined,
+    dateFormat,
     copy = {},
+    baseUrl = BASE_URL,
+    environment = getEnvironment(),
   }: T,
   baseServicePath: string,
   fetchImplementation: typeof fetch = fetch,
@@ -213,6 +221,10 @@ export async function makeMarkupRequest<
 
   if (trimmedTimezone) {
     params.set("tz", trimmedTimezone);
+  }
+
+  if (dateFormat) {
+    params.set("date_format", dateFormat);
   }
 
   if (environment !== "production") {
@@ -258,7 +270,8 @@ export function markupFetcher(
     domain,
     apiKey,
     schema,
-    baseUrl = "https://go.jamcomments.com",
+    dateFormat,
+    baseUrl = BASE_URL,
     environment = getEnvironment(),
     copy = {},
   }: IFetchData): Promise<string> => {
@@ -275,7 +288,7 @@ export function markupFetcher(
     const markup = savedFile
       ? savedFile
       : await fetchFreshMarkup(
-          { tz, path, domain, apiKey, baseUrl, environment, copy },
+          { tz, path, domain, apiKey, baseUrl, environment, copy, dateFormat },
           fetchImplementation,
           platform,
         );
