@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { getCurrentPath, removeFalseyValues } from "./utils";
+import { describe, expect, it, vi } from "vitest";
+import { fetchCommentData, getCurrentPath, removeFalseyValues } from "./utils";
 import { AstroGlobal } from "astro";
 
 describe("getCurrentPath()", () => {
@@ -44,5 +44,64 @@ describe("removeFalseyValues()", () => {
       copy_confirmation_message: "Thank you for your comment!",
       copy_submit_button: "Submit",
     });
+  });
+});
+
+describe("fetchCommentData()", () => {
+  it("passes the correct arguments to fetchMarkup", async () => {
+    const mockResponse = vi.fn();
+    const fetchMock = vi.fn().mockImplementation(() => mockResponse);
+
+    const result = await fetchCommentData(
+      {
+        copy: {
+          confirmationMessage: "my confirmation message",
+        },
+        apiKey: "123",
+        dateFormat: "YYYY-MM-DD",
+        path: "/test",
+        domain: "example.com",
+        environment: "production",
+        baseUrl: "https://example.com",
+      },
+      fetchMock,
+    );
+
+    expect(fetchMock).toHaveBeenCalledWith({
+      copy: {
+        copy_confirmation_message: "my confirmation message",
+      },
+      apiKey: "123",
+      dateFormat: "YYYY-MM-DD",
+      path: "/test",
+      domain: "example.com",
+      environment: "production",
+      baseUrl: "https://example.com",
+    });
+
+    expect(result).toBe(mockResponse);
+  });
+
+  it("returns null if fetchMarkup throws an error", async () => {
+    const fetchMock = vi.fn().mockImplementation(() => {
+      throw new Error("test error");
+    });
+
+    const result = await fetchCommentData(
+      {
+        copy: {
+          confirmationMessage: "my confirmation message",
+        },
+        apiKey: "123",
+        path: "/test",
+        domain: "example.com",
+        dateFormat: "YYYY-MM-DD",
+        environment: "production",
+        baseUrl: "https://example.com",
+      },
+      fetchMock,
+    );
+
+    expect(result).toBeNull();
   });
 });

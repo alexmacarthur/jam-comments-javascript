@@ -1,69 +1,29 @@
 ---
-import pkg from "@jam-comments/server-utilities";
-import nodeFetch from "node-fetch";
 import type { JamCommentsProps } from "..";
-import { getCurrentPath, removeFalseyValues } from "./utils";
-const { logError, markupFetcher } = pkg;
+import { fetchCommentData, getCurrentPath } from "./utils";
 
 type Props = JamCommentsProps;
 
-const fetchMarkup = markupFetcher("astro", nodeFetch as any);
-
-async function fetchCommentData({
-  copy,
-  tz = undefined,
-  path = undefined,
-  schema = undefined,
-  domain = import.meta.env.JAM_COMMENTS_DOMAIN as string,
-  apiKey = import.meta.env.JAM_COMMENTS_API_KEY as string,
-  baseUrl = import.meta.env.JAM_COMMENTS_BASE_URL as string,
-  environment = import.meta.env.JAM_COMMENTS_ENVIRONMENT as string,
-}: JamCommentsProps) {
-  try {
-    return await fetchMarkup({
-      path,
-      schema,
-      domain,
-      apiKey,
-      baseUrl,
-      environment,
-      tz,
-      copy: removeFalseyValues({
-        copy_confirmation_message: copy.confirmationMessage,
-        copy_submit_button: copy.submitButton,
-        copy_name_placeholder: copy.namePlaceholder,
-        copy_email_placeholder: copy.emailPlaceholder,
-        copy_comment_placeholder: copy.commentPlaceholder,
-        copy_write_tab: copy.writeTab,
-        copy_preview_tab: copy.previewTab,
-        copy_auth_button: copy.authButton,
-        copy_log_out_button: copy.logOutButton,
-      }),
-    });
-  } catch (e) {
-    logError(e as string);
-    return null;
-  }
-}
-
 const {
+  tz,
   path,
+  schema,
   domain,
   baseUrl,
+  dateFormat,
   environment,
-  tz,
-  schema,
   copy = {},
 } = Astro.props as Props;
 
 const markup = await fetchCommentData({
+  tz,
+  copy,
   path: path || getCurrentPath(Astro),
   schema,
   domain,
   baseUrl,
   environment,
-  tz,
-  copy,
+  dateFormat,
 });
 ---
 

@@ -14,6 +14,7 @@ export interface JamCommentsProps {
   domain?: string;
   apiKey?: string;
   baseUrl?: string;
+  dateFormat?: string;
   environment?: string;
   tz?: string;
   copy?: CustomCopy;

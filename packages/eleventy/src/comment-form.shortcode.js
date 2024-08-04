@@ -12,6 +12,7 @@ const fetchCommentData = async ({
   domain,
   apiKey,
   schema,
+  dateFormat,
   environment,
   tz,
 }) => {
@@ -23,6 +24,7 @@ const fetchCommentData = async ({
       apiKey,
       environment,
       tz,
+      dateFormat,
       embedScript: true,
       copy: removeFalseyValues({
         copy_confirmation_message: copy.confirmationMessage,
@@ -48,7 +50,7 @@ const fetchCommentData = async ({
  * @param {object} options
  */
 const commentForm = async function (options, path, schema) {
-  const { domain, apiKey, environment, tz, copy } = options;
+  const { domain, apiKey, environment, tz, copy, dateFormat } = options;
   const markup = await fetchCommentData({
     tz,
     copy,
@@ -56,6 +58,7 @@ const commentForm = async function (options, path, schema) {
     domain,
     apiKey,
     schema,
+    dateFormat,
     environment,
   });
 

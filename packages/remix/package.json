@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/remix",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "description": "A library for integrating JamComments into a Remix application.",
   "type": "module",
   "main": "dist/cjs/index.js",
@@ -36,7 +36,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   },
   "publishConfig": {
     "access": "public"
@@ -46,6 +46,6 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@jam-comments/server-utilities": "^5.3.0"
+    "@jam-comments/server-utilities": "^5.4.0"
   }
 }

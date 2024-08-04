@@ -13,6 +13,7 @@ export const onPreInit = (_, pluginOptions) => {
   JAM_COMMENTS_CONFIG.copy = pluginOptions.copy;
   JAM_COMMENTS_CONFIG.domain = pluginOptions.domain;
   JAM_COMMENTS_CONFIG.apiKey = pluginOptions.apiKey;
+  JAM_COMMENTS_CONFIG.dateFormat = pluginOptions.dateFormat;
   JAM_COMMENTS_CONFIG.environment = pluginOptions.environment;
 };
 
@@ -23,6 +24,10 @@ const fetchCommentData = async (pagePath) => {
     return await fetchMarkup({
       path: pagePath,
       tz: JAM_COMMENTS_CONFIG.tz,
+      domain: JAM_COMMENTS_CONFIG.domain,
+      apiKey: JAM_COMMENTS_CONFIG.apiKey,
+      environment: JAM_COMMENTS_CONFIG.environment,
+      dateFormat: JAM_COMMENTS_CONFIG.dateFormat,
       copy: removeFalseyValues({
         copy_confirmation_message: copy.confirmationMessage,
         copy_submit_button: copy.submitButton,
@@ -34,9 +39,6 @@ const fetchCommentData = async (pagePath) => {
         copy_auth_button: copy.authButton,
         copy_log_out_button: copy.logOutButton,
       }),
-      domain: JAM_COMMENTS_CONFIG.domain,
-      apiKey: JAM_COMMENTS_CONFIG.apiKey,
-      environment: JAM_COMMENTS_CONFIG.environment,
     });
   } catch (e) {
     logError(e);

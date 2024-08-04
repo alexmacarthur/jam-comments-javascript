@@ -81,10 +81,10 @@
   dependencies:
     "@sinclair/typebox" "^0.27.8"
 
-"@lerna/create@8.1.6":
-  version "8.1.6"
-  resolved "https://registry.npmjs.org/@lerna/create/-/create-8.1.6.tgz"
-  integrity sha512-z7CjDSWFKS6cqydxP2XDrnmp1MYavSk2sU70ku1uo/38SZvFeUlEAkV6evxc2QJOqWQFsGKOO26zX2DBnQ45YQ==
+"@lerna/create@8.1.7":
+  version "8.1.7"
+  resolved "https://registry.npmjs.org/@lerna/create/-/create-8.1.7.tgz"
+  integrity sha512-ch81CgU5pBNOiUCQx44F/ZtN4DxxJjUQtuytYRBFWJSHAJ+XPJtiC/yQ9zjr1I1yaUlmNYYblkopoOyziOdJ1w==
   dependencies:
     "@npmcli/arborist" "7.5.3"
     "@npmcli/package-json" "5.2.0"
@@ -144,6 +144,7 @@
     slash "^3.0.0"
     ssri "^10.0.6"
     string-width "^4.2.3"
+    strip-ansi "^6.0.1"
     strong-log-transformer "2.1.0"
     tar "6.2.1"
     temp-dir "1.0.0"
@@ -344,27 +345,27 @@
     proc-log "^4.0.0"
     which "^4.0.0"
 
-"@nrwl/devkit@19.5.1":
-  version "19.5.1"
-  resolved "https://registry.npmjs.org/@nrwl/devkit/-/devkit-19.5.1.tgz"
-  integrity sha512-ZsckDZszLTv3oshNsY5fZ86g8a/VcGvgDpdiP/z/A/krtOHL8iUjdT/72Eo5DIult5WcSFjnifyWcyWIGe1PeA==
+"@nrwl/devkit@19.5.2":
+  version "19.5.2"
+  resolved "https://registry.npmjs.org/@nrwl/devkit/-/devkit-19.5.2.tgz"
+  integrity sha512-gDmGsegterCCeaFBzMi8cALIywOsBwYU50200VrGYcsOfrz3FJu5AoUzr+fBLmvC0b0CRqJy6FXEKK0QOZGKtA==
   dependencies:
-    "@nx/devkit" "19.5.1"
+    "@nx/devkit" "19.5.2"
 
-"@nrwl/tao@19.5.1":
-  version "19.5.1"
-  resolved "https://registry.npmjs.org/@nrwl/tao/-/tao-19.5.1.tgz"
-  integrity sha512-gAitJkexzI36jCNIHru1PAqNcFe17KlSwb3F4VoCArcZSJmSh5cTbxaAAWup8aavxHT6nF6G1Zm1+N0RmzRMRQ==
+"@nrwl/tao@19.5.2":
+  version "19.5.2"
+  resolved "https://registry.npmjs.org/@nrwl/tao/-/tao-19.5.2.tgz"
+  integrity sha512-M7hdPT/M+vr8MW6W3gwkTv82J5T4jDHZWcVpXmoQPSK/v7g+Sfpw6CCBeaQv7/S94vRrrqI6r+GkZUvIQZnzZw==
   dependencies:
-    nx "19.5.1"
+    nx "19.5.2"
     tslib "^2.3.0"
 
-"@nx/devkit@>=17.1.2 < 20", "@nx/devkit@19.5.1":
-  version "19.5.1"
-  resolved "https://registry.npmjs.org/@nx/devkit/-/devkit-19.5.1.tgz"
-  integrity sha512-Vj8wwzNIR5VIWmuLHhOi4aUVq7eVV5YTbctnEewKT+V/O4LZj+hClGyVNyT8s6b8JIjNWoIO4HXStLnH8rDOlw==
+"@nx/devkit@>=17.1.2 < 20", "@nx/devkit@19.5.2":
+  version "19.5.2"
+  resolved "https://registry.npmjs.org/@nx/devkit/-/devkit-19.5.2.tgz"
+  integrity sha512-+tVtTVLVSSHybWK3m0acUy0IT+T5Uz2NBbac8693V5Pkw6xPNDCtZImm24Jx8wA1E6dWnxjsNz2tjS2wdXCA1Q==
   dependencies:
-    "@nrwl/devkit" "19.5.1"
+    "@nrwl/devkit" "19.5.2"
     ejs "^3.1.7"
     enquirer "~2.3.6"
     ignore "^5.0.4"
@@ -374,10 +375,10 @@
     tslib "^2.3.0"
     yargs-parser "21.1.1"
 
-"@nx/nx-darwin-x64@19.5.1":
-  version "19.5.1"
-  resolved "https://registry.npmjs.org/@nx/nx-darwin-x64/-/nx-darwin-x64-19.5.1.tgz"
-  integrity sha512-ficF0T6vN0LkkYoPyEgdXEOfIR9ss0hXeG2s32SwqfjNZlbisO4fvrHM8f8WPujEJ+5nCIJ9o4jJiWBHkfUTBg==
+"@nx/nx-darwin-x64@19.5.2":
+  version "19.5.2"
+  resolved "https://registry.npmjs.org/@nx/nx-darwin-x64/-/nx-darwin-x64-19.5.2.tgz"
+  integrity sha512-Ct02YyBAimy2R04pM5ve1/C/HAoJMI0O/hx6IEBOxHa6hcYe+PhY0NE8ObnN4Tvki3om2KCTa1GHlwiE4Raxig==
 
 "@octokit/auth-token@^3.0.0":
   version "3.0.4"
@@ -2175,12 +2176,12 @@ kind-of@^6.0.2, kind-of@^6.0.3:
   resolved "https://registry.npmjs.org/kind-of/-/kind-of-6.0.3.tgz"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-lerna@^8.1.6:
-  version "8.1.6"
-  resolved "https://registry.npmjs.org/lerna/-/lerna-8.1.6.tgz"
-  integrity sha512-O3zSX/dmchMVy9m37DD1BCx7X68nS5lZFECjqG7Siiv3+KgqKXHnF4JQPJUDD/vG2qBQv5StpXCyqGxR0XJVAQ==
+lerna@^8.1.7:
+  version "8.1.7"
+  resolved "https://registry.npmjs.org/lerna/-/lerna-8.1.7.tgz"
+  integrity sha512-v2kkBn8Vqtroo30Pr5/JQ9MygRhnCsoI1jSOf3DxWmcTbkpC5U7c6rGr+7NPK6QrxKbC0/Cj4kuIBMb/7f79sQ==
   dependencies:
-    "@lerna/create" "8.1.6"
+    "@lerna/create" "8.1.7"
     "@npmcli/arborist" "7.5.3"
     "@npmcli/package-json" "5.2.0"
     "@npmcli/run-script" "8.1.0"
@@ -2247,6 +2248,7 @@ lerna@^8.1.6:
     slash "3.0.0"
     ssri "^10.0.6"
     string-width "^4.2.3"
+    strip-ansi "^6.0.1"
     strong-log-transformer "2.1.0"
     tar "6.2.1"
     temp-dir "1.0.0"
@@ -2843,13 +2845,13 @@ npm-run-path@^5.1.0:
   dependencies:
     path-key "^4.0.0"
 
-"nx@>= 17 <= 20", "nx@>=17.1.2 < 20", nx@19.5.1:
-  version "19.5.1"
-  resolved "https://registry.npmjs.org/nx/-/nx-19.5.1.tgz"
-  integrity sha512-aKctNLiK2hXl2536/qwnAqvSzNlIGwJdTBl2ajOnSyNrGWuLDMllTNTdp0/lU0QBJ2NSod3JbBQFV7cc9ILs4w==
+"nx@>= 17 <= 20", "nx@>=17.1.2 < 20", nx@19.5.2:
+  version "19.5.2"
+  resolved "https://registry.npmjs.org/nx/-/nx-19.5.2.tgz"
+  integrity sha512-tsuyjC9zwUOhgtW88zXR6l3lgihzyBVfDKjFj2OkXGn+jKMwNiPHLfMZ76vBWRBjwZ4I9apEMZSpMuxsVBcRTw==
   dependencies:
     "@napi-rs/wasm-runtime" "0.2.4"
-    "@nrwl/tao" "19.5.1"
+    "@nrwl/tao" "19.5.2"
     "@yarnpkg/lockfile" "^1.1.0"
     "@yarnpkg/parsers" "3.0.0-rc.46"
     "@zkochan/js-yaml" "0.0.7"
@@ -2884,16 +2886,16 @@ npm-run-path@^5.1.0:
     yargs "^17.6.2"
     yargs-parser "21.1.1"
   optionalDependencies:
-    "@nx/nx-darwin-arm64" "19.5.1"
-    "@nx/nx-darwin-x64" "19.5.1"
-    "@nx/nx-freebsd-x64" "19.5.1"
-    "@nx/nx-linux-arm-gnueabihf" "19.5.1"
-    "@nx/nx-linux-arm64-gnu" "19.5.1"
-    "@nx/nx-linux-arm64-musl" "19.5.1"
-    "@nx/nx-linux-x64-gnu" "19.5.1"
-    "@nx/nx-linux-x64-musl" "19.5.1"
-    "@nx/nx-win32-arm64-msvc" "19.5.1"
-    "@nx/nx-win32-x64-msvc" "19.5.1"
+    "@nx/nx-darwin-arm64" "19.5.2"
+    "@nx/nx-darwin-x64" "19.5.2"
+    "@nx/nx-freebsd-x64" "19.5.2"
+    "@nx/nx-linux-arm-gnueabihf" "19.5.2"
+    "@nx/nx-linux-arm64-gnu" "19.5.2"
+    "@nx/nx-linux-arm64-musl" "19.5.2"
+    "@nx/nx-linux-x64-gnu" "19.5.2"
+    "@nx/nx-linux-x64-musl" "19.5.2"
+    "@nx/nx-win32-arm64-msvc" "19.5.2"
+    "@nx/nx-win32-x64-msvc" "19.5.2"
 
 once@^1.4.0:
   version "1.4.0"
@@ -3968,9 +3970,9 @@ typedarray@^0.0.6:
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
 
 "typescript@>=3 < 6", typescript@>=4.9.5:
-  version "5.5.3"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-5.5.3.tgz"
-  integrity sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==
+  version "5.5.4"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.5.4.tgz"
+  integrity sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==
 
 uglify-js@^3.1.4:
   version "3.19.0"
