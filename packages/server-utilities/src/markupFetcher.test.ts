@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as injectSchema from "./injectSchema";
 import * as fetcherExports from "./markupFetcher";
 import { afterEach } from "node:test";
-import * as utilsExports from "./nodeUtils";
+import * as utilsExports from "./utils";
 
 const { deleteTempDirectory } = utilsExports;
 const { markupFetcher, batchMarkupFetcher } = fetcherExports;
@@ -630,7 +630,7 @@ describe("markupFetcher", () => {
     it("makes fresh request when temp directory does not exist", async () => {
       const tempDirectoryExistsSpy = vi
         .spyOn(utilsExports, "tempDirectoryExists")
-        .mockReturnValue(Promise.resolve(false));
+        .mockReturnValue(false);
       const readFileSpy = vi.spyOn(utilsExports, "readFile");
 
       const fetchMock = vi.fn().mockImplementation(() => {
@@ -662,10 +662,10 @@ describe("markupFetcher", () => {
     it("uses saved markup when it exists", async () => {
       const tempDirectoryExistsSpy = vi
         .spyOn(utilsExports, "tempDirectoryExists")
-        .mockReturnValue(Promise.resolve(true));
+        .mockReturnValue(true);
       const readFileSpy = vi
         .spyOn(utilsExports, "readFile")
-        .mockReturnValue(Promise.resolve("saved markup"));
+        .mockReturnValue("saved markup");
 
       const fetchMock = vi.fn();
       const fetcher = markupFetcher("test", fetchMock);
@@ -686,13 +686,13 @@ describe("markupFetcher", () => {
     it("uses the EMPTY template when there's no saved file for a post", async () => {
       const tempDirectoryExistsSpy = vi
         .spyOn(utilsExports, "tempDirectoryExists")
-        .mockReturnValue(Promise.resolve(true));
+        .mockReturnValue(true);
       const readFileSpy = vi
         .spyOn(utilsExports, "readFile")
         .mockReturnValue(null);
       const getEmptyMarkupSpy = vi
         .spyOn(utilsExports, "getEmptyMarkup")
-        .mockReturnValue(Promise.resolve("<!-- EMPTY -->"));
+        .mockReturnValue("<!-- EMPTY -->");
 
       const fetchMock = vi.fn();
       const fetcher = markupFetcher("test", fetchMock);
