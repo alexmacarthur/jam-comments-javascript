@@ -3,12 +3,12 @@ import * as injectSchema from "./injectSchema";
 import * as fetcherExports from "./markupFetcher";
 import { afterEach } from "node:test";
 import * as utilsExports from "./utils";
+import store from "./store";
 
-const { deleteTempDirectory } = utilsExports;
 const { markupFetcher, batchMarkupFetcher } = fetcherExports;
 
 beforeEach(() => {
-  deleteTempDirectory();
+  store.clear();
 });
 
 afterEach(() => {
@@ -17,7 +17,7 @@ afterEach(() => {
 
 describe("fetchAll()", () => {
   it("fetches all comments in a single request", async () => {
-    const saveFileSpy = vi.spyOn(utilsExports, "saveFile");
+    const saveFileSpy = vi.spyOn(store, "set");
 
     const mockBatchFetcher = vi.fn().mockReturnValue({
       data: [
@@ -47,12 +47,12 @@ describe("fetchAll()", () => {
       },
       "test_platform",
       vi.fn(),
-      batchMarkupFetcherMock,
+      batchMarkupFetcherMock
     );
 
     expect(batchMarkupFetcherMock).toHaveBeenCalledWith(
       "test_platform",
-      expect.anything(),
+      expect.anything()
     );
 
     expect(mockBatchFetcher).toHaveBeenCalledWith({
@@ -72,7 +72,7 @@ describe("fetchAll()", () => {
   });
 
   it("fetches all comments in multiple requests", async () => {
-    const saveFileSpy = vi.spyOn(utilsExports, "saveFile");
+    const saveFileSpy = vi.spyOn(store, "set");
 
     const mockBatchFetcher = vi
       .fn()
@@ -117,12 +117,12 @@ describe("fetchAll()", () => {
       },
       "test_platform",
       vi.fn(),
-      batchMarkupFetcherMock,
+      batchMarkupFetcherMock
     );
 
     expect(batchMarkupFetcherMock).toHaveBeenCalledWith(
       "test_platform",
-      expect.anything(),
+      expect.anything()
     );
 
     expect(mockBatchFetcher).toHaveBeenCalledWith({
@@ -155,10 +155,7 @@ describe("fetchAll()", () => {
   });
 
   it("deletes the temp directory of anything fails", async () => {
-    const deleteTempDirectorySpy = vi.spyOn(
-      utilsExports,
-      "deleteTempDirectory",
-    );
+    const deleteTempDirectorySpy = vi.spyOn(store, "clear");
 
     const mockBatchFetcher = vi.fn().mockImplementation(() => {
       throw new Error("test error");
@@ -177,7 +174,7 @@ describe("fetchAll()", () => {
         },
         "test_platform",
         vi.fn(),
-        batchMarkupFetcherMock,
+        batchMarkupFetcherMock
       );
     } catch (e) {
       expect((e as any).message).toEqual("test error");
@@ -187,7 +184,7 @@ describe("fetchAll()", () => {
   });
 
   it("handles copy overrides", async () => {
-    const saveFileSpy = vi.spyOn(utilsExports, "saveFile");
+    const saveFileSpy = vi.spyOn(store, "set");
 
     const mockBatchFetcher = vi.fn().mockReturnValue({
       data: [
@@ -221,12 +218,12 @@ describe("fetchAll()", () => {
       },
       "test_platform",
       vi.fn(),
-      batchMarkupFetcherMock,
+      batchMarkupFetcherMock
     );
 
     expect(batchMarkupFetcherMock).toHaveBeenCalledWith(
       "test_platform",
-      expect.anything(),
+      expect.anything()
     );
 
     expect(mockBatchFetcher).toHaveBeenCalledWith({
@@ -275,7 +272,7 @@ describe("fetchAll()", () => {
       },
       "test_platform",
       vi.fn(),
-      batchMarkupFetcherMock,
+      batchMarkupFetcherMock
     );
 
     expect(mockBatchFetcher).toHaveBeenCalledWith({
@@ -320,7 +317,7 @@ describe("batchMarkupFetcher", () => {
           "X-Platform": "test",
         }),
         method: "GET",
-      }),
+      })
     );
     expect(result).toEqual("results!");
   });
@@ -344,7 +341,7 @@ describe("batchMarkupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup/all?domain=test.com&page=1&stub=true",
-      expect.anything(),
+      expect.anything()
     );
     expect(result).toEqual("results!");
   });
@@ -369,7 +366,7 @@ describe("batchMarkupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "http://ur-mom.com/api/v3/markup/all?domain=test.com&page=1",
-      expect.anything(),
+      expect.anything()
     );
     expect(result).toEqual("results!");
   });
@@ -405,7 +402,7 @@ describe("markupFetcher", () => {
           "X-Platform": "test",
         }),
         method: "GET",
-      }),
+      })
     );
     expect(result).toEqual("results!");
   });
@@ -430,7 +427,7 @@ describe("markupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Ftest&stub=true",
-      expect.anything(),
+      expect.anything()
     );
     expect(result).toEqual("results!");
   });
@@ -456,7 +453,7 @@ describe("markupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "http://ur-mom.com/api/v3/markup?domain=test.com&path=%2Ftest",
-      expect.anything(),
+      expect.anything()
     );
     expect(result).toEqual("results!");
   });
@@ -482,7 +479,7 @@ describe("markupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "http://ur-mom.com/api/v3/markup?domain=test.com&path=%2Ftest",
-      expect.anything(),
+      expect.anything()
     );
     expect(result).toEqual("results!");
   });
@@ -507,7 +504,7 @@ describe("markupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2F",
-      expect.anything(),
+      expect.anything()
     );
     expect(result).toEqual("results!");
   });
@@ -528,7 +525,7 @@ describe("markupFetcher", () => {
         path: "/test",
         domain: "test.com",
         apiKey: "123abc",
-      }),
+      })
     ).rejects.toThrowError(/Unauthorized!/);
   });
 
@@ -548,7 +545,7 @@ describe("markupFetcher", () => {
         path: "/test",
         domain: "test.com",
         apiKey: "123abc",
-      }),
+      })
     ).rejects.toThrowError(/request failed! Status code: 500/);
   });
 
@@ -576,7 +573,7 @@ describe("markupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2F&copy_confirmation_message=custom+confirmation+message&copy_submit_button=custom+submit+button",
-      expect.anything(),
+      expect.anything()
     );
     expect(result).toEqual("results!");
   });
@@ -602,7 +599,7 @@ describe("markupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2F&date_format=yyyy-MM-dd",
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -622,16 +619,16 @@ describe("markupFetcher", () => {
         path: "/test",
         domain: "test.com",
         apiKey: "123abc",
-      }),
+      })
     ).rejects.toThrowError(/request failed! Status code: 500/);
   });
 
   describe("using saved markup", () => {
     it("makes fresh request when temp directory does not exist", async () => {
       const tempDirectoryExistsSpy = vi
-        .spyOn(utilsExports, "tempDirectoryExists")
+        .spyOn(store, "isInitialized")
         .mockReturnValue(false);
-      const readFileSpy = vi.spyOn(utilsExports, "readFile");
+      const readFileSpy = vi.spyOn(store, "get");
 
       const fetchMock = vi.fn().mockImplementation(() => {
         return {
@@ -654,17 +651,17 @@ describe("markupFetcher", () => {
       expect(readFileSpy).not.toHaveBeenCalled();
       expect(fetchMock).toHaveBeenCalledWith(
         "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Ftest",
-        expect.anything(),
+        expect.anything()
       );
       expect(result).toEqual("results!");
     });
 
     it("uses saved markup when it exists", async () => {
       const tempDirectoryExistsSpy = vi
-        .spyOn(utilsExports, "tempDirectoryExists")
+        .spyOn(store, "isInitialized")
         .mockReturnValue(true);
       const readFileSpy = vi
-        .spyOn(utilsExports, "readFile")
+        .spyOn(store, "get")
         .mockReturnValue("saved markup");
 
       const fetchMock = vi.fn();
@@ -685,13 +682,11 @@ describe("markupFetcher", () => {
 
     it("uses the EMPTY template when there's no saved file for a post", async () => {
       const tempDirectoryExistsSpy = vi
-        .spyOn(utilsExports, "tempDirectoryExists")
+        .spyOn(store, "isInitialized")
         .mockReturnValue(true);
-      const readFileSpy = vi
-        .spyOn(utilsExports, "readFile")
-        .mockReturnValue(null);
+      const readFileSpy = vi.spyOn(store, "get").mockReturnValue(null);
       const getEmptyMarkupSpy = vi
-        .spyOn(utilsExports, "getEmptyMarkup")
+        .spyOn(store, "getEmptyMarkup")
         .mockReturnValue("<!-- EMPTY -->");
 
       const fetchMock = vi.fn();
@@ -737,7 +732,7 @@ describe("markupFetcher", () => {
 
       expect(fetchMock).toHaveBeenCalledWith(
         "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Fsome%2Fpath&copy_confirmation_message=custom+confirmation+message&copy_submit_button=custom+submit+button",
-        expect.anything(),
+        expect.anything()
       );
     });
   });
@@ -755,9 +750,9 @@ describe("markupFetcher", () => {
           apiKey: "123abc",
           tz: "in/valid",
           environment: "production",
-        }),
+        })
       ).rejects.toThrowError(
-        "The timezone passed to JamComments is invalid: in/valid",
+        "The timezone passed to JamComments is invalid: in/valid"
       );
     });
 
@@ -782,7 +777,7 @@ describe("markupFetcher", () => {
 
       expect(fetchMock).toHaveBeenCalledWith(
         "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Fsome%2Fpath&tz=America%2FNew_York",
-        expect.anything(),
+        expect.anything()
       );
       expect(result).toEqual("results!");
     });
@@ -808,7 +803,7 @@ describe("markupFetcher", () => {
 
       expect(fetchMock).toHaveBeenCalledWith(
         "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Fsome%2Fpath&tz=America%2FChicago",
-        expect.anything(),
+        expect.anything()
       );
       expect(result).toEqual("results!");
     });
@@ -841,7 +836,7 @@ describe("passing schema", function () {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Ftest",
-      expect.anything(),
+      expect.anything()
     );
     expect(result).toEqual("results!");
   });
@@ -871,7 +866,7 @@ describe("passing schema", function () {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Ftest",
-      expect.anything(),
+      expect.anything()
     );
     expect(result).toEqual("results!");
   });
@@ -901,7 +896,7 @@ describe("passing schema", function () {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Ftest",
-      expect.anything(),
+      expect.anything()
     );
     expect(result).toEqual("results!");
   });

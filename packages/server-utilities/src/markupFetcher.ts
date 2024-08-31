@@ -1,15 +1,6 @@
 import { injectSchema } from "./injectSchema";
-import {
-  createTempDirectory,
-  deleteTempDirectory,
-  getEmptyMarkup,
-  getEnvironment,
-  isValidTimezone,
-  parseJson,
-  readFile,
-  saveFile,
-  tempDirectoryExists,
-} from "./utils";
+import { getEnvironment, isValidTimezone, parseJson } from "./utils";
+import store from "./store";
 
 export interface CustomCopy {
   confirmationMessage?: string;
@@ -86,7 +77,7 @@ export async function fetchAll(
     fetchImplementation
   );
 
-  createTempDirectory();
+  store.init();
 
   let shouldKeepFetching = true;
   let page = 1;
@@ -113,11 +104,9 @@ export async function fetchAll(
         `Checking for comment data. Batch: ${current_page}/${last_page}`
       );
 
-      const saveMarkupPromises = items.map((item) => {
-        return saveFile(item.path, item.markup);
+      items.forEach((item) => {
+        store.set(item.path, item.markup);
       });
-
-      await Promise.all(saveMarkupPromises);
 
       if (current_page === last_page) {
         shouldKeepFetching = false;
@@ -126,7 +115,7 @@ export async function fetchAll(
       }
     }
   } catch (error) {
-    deleteTempDirectory();
+    store.clear();
 
     throw error;
   }
@@ -278,11 +267,11 @@ export function markupFetcher(
     path = path || "/";
 
     const savedFile = (() => {
-      if (!tempDirectoryExists()) {
+      if (!store.isInitialized()) {
         return null;
       }
 
-      return readFile(path) || getEmptyMarkup();
+      return store.get(path) || store.getEmptyMarkup();
     })();
 
     const markup = savedFile
