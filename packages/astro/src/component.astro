@@ -1,6 +1,7 @@
 ---
 import type { JamCommentsProps } from "..";
 import { fetchCommentData, getCurrentPath } from "./utils";
+import { Store } from "@jam-comments/server-utilities";
 
 type Props = JamCommentsProps;
 
@@ -15,16 +16,22 @@ const {
   copy = {},
 } = Astro.props as Props;
 
-const markup = await fetchCommentData({
-  tz,
-  copy,
-  path: path || getCurrentPath(Astro),
-  schema,
-  domain,
-  baseUrl,
-  environment,
-  dateFormat,
-});
+const store = new Store();
+const pagePath = path || getCurrentPath(Astro);
+const cachedMarkup = store.get(pagePath) || store.emptyMarkup;
+
+const markup =
+  cachedMarkup ||
+  (await fetchCommentData({
+    tz,
+    copy,
+    path: pagePath,
+    schema,
+    domain,
+    baseUrl,
+    environment,
+    dateFormat,
+  }));
 ---
 
 <div set:html={markup} />

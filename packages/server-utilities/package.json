@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/server-utilities",
-  "version": "5.8.0",
+  "version": "5.10.1",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

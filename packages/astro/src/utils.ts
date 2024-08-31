@@ -1,4 +1,4 @@
-import nodeFetch from "node-fetch";
+// import nodeFetch from "node-fetch";
 import { AstroGlobal } from "astro";
 import { JamCommentsProps } from "..";
 import { logError, markupFetcher } from "@jam-comments/server-utilities";
@@ -13,7 +13,7 @@ export function removeFalseyValues<T>(obj: T): Partial<T> {
   return Object.fromEntries(filteredItems) as Partial<T>;
 }
 
-const fetchMarkup = markupFetcher("astro", nodeFetch as any);
+const fetchMarkup = markupFetcher("astro");
 
 export async function fetchCommentData(
   {

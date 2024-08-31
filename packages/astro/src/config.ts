@@ -7,6 +7,8 @@ interface PluginArgs {
   environment?: string;
 }
 
+globalThis.jamCommentsStore = new Map<string, string>();
+
 export function jamComments({
   domain,
   apiKey,
@@ -16,8 +18,8 @@ export function jamComments({
   return {
     name: "jamcomments",
     hooks: {
-      "astro:build:start": () => {
-        return fetchAll(
+      "astro:build:start": async () => {
+        globalThis.jamCommentsStore = await fetchAll(
           {
             tz: timezone,
             domain,
@@ -30,7 +32,7 @@ export function jamComments({
       },
 
       "astro:build:done": () => {
-        // deleteTempDirectory();
+        globalThis.jamCommentsStore.clear();
       },
     },
   };

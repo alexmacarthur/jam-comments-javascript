@@ -1,36 +1,30 @@
-let STORE: Map<string, string> | null = null;
+export class Store {
+  store: Map<string, string>;
 
-const store = {
-  init() {
-    STORE = new Map<string, string>();
-  },
+  constructor() {
+    globalThis.jamCommentsStore =
+      globalThis.jamCommentsStore || new Map<string, string>();
 
-  isInitialized() {
-    return STORE !== null;
-  },
+    this.store = globalThis.jamCommentsStore;
+  }
 
-  set(path: string, markup: string) {
-    STORE.set(store.toPathKey(path), markup);
-  },
+  set(path: string, markup: string): void {
+    this.store.set(path, markup);
+  }
 
-  get(path: string) {
-    return STORE.get(store.toPathKey(path)) || null;
-  },
+  get(path: string): string | null {
+    return this.store.get(path) || null;
+  }
 
-  clear() {
-    if (STORE) {
-      STORE.clear();
-      STORE = null;
-    }
-  },
+  clear(): void {
+    this.store.clear();
+  }
 
-  getEmptyMarkup() {
-    return STORE.get("EMPTY");
-  },
+  get hasData(): boolean {
+    return this.store.size > 0;
+  }
 
-  toPathKey(path: string) {
-    return path.replace(/^\//, "").replace(/\//g, "::");
-  },
-};
-
-export default store;
+  get emptyMarkup(): string | null {
+    return this.store.get("EMPTY") || null;
+  }
+}

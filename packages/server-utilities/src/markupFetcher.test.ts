@@ -2,13 +2,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as injectSchema from "./injectSchema";
 import * as fetcherExports from "./markupFetcher";
 import { afterEach } from "node:test";
-import * as utilsExports from "./utils";
-import store from "./store";
 
 const { markupFetcher, batchMarkupFetcher } = fetcherExports;
 
 beforeEach(() => {
-  store.clear();
+  globalThis.jamCommentsStore = new Map<string, string>();
 });
 
 afterEach(() => {
@@ -17,7 +15,9 @@ afterEach(() => {
 
 describe("fetchAll()", () => {
   it("fetches all comments in a single request", async () => {
-    const saveFileSpy = vi.spyOn(store, "set");
+    const store = {
+      set: vi.fn(),
+    };
 
     const mockBatchFetcher = vi.fn().mockReturnValue({
       data: [
@@ -47,7 +47,8 @@ describe("fetchAll()", () => {
       },
       "test_platform",
       vi.fn(),
-      batchMarkupFetcherMock
+      batchMarkupFetcherMock,
+      store as any
     );
 
     expect(batchMarkupFetcherMock).toHaveBeenCalledWith(
@@ -66,13 +67,15 @@ describe("fetchAll()", () => {
       tz: undefined,
     });
 
-    expect(saveFileSpy).toHaveBeenCalledTimes(2);
-    expect(saveFileSpy).toHaveBeenCalledWith("/test", "markup1");
-    expect(saveFileSpy).toHaveBeenCalledWith("/test2", "markup2");
+    expect(store.set).toHaveBeenCalledTimes(2);
+    expect(store.set).toHaveBeenCalledWith("/test", "markup1");
+    expect(store.set).toHaveBeenCalledWith("/test2", "markup2");
   });
 
   it("fetches all comments in multiple requests", async () => {
-    const saveFileSpy = vi.spyOn(store, "set");
+    const store = {
+      set: vi.fn(),
+    };
 
     const mockBatchFetcher = vi
       .fn()
@@ -117,7 +120,8 @@ describe("fetchAll()", () => {
       },
       "test_platform",
       vi.fn(),
-      batchMarkupFetcherMock
+      batchMarkupFetcherMock,
+      store as any
     );
 
     expect(batchMarkupFetcherMock).toHaveBeenCalledWith(
@@ -149,13 +153,15 @@ describe("fetchAll()", () => {
       tz: undefined,
     });
 
-    expect(saveFileSpy).toHaveBeenCalledTimes(4);
-    expect(saveFileSpy).toHaveBeenCalledWith("/test", "markup1");
-    expect(saveFileSpy).toHaveBeenCalledWith("/test2", "markup2");
+    expect(store.set).toHaveBeenCalledTimes(4);
+    expect(store.set).toHaveBeenCalledWith("/test", "markup1");
+    expect(store.set).toHaveBeenCalledWith("/test2", "markup2");
   });
 
   it("deletes the temp directory of anything fails", async () => {
-    const deleteTempDirectorySpy = vi.spyOn(store, "clear");
+    const store = {
+      clear: vi.fn(),
+    };
 
     const mockBatchFetcher = vi.fn().mockImplementation(() => {
       throw new Error("test error");
@@ -174,17 +180,20 @@ describe("fetchAll()", () => {
         },
         "test_platform",
         vi.fn(),
-        batchMarkupFetcherMock
+        batchMarkupFetcherMock,
+        store as any
       );
     } catch (e) {
       expect((e as any).message).toEqual("test error");
     }
 
-    expect(deleteTempDirectorySpy).toHaveBeenCalledOnce();
+    expect(store.clear).toHaveBeenCalledOnce();
   });
 
   it("handles copy overrides", async () => {
-    const saveFileSpy = vi.spyOn(store, "set");
+    const store = {
+      set: vi.fn(),
+    };
 
     const mockBatchFetcher = vi.fn().mockReturnValue({
       data: [
@@ -218,7 +227,8 @@ describe("fetchAll()", () => {
       },
       "test_platform",
       vi.fn(),
-      batchMarkupFetcherMock
+      batchMarkupFetcherMock,
+      store as any
     );
 
     expect(batchMarkupFetcherMock).toHaveBeenCalledWith(
@@ -239,7 +249,7 @@ describe("fetchAll()", () => {
       tz: undefined,
     });
 
-    expect(saveFileSpy).toHaveBeenCalledTimes(2);
+    expect(store.set).toHaveBeenCalledTimes(2);
   });
 
   it("allows you to pass a custom date format", async () => {
@@ -625,10 +635,10 @@ describe("markupFetcher", () => {
 
   describe("using saved markup", () => {
     it("makes fresh request when temp directory does not exist", async () => {
-      const tempDirectoryExistsSpy = vi
-        .spyOn(store, "isInitialized")
-        .mockReturnValue(false);
-      const readFileSpy = vi.spyOn(store, "get");
+      const store = {
+        hasData: false,
+        get: vi.fn().mockReturnValue(null),
+      };
 
       const fetchMock = vi.fn().mockImplementation(() => {
         return {
@@ -647,8 +657,7 @@ describe("markupFetcher", () => {
         environment: "production",
       });
 
-      expect(tempDirectoryExistsSpy).toHaveBeenCalledOnce();
-      expect(readFileSpy).not.toHaveBeenCalled();
+      expect(store.get).not.toHaveBeenCalled();
       expect(fetchMock).toHaveBeenCalledWith(
         "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Ftest",
         expect.anything()
@@ -657,15 +666,13 @@ describe("markupFetcher", () => {
     });
 
     it("uses saved markup when it exists", async () => {
-      const tempDirectoryExistsSpy = vi
-        .spyOn(store, "isInitialized")
-        .mockReturnValue(true);
-      const readFileSpy = vi
-        .spyOn(store, "get")
-        .mockReturnValue("saved markup");
+      const store = {
+        hasData: true,
+        get: vi.fn().mockReturnValue("saved markup"),
+      };
 
       const fetchMock = vi.fn();
-      const fetcher = markupFetcher("test", fetchMock);
+      const fetcher = markupFetcher("test", fetchMock, store as any);
 
       const result = await fetcher({
         path: "/test",
@@ -674,23 +681,20 @@ describe("markupFetcher", () => {
         environment: "production",
       });
 
-      expect(tempDirectoryExistsSpy).toHaveBeenCalledOnce();
-      expect(readFileSpy).toHaveBeenCalledOnce();
+      expect(store.get).toHaveBeenCalledOnce();
       expect(fetchMock).not.toHaveBeenCalled();
       expect(result).toEqual("saved markup");
     });
 
     it("uses the EMPTY template when there's no saved file for a post", async () => {
-      const tempDirectoryExistsSpy = vi
-        .spyOn(store, "isInitialized")
-        .mockReturnValue(true);
-      const readFileSpy = vi.spyOn(store, "get").mockReturnValue(null);
-      const getEmptyMarkupSpy = vi
-        .spyOn(store, "getEmptyMarkup")
-        .mockReturnValue("<!-- EMPTY -->");
+      const store = {
+        get: vi.fn().mockReturnValue(null),
+        emptyMarkup: "<!-- EMPTY -->",
+        hasData: true,
+      };
 
       const fetchMock = vi.fn();
-      const fetcher = markupFetcher("test", fetchMock);
+      const fetcher = markupFetcher("test", fetchMock, store as any);
 
       const result = await fetcher({
         path: "/test",
@@ -699,9 +703,7 @@ describe("markupFetcher", () => {
         environment: "production",
       });
 
-      expect(tempDirectoryExistsSpy).toHaveBeenCalledOnce();
-      expect(readFileSpy).toHaveBeenCalledOnce();
-      expect(getEmptyMarkupSpy).toHaveBeenCalledOnce();
+      expect(store.get).toHaveBeenCalledOnce();
       expect(fetchMock).not.toHaveBeenCalled();
       expect(result).toEqual("<!-- EMPTY -->");
     });

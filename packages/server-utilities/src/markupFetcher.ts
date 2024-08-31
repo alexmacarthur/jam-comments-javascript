@@ -1,6 +1,6 @@
 import { injectSchema } from "./injectSchema";
 import { getEnvironment, isValidTimezone, parseJson } from "./utils";
-import store from "./store";
+import { Store } from "./store";
 
 export interface CustomCopy {
   confirmationMessage?: string;
@@ -70,14 +70,13 @@ export async function fetchAll(
   }: IBatchFetchData,
   platform: string,
   fetchImplementation: any = fetch,
-  batchMarkupFetcherImpl: any = batchMarkupFetcher
-) {
+  batchMarkupFetcherImpl: any = batchMarkupFetcher,
+  store = new Store()
+): Promise<Map<string, string>> {
   const fetchBatchMarkup = batchMarkupFetcherImpl(
     platform,
     fetchImplementation
   );
-
-  store.init();
 
   let shouldKeepFetching = true;
   let page = 1;
@@ -119,6 +118,8 @@ export async function fetchAll(
 
     throw error;
   }
+
+  return store.store;
 }
 
 export function batchMarkupFetcher(
@@ -251,7 +252,8 @@ export async function makeMarkupRequest<
 
 export function markupFetcher(
   platform: string,
-  fetchImplementation: typeof fetch = fetch
+  fetchImplementation: typeof fetch = fetch,
+  store = new Store()
 ): (args: IFetchData) => Promise<string> {
   return async ({
     tz = undefined,
@@ -265,17 +267,16 @@ export function markupFetcher(
     copy = {},
   }: IFetchData): Promise<string> => {
     path = path || "/";
-
-    const savedFile = (() => {
-      if (!store.isInitialized()) {
+    const cachedMarkup = (() => {
+      if (!store.hasData) {
         return null;
       }
 
-      return store.get(path) || store.getEmptyMarkup();
+      return store.get(path) || store.emptyMarkup;
     })();
 
-    const markup = savedFile
-      ? savedFile
+    const markup = cachedMarkup
+      ? cachedMarkup
       : await fetchFreshMarkup(
           { tz, path, domain, apiKey, baseUrl, environment, copy, dateFormat },
           fetchImplementation,
