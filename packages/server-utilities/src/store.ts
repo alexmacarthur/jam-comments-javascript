@@ -9,11 +9,11 @@ export class Store {
   }
 
   set(path: string, markup: string): void {
-    this.store.set(path, markup);
+    this.store.set(this.#normalizePath(path), markup);
   }
 
   get(path: string): string | null {
-    return this.store.get(path) || null;
+    return this.store.get(this.#normalizePath(path)) || null;
   }
 
   clear(): void {
@@ -26,5 +26,18 @@ export class Store {
 
   get emptyMarkup(): string | null {
     return this.store.get("EMPTY") || null;
+  }
+
+  #normalizePath(path: string): string {
+    if (path === "EMPTY") {
+      return path;
+    }
+
+    let withLeadingSlash = path.startsWith("/") ? path : `/${path}`;
+    let withNoTrailingSlash = withLeadingSlash.endsWith("/")
+      ? withLeadingSlash.slice(0, -1)
+      : withLeadingSlash;
+
+    return withNoTrailingSlash.toLowerCase();
   }
 }
