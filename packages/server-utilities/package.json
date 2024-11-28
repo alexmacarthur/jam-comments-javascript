@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/server-utilities",
-  "version": "5.10.2",
+  "version": "5.11.0",
   "description": "Various JavaScript utilities for JamComments.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -22,11 +22,11 @@
   "homepage": "https://jamcomments.com",
   "license": "GPL-2.0",
   "devDependencies": {
-    "@types/node": "^22.9.0",
-    "prettier": "^3.3.3",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.11",
-    "vitest": "^2.1.5"
+    "@types/node": "^22.10.0",
+    "prettier": "^3.4.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.1",
+    "vitest": "^2.1.6"
   },
   "publishConfig": {
     "access": "public"
