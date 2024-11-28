@@ -1,6 +1,7 @@
 {
-    "extends": "../../tsconfig-base.json",
-    "compilerOptions": {
-        "outDir": "dist"
-    }
+  "extends": "../../tsconfig-base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "types": ["vite/client"]
+  }
 }

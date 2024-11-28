@@ -1,7 +1,8 @@
 {
   "name": "@jam-comments/client",
-  "version": "2.3.2",
+  "version": "3.0.0",
   "description": "Various JavaScript utilities for JamComments.",
+  "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -9,7 +10,7 @@
     "dist/"
   ],
   "scripts": {
-    "start": "echo 'Import this package into the JamComments application.'",
+    "start": "vite serve",
     "watch": "npm run build -- --watch",
     "build": "vite build && tsc",
     "test": "vitest run src",
@@ -20,21 +21,15 @@
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "homepage": "https://jamcomments.com",
   "license": "GPL-2.0",
-  "dependencies": {
-    "@types/alpinejs": "^3.7.1",
-    "alpinejs": "^3.12.1",
-    "dotenv": "^16.0.3"
-  },
   "devDependencies": {
-    "@types/node": "^20.2.5",
-    "happy-dom": "^9.20.3",
-    "jsdom": "^22.0.0",
-    "prettier": "^2.8.8",
-    "terser": "^5.17.6",
-    "vite": "^4.3.9",
-    "vitest": "^0.31.1"
+    "terser": "^5.36.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.1"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@jam-comments/server-utilities": "^5.11.0"
   }
 }
