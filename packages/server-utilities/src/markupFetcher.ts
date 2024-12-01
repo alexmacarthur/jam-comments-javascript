@@ -23,6 +23,7 @@ export interface IFetchData {
   baseUrl?: string;
   environment?: string;
   dateFormat?: string;
+  cache?: boolean;
   copy?: {
     copy_confirmation_message?: string;
     copy_submit_button?: string;
@@ -152,6 +153,7 @@ export async function fetchFreshMarkup(
     tz,
     path,
     copy,
+    cache,
     domain,
     apiKey,
     dateFormat,
@@ -162,7 +164,7 @@ export async function fetchFreshMarkup(
   platform: string
 ): Promise<string> {
   const response = await makeMarkupRequest(
-    { tz, path, domain, apiKey, baseUrl, environment, copy, dateFormat },
+    { tz, path, domain, apiKey, baseUrl, environment, copy, dateFormat, cache },
     "/api/v3/markup",
     fetchImplementation,
     platform
@@ -178,6 +180,7 @@ export async function makeMarkupRequest<
     tz,
     path,
     page,
+    cache,
     domain,
     apiKey,
     dateFormat,
@@ -200,6 +203,11 @@ export async function makeMarkupRequest<
   const params = new URLSearchParams({
     domain,
   });
+
+  if (cache !== undefined) {
+    console.info("DOING IT", cache);
+    params.set("cache", cache.toString());
+  }
 
   if (path) {
     params.set("path", path);
@@ -258,6 +266,7 @@ export function markupFetcher(
   return async ({
     tz = undefined,
     path,
+    cache,
     domain,
     apiKey,
     schema,
@@ -278,7 +287,17 @@ export function markupFetcher(
     const markup = cachedMarkup
       ? cachedMarkup
       : await fetchFreshMarkup(
-          { tz, path, domain, apiKey, baseUrl, environment, copy, dateFormat },
+          {
+            tz,
+            path,
+            domain,
+            apiKey,
+            baseUrl,
+            environment,
+            copy,
+            dateFormat,
+            cache,
+          },
           fetchImplementation,
           platform
         );
