@@ -16,6 +16,7 @@ function fetchMarkup(args: FetchArgs): Promise<string> {
 
   return simpleMarkupFetcher("client")({
     ...args,
+    cache: true,
     copy: removeFalseyValues({
       copy_confirmation_message: copy.confirmationMessage,
       copy_submit_button: copy.submitButton,
@@ -30,18 +31,24 @@ function fetchMarkup(args: FetchArgs): Promise<string> {
   });
 }
 
-export async function initialize(
+export function initialize(
   element: HTMLElement | string,
   args: FetchArgs
-) {
-  const rootElement =
-    typeof element === "string" ? document.querySelector(element) : element;
-  const markup = await fetchMarkup(args);
+): Promise<Element> {
+  return new Promise<Element>(async (resolve) => {
+    const rootElement =
+      typeof element === "string" ? document.querySelector(element) : element;
+    const markup = await fetchMarkup(args);
 
-  const range = document.createRange();
-  range.selectNode(rootElement);
-  const documentFragment = range.createContextualFragment(markup);
+    const range = document.createRange();
+    range.selectNode(rootElement);
+    const documentFragment = range.createContextualFragment(markup);
 
-  rootElement.innerHTML = "";
-  rootElement.append(documentFragment);
+    rootElement.innerHTML = "";
+    rootElement.append(documentFragment);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => resolve(rootElement));
+    })
+  });
 }

@@ -205,7 +205,6 @@ export async function makeMarkupRequest<
   });
 
   if (cache !== undefined) {
-    console.info("DOING IT", cache);
     params.set("cache", cache.toString());
   }
 

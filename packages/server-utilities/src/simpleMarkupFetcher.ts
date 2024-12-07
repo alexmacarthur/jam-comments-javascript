@@ -9,6 +9,7 @@ export function simpleMarkupFetcher(
   return async ({
     tz = undefined,
     path,
+    cache,
     domain,
     apiKey,
     schema,
@@ -20,7 +21,17 @@ export function simpleMarkupFetcher(
     path = path || "/";
 
     const markup = await fetchFreshMarkup(
-      { tz, path, domain, apiKey, baseUrl, environment, copy, dateFormat },
+      {
+        tz,
+        path,
+        copy,
+        cache,
+        domain,
+        apiKey,
+        baseUrl,
+        environment,
+        dateFormat,
+      },
       fetchImplementation,
       platform
     );

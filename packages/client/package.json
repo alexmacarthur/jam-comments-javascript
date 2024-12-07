@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/client",
-  "version": "3.0.0",
+  "version": "3.3.1",
   "description": "Various JavaScript utilities for JamComments.",
   "type": "module",
   "main": "dist/index.umd.js",
@@ -22,6 +22,8 @@
   "homepage": "https://jamcomments.com",
   "license": "GPL-2.0",
   "devDependencies": {
+    "dotenv": "^16.4.5",
+    "prettier": "^3.4.1",
     "terser": "^5.36.0",
     "typescript": "^5.7.2",
     "vite": "^6.0.1"
@@ -30,6 +32,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/server-utilities": "^5.11.0"
+    "@jam-comments/client": "^3.3.0",
+    "@jam-comments/server-utilities": "^5.12.2"
   }
 }
