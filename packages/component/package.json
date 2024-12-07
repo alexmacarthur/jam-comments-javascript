@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/component",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "The JamComments web component.",
   "type": "module",
   "main": "dist/index.umd.js",

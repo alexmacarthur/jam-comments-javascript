@@ -24,7 +24,7 @@ afterEach(() => {
 test("Renders component correctly.", () => {
   document.body.insertAdjacentHTML(
     "beforeend",
-    `<jam-comments data-domain="urmom.com" data-api-key="api-key"></jam-comments>`
+    `<jam-comments data-domain="urmom.com" data-api-key="api-key"></jam-comments>`,
   );
 
   const component = document.querySelector("jam-comments");
@@ -37,7 +37,7 @@ test("Renders component correctly.", () => {
       domain: "urmom.com",
       path: window.location.pathname,
       environment: "production",
-    })
+    }),
   );
 });
 
@@ -51,7 +51,7 @@ test("Uses window.location.hostname when domain isn't provided.", () => {
 
   document.body.insertAdjacentHTML(
     "beforeend",
-    `<jam-comments data-api-key="api-key"></jam-comments>`
+    `<jam-comments data-api-key="api-key"></jam-comments>`,
   );
 
   const component = document.querySelector("jam-comments");
@@ -64,7 +64,7 @@ test("Uses window.location.hostname when domain isn't provided.", () => {
       domain: "urdad.com",
       path: window.location.pathname,
       environment: "production",
-    })
+    }),
   );
 });
 
@@ -72,7 +72,7 @@ test("Throws error when API key is missing.", () => {
   expect(() => {
     document.body.insertAdjacentHTML(
       "beforeend",
-      `<jam-comments data-domain="urmom.com"></jam-comments>`
+      `<jam-comments data-domain="urmom.com"></jam-comments>`,
     );
   }).toThrow("JamComments: The data-api-key attribute is required.");
 
