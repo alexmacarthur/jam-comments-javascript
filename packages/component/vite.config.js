@@ -1,4 +1,3 @@
-import * as dotenv from "dotenv";
 import { defineConfig } from "vite";
 import path from "path";
 import {
@@ -6,14 +5,9 @@ import {
   baseViteBuildOptions,
 } from "../../shared-build-config";
 
-dotenv.config();
-
 export default defineConfig({
   test: {
     environment: "happy-dom",
-  },
-  define: {
-    "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
   },
   build: {
     ...baseViteBuildOptions,
