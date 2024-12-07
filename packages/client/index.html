@@ -7,21 +7,31 @@
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200italic,400,600,600italic,700" />
   </head>
   <body>
-    <div id="root"></div>
-
     <script type="module">
-        import {
-          initialize
-        } from "./src/index";
+      import "./src/component.ts";
 
-      initialize("#root", {
-        path: "/posts/options-for-removing-event-listeners",
-        apiKey: "1|orQ0KSXdKyFwtsRIKCgj1JxxbgNeg6ME9TIhbJfp",
-        domain: "macarthur.me",
-        environment: "production",
-      }).then(() => {
-        console.log("Client initialized");
-      });
+      window.didit = () => {
+        console.log("Client initialized!!!");
+      };
+      //   import {
+      //     initialize
+      //   } from "./src/index";
+
+      // initialize("#root", {
+      //   path: "/posts/options-for-removing-event-listeners",
+      //   apiKey: "1|orQ0KSXdKyFwtsRIKCgj1JxxbgNeg6ME9TIhbJfp",
+      //   domain: "macarthur.me",
+      //   environment: "production",
+      // }).then(() => {
+      //   console.log("Client initialized");
+      // });
     </script>
+
+    <jam-comments
+      data-api-key="1|orQ0KSXdKyFwtsRIKCgj1JxxbgNeg6ME9TIhbJfp"
+      data-domain="macarthur.me"
+      data-environment="production"
+      data-initialized-callback="didit">
+    </jam-comments>
   </body>
 </html>

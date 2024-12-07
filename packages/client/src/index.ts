@@ -33,7 +33,7 @@ function fetchMarkup(args: FetchArgs): Promise<string> {
 
 export function initialize(
   element: HTMLElement | string,
-  args: FetchArgs
+  args: FetchArgs,
 ): Promise<Element> {
   return new Promise<Element>(async (resolve) => {
     const rootElement =
@@ -49,6 +49,6 @@ export function initialize(
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => resolve(rootElement));
-    })
+    });
   });
 }
