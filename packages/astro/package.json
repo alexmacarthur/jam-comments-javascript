@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/astro",
-  "version": "2.8.3",
+  "version": "2.8.4",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "Easily add performant, SEO-friendly comments to your Astro blog with JamComments.",
@@ -39,10 +39,10 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@jam-comments/server-utilities": "^5.10.2",
-    "astro": "^4.16.14",
+    "@jam-comments/server-utilities": "^5.13.0",
+    "astro": "^5.2.5",
     "node-fetch": "^3.3.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   },
   "gitHead": "2b1cefb90c89a2f70099213881b09216f20e3dc2",
   "devDependencies": {

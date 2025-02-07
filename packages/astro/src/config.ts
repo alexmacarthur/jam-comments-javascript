@@ -1,8 +1,10 @@
-import { fetchAll } from "@jam-comments/server-utilities";
+import { CustomCopy, fetchAll } from "@jam-comments/server-utilities";
+import { copyToUnderscored } from "@jam-comments/server-utilities/dist/types/utils";
 
 interface PluginArgs {
   domain: string;
   apiKey: string;
+  copy?: CustomCopy;
   timezone?: string;
   environment?: string;
 }
@@ -12,6 +14,7 @@ globalThis.jamCommentsStore = new Map<string, string>();
 export function jamComments({
   domain,
   apiKey,
+  copy = {},
   environment,
   timezone,
 }: PluginArgs) {
@@ -21,10 +24,11 @@ export function jamComments({
       "astro:build:start": async () => {
         globalThis.jamCommentsStore = await fetchAll(
           {
-            tz: timezone,
             domain,
             apiKey,
             environment,
+            tz: timezone,
+            copy: copyToUnderscored(copy),
           },
           "astro",
           fetch,
