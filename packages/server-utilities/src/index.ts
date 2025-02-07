@@ -1,4 +1,4 @@
-export type { CustomCopy } from "./markupFetcher";
+export type { CustomCopy } from "./types";
 
 export { simpleMarkupFetcher } from "./simpleMarkupFetcher";
 export { markupFetcher, fetchAll } from "./markupFetcher";

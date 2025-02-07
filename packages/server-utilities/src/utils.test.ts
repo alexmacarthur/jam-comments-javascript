@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { getEnvironment, removeFalseyValues } from "./utils";
+import { getEnvironment, removeFalseyValues, copyToUnderscored } from "./utils";
 
 const env = process.env;
 
@@ -10,6 +10,36 @@ beforeEach(() => {
 
 afterEach(() => {
   process.env = env;
+});
+
+describe("copyToUnderscored()", () => {
+  it("should convert copy object to underscored keys", () => {
+    const copy = {
+      confirmationMessage: "Thank you for your comment!",
+      submitButton: "Submit",
+      namePlaceholder: "Name",
+      emailPlaceholder: "Email",
+      commentPlaceholder: "Comment",
+      writeTab: "Write",
+      previewTab: "Preview",
+      authButton: "Auth",
+      logOutButton: "Log Out",
+    };
+
+    const result = copyToUnderscored(copy);
+
+    expect(result).toEqual({
+      copy_confirmation_message: "Thank you for your comment!",
+      copy_submit_button: "Submit",
+      copy_name_placeholder: "Name",
+      copy_email_placeholder: "Email",
+      copy_comment_placeholder: "Comment",
+      copy_write_tab: "Write",
+      copy_preview_tab: "Preview",
+      copy_auth_button: "Auth",
+      copy_log_out_button: "Log Out",
+    });
+  });
 });
 
 describe("getEnvironment()", () => {

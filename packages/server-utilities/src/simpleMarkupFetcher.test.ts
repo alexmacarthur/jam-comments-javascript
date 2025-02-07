@@ -32,7 +32,7 @@ describe("simpleMarkupFetcher", () => {
           "X-Platform": "test",
         }),
         method: "GET",
-      })
+      }),
     );
     expect(result).toEqual("results!");
   });
@@ -57,7 +57,7 @@ describe("simpleMarkupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Ftest&stub=true",
-      expect.anything()
+      expect.anything(),
     );
     expect(result).toEqual("results!");
   });
@@ -83,7 +83,7 @@ describe("simpleMarkupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "http://ur-mom.com/api/v3/markup?domain=test.com&path=%2Ftest",
-      expect.anything()
+      expect.anything(),
     );
     expect(result).toEqual("results!");
   });
@@ -109,7 +109,7 @@ describe("simpleMarkupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "http://ur-mom.com/api/v3/markup?domain=test.com&path=%2Ftest",
-      expect.anything()
+      expect.anything(),
     );
     expect(result).toEqual("results!");
   });
@@ -134,7 +134,7 @@ describe("simpleMarkupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2F",
-      expect.anything()
+      expect.anything(),
     );
     expect(result).toEqual("results!");
   });
@@ -155,7 +155,7 @@ describe("simpleMarkupFetcher", () => {
         path: "/test",
         domain: "test.com",
         apiKey: "123abc",
-      })
+      }),
     ).rejects.toThrowError(/Unauthorized!/);
   });
 
@@ -175,7 +175,7 @@ describe("simpleMarkupFetcher", () => {
         path: "/test",
         domain: "test.com",
         apiKey: "123abc",
-      })
+      }),
     ).rejects.toThrowError(/request failed! Status code: 500/);
   });
 
@@ -203,7 +203,7 @@ describe("simpleMarkupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2F&copy_confirmation_message=custom+confirmation+message&copy_submit_button=custom+submit+button",
-      expect.anything()
+      expect.anything(),
     );
     expect(result).toEqual("results!");
   });
@@ -229,7 +229,7 @@ describe("simpleMarkupFetcher", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2F&date_format=yyyy-MM-dd",
-      expect.anything()
+      expect.anything(),
     );
   });
 
@@ -249,7 +249,7 @@ describe("simpleMarkupFetcher", () => {
         path: "/test",
         domain: "test.com",
         apiKey: "123abc",
-      })
+      }),
     ).rejects.toThrowError(/request failed! Status code: 500/);
   });
 
@@ -278,7 +278,7 @@ describe("simpleMarkupFetcher", () => {
 
       expect(fetchMock).toHaveBeenCalledWith(
         "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Fsome%2Fpath&copy_confirmation_message=custom+confirmation+message&copy_submit_button=custom+submit+button",
-        expect.anything()
+        expect.anything(),
       );
     });
   });
@@ -296,9 +296,9 @@ describe("simpleMarkupFetcher", () => {
           apiKey: "123abc",
           tz: "in/valid",
           environment: "production",
-        })
+        }),
       ).rejects.toThrowError(
-        "The timezone passed to JamComments is invalid: in/valid"
+        "The timezone passed to JamComments is invalid: in/valid",
       );
     });
 
@@ -323,7 +323,7 @@ describe("simpleMarkupFetcher", () => {
 
       expect(fetchMock).toHaveBeenCalledWith(
         "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Fsome%2Fpath&tz=America%2FNew_York",
-        expect.anything()
+        expect.anything(),
       );
       expect(result).toEqual("results!");
     });
@@ -349,7 +349,7 @@ describe("simpleMarkupFetcher", () => {
 
       expect(fetchMock).toHaveBeenCalledWith(
         "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Fsome%2Fpath&tz=America%2FChicago",
-        expect.anything()
+        expect.anything(),
       );
       expect(result).toEqual("results!");
     });

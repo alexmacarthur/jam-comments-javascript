@@ -4,7 +4,7 @@ import { getEnvironment, parseJson } from "./utils";
 
 export function simpleMarkupFetcher(
   platform: string,
-  fetchImplementation: typeof fetch = fetch
+  fetchImplementation: typeof fetch = fetch,
 ): (args: IFetchData) => Promise<string> {
   return async ({
     tz = undefined,
@@ -33,7 +33,7 @@ export function simpleMarkupFetcher(
         dateFormat,
       },
       fetchImplementation,
-      platform
+      platform,
     );
 
     if (schema) {
