@@ -1,5 +1,8 @@
-import { CustomCopy, fetchAll } from "@jam-comments/server-utilities";
-import { copyToUnderscored } from "@jam-comments/server-utilities/dist/types/utils";
+import {
+  copyToUnderscored,
+  CustomCopy,
+  fetchAll,
+} from "@jam-comments/server-utilities";
 
 interface PluginArgs {
   domain: string;
