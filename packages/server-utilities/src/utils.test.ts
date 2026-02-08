@@ -24,6 +24,9 @@ describe("copyToUnderscored()", () => {
       previewTab: "Preview",
       authButton: "Auth",
       logOutButton: "Log Out",
+      replyButton: "Reply",
+      nameLabel: "Name",
+      emailLabel: "Email",
     };
 
     const result = copyToUnderscored(copy);
@@ -38,6 +41,9 @@ describe("copyToUnderscored()", () => {
       copy_preview_tab: "Preview",
       copy_auth_button: "Auth",
       copy_log_out_button: "Log Out",
+      copy_reply_button: "Reply",
+      copy_name_label: "Name",
+      copy_email_label: "Email",
     });
   });
 });

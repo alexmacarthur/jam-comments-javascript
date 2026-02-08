@@ -8,6 +8,9 @@ export interface CustomCopy {
   previewTab?: string;
   authButton?: string;
   logOutButton?: string;
+  replyButton?: string;
+  nameLabel?: string;
+  emailLabel?: string;
 }
 
 export interface UnderscoredCopy {
@@ -20,4 +23,7 @@ export interface UnderscoredCopy {
   copy_preview_tab?: string;
   copy_auth_button?: string;
   copy_log_out_button?: string;
+  copy_reply_button?: string;
+  copy_name_label?: string;
+  copy_email_label?: string;
 }
