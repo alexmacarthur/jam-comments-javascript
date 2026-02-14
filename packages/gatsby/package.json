@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/gatsby",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "author": "Alex MacArthur <alex@macarthur.me> (https://macarthur.me)",
   "license": "GPL-2.0",
   "description": "The Gatsby plugin for Jam Comments.",
@@ -55,7 +55,7 @@
   },
   "homepage": "https://jamcomments.com",
   "dependencies": {
-    "@jam-comments/server-utilities": "^5.14.0",
+    "@jam-comments/server-utilities": "^5.16.0",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {

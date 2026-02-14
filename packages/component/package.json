@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/component",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "The JamComments web component.",
   "type": "module",
   "main": "dist/index.umd.js",
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@jam-comments/client": "^3.3.1",
-    "@jam-comments/server-utilities": "^5.12.2",
+    "@jam-comments/server-utilities": "^5.16.0",
     "@rollup/rollup-darwin-arm64": "^4.57.1"
   }
 }

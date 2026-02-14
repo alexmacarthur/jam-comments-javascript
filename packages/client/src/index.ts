@@ -1,11 +1,9 @@
 import {
   simpleMarkupFetcher,
   removeFalseyValues,
-} from "@jam-comments/server-utilities";
-import {
   CustomCopy,
-  IFetchData,
-} from "@jam-comments/server-utilities/dist/types/markupFetcher";
+} from "@jam-comments/server-utilities";
+import { IFetchData } from "@jam-comments/server-utilities/dist/types/markupFetcher";
 
 type FetchArgs = Omit<IFetchData, "copy"> & {
   copy?: CustomCopy;
