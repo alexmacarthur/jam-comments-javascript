@@ -39,6 +39,8 @@ const fetchCommentData = async ({
         copy_reply_button: copy.replyButton,
         copy_name_label: copy.nameLabel,
         copy_email_label: copy.emailLabel,
+        copy_comment_count_label: copy.commentCountLabel,
+        copy_reply_count_label: copy.replyCountLabel,
       }),
     });
   } catch (e) {

@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/client",
-  "version": "3.4.1",
+  "version": "3.5.0",
   "description": "Various JavaScript utilities for JamComments.",
   "type": "module",
   "main": "dist/index.umd.js",

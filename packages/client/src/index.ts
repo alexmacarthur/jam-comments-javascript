@@ -27,6 +27,11 @@ function fetchMarkup(args: FetchArgs): Promise<string> {
       copy_preview_tab: copy.previewTab,
       copy_auth_button: copy.authButton,
       copy_log_out_button: copy.logOutButton,
+      copy_reply_button: copy.replyButton,
+      copy_name_label: copy.nameLabel,
+      copy_email_label: copy.emailLabel,
+      copy_comment_count_label: copy.commentCountLabel,
+      copy_reply_count_label: copy.replyCountLabel,
     }),
   });
 }

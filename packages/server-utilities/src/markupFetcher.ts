@@ -22,6 +22,11 @@ export interface IFetchData {
     copy_preview_tab?: string;
     copy_auth_button?: string;
     copy_log_out_button?: string;
+    copy_reply_button?: string;
+    copy_name_label?: string;
+    copy_email_label?: string;
+    copy_comment_count_label?: string;
+    copy_reply_count_label?: string;
   };
 }
 

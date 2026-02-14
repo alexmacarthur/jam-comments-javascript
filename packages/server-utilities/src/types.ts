@@ -11,6 +11,8 @@ export interface CustomCopy {
   replyButton?: string;
   nameLabel?: string;
   emailLabel?: string;
+  commentCountLabel?: string;
+  replyCountLabel?: string;
 }
 
 export interface UnderscoredCopy {
@@ -26,4 +28,6 @@ export interface UnderscoredCopy {
   copy_reply_button?: string;
   copy_name_label?: string;
   copy_email_label?: string;
+  copy_comment_count_label?: string;
+  copy_reply_count_label?: string;
 }
