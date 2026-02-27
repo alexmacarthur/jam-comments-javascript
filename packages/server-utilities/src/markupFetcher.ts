@@ -2,6 +2,8 @@ import { injectSchema } from "./injectSchema";
 import { getEnvironment, isValidTimezone, parseJson } from "./utils";
 import { Store } from "./store";
 
+const MARKUP_VERSION = "v4";
+
 export interface IFetchData {
   path: string;
   domain: string;
@@ -132,7 +134,7 @@ export function batchMarkupFetcher(
   }: IBatchFetchData): Promise<IBatchResponse> => {
     const response = await makeMarkupRequest<IBatchFetchData>(
       { tz, domain, apiKey, baseUrl, environment, page, copy, dateFormat },
-      "/api/v3/markup/all",
+      `/api/${MARKUP_VERSION}/markup/all`,
       fetchImplementation,
       platform,
     );
@@ -158,7 +160,7 @@ export async function fetchFreshMarkup(
 ): Promise<string> {
   const response = await makeMarkupRequest(
     { tz, path, domain, apiKey, baseUrl, environment, copy, dateFormat, cache },
-    "/api/v3/markup",
+    `/api/${MARKUP_VERSION}/markup`,
     fetchImplementation,
     platform,
   );

@@ -24,7 +24,7 @@ describe("simpleMarkupFetcher", () => {
 
     expect(injectSchemaSpy).not.toHaveBeenCalled();
     expect(fetchMock).toHaveBeenCalledWith(
-      "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Ftest",
+      "https://go.jamcomments.com/api/v4/markup?domain=test.com&path=%2Ftest",
       expect.objectContaining({
         headers: expect.objectContaining({
           Accept: "application/json",
@@ -56,7 +56,7 @@ describe("simpleMarkupFetcher", () => {
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Ftest&stub=true",
+      "https://go.jamcomments.com/api/v4/markup?domain=test.com&path=%2Ftest&stub=true",
       expect.anything(),
     );
     expect(result).toEqual("results!");
@@ -82,7 +82,7 @@ describe("simpleMarkupFetcher", () => {
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "http://ur-mom.com/api/v3/markup?domain=test.com&path=%2Ftest",
+      "http://ur-mom.com/api/v4/markup?domain=test.com&path=%2Ftest",
       expect.anything(),
     );
     expect(result).toEqual("results!");
@@ -108,7 +108,7 @@ describe("simpleMarkupFetcher", () => {
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "http://ur-mom.com/api/v3/markup?domain=test.com&path=%2Ftest",
+      "http://ur-mom.com/api/v4/markup?domain=test.com&path=%2Ftest",
       expect.anything(),
     );
     expect(result).toEqual("results!");
@@ -133,7 +133,7 @@ describe("simpleMarkupFetcher", () => {
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2F",
+      "https://go.jamcomments.com/api/v4/markup?domain=test.com&path=%2F",
       expect.anything(),
     );
     expect(result).toEqual("results!");
@@ -202,7 +202,7 @@ describe("simpleMarkupFetcher", () => {
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2F&copy_confirmation_message=custom+confirmation+message&copy_submit_button=custom+submit+button",
+      "https://go.jamcomments.com/api/v4/markup?domain=test.com&path=%2F&copy_confirmation_message=custom+confirmation+message&copy_submit_button=custom+submit+button",
       expect.anything(),
     );
     expect(result).toEqual("results!");
@@ -228,7 +228,7 @@ describe("simpleMarkupFetcher", () => {
     });
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2F&date_format=yyyy-MM-dd",
+      "https://go.jamcomments.com/api/v4/markup?domain=test.com&path=%2F&date_format=yyyy-MM-dd",
       expect.anything(),
     );
   });
@@ -277,7 +277,7 @@ describe("simpleMarkupFetcher", () => {
       });
 
       expect(fetchMock).toHaveBeenCalledWith(
-        "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Fsome%2Fpath&copy_confirmation_message=custom+confirmation+message&copy_submit_button=custom+submit+button",
+        "https://go.jamcomments.com/api/v4/markup?domain=test.com&path=%2Fsome%2Fpath&copy_confirmation_message=custom+confirmation+message&copy_submit_button=custom+submit+button",
         expect.anything(),
       );
     });
@@ -322,7 +322,7 @@ describe("simpleMarkupFetcher", () => {
       });
 
       expect(fetchMock).toHaveBeenCalledWith(
-        "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Fsome%2Fpath&tz=America%2FNew_York",
+        "https://go.jamcomments.com/api/v4/markup?domain=test.com&path=%2Fsome%2Fpath&tz=America%2FNew_York",
         expect.anything(),
       );
       expect(result).toEqual("results!");
@@ -348,7 +348,7 @@ describe("simpleMarkupFetcher", () => {
       });
 
       expect(fetchMock).toHaveBeenCalledWith(
-        "https://go.jamcomments.com/api/v3/markup?domain=test.com&path=%2Fsome%2Fpath&tz=America%2FChicago",
+        "https://go.jamcomments.com/api/v4/markup?domain=test.com&path=%2Fsome%2Fpath&tz=America%2FChicago",
         expect.anything(),
       );
       expect(result).toEqual("results!");
