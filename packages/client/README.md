@@ -12,7 +12,8 @@ A web component for embedding JamComments into a page.
 <jam-comments
   data-api-key="123|your-api-key"
   data-domain="urmom.com"
-  data-initialized-callback="window.commentsInitialized">
+  data-initialized-callback="window.commentsInitialized"
+>
 </jam-comments>
 ```
 
