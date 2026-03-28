@@ -103,7 +103,7 @@ export async function fetchAll(
         store.set(item.path, item.markup);
       });
 
-      if (current_page === last_page) {
+      if (current_page >= last_page) {
         shouldKeepFetching = false;
       } else {
         page++;
