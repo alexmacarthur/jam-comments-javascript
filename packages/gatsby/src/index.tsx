@@ -14,7 +14,7 @@ declare global {
 
 const JamComments = ({ pageContext }: JamCommentsProps): ReactElement => {
   const { markup } = pageContext.jamComments;
-  const elRef = useRef<HTMLDivElement>();
+  const elRef = useRef<HTMLDivElement>(null);
   const hasFiredRef = useRef<boolean>(false);
 
   useLayoutEffect(() => {

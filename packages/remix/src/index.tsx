@@ -16,7 +16,7 @@ const canUseDOM = !!(
 const useLayoutEffect = canUseDOM ? React.useLayoutEffect : () => {};
 
 export const JamComments = ({ markup }) => {
-  const elRef = useRef<HTMLDivElement>();
+  const elRef = useRef<HTMLDivElement>(null);
   const hasFiredRef = useRef<boolean>(false);
 
   useLayoutEffect(() => {
