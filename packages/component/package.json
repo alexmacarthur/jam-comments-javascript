@@ -1,6 +1,6 @@
 {
   "name": "@jam-comments/component",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "The JamComments web component.",
   "type": "module",
   "main": "dist/index.umd.js",
@@ -22,20 +22,20 @@
   "homepage": "https://jamcomments.com",
   "license": "GPL-2.0",
   "devDependencies": {
-    "dotenv": "^16.4.7",
-    "happy-dom": "^15.11.7",
-    "prettier": "^3.4.2",
-    "terser": "^5.37.0",
-    "typescript": "^5.7.2",
-    "vite": "^6.0.3",
-    "vitest": "^2.1.8"
+    "dotenv": "^17.3.1",
+    "happy-dom": "^20.8.9",
+    "prettier": "^3.8.1",
+    "terser": "^5.46.1",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3",
+    "vitest": "^4.1.2"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@jam-comments/client": "^3.3.1",
-    "@jam-comments/server-utilities": "^5.16.0",
-    "@rollup/rollup-darwin-arm64": "^4.57.1"
+    "@jam-comments/client": "^4.0.0",
+    "@jam-comments/server-utilities": "^6.0.0",
+    "@rollup/rollup-darwin-arm64": "^4.60.0"
   }
 }
